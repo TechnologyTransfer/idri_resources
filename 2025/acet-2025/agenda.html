@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        /* Define a subtle fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .schedule-container {
+            margin: 0 auto;
+            padding: 0px 20px;
+        }
+
+        /* Titles */
+        h1 {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 25px;
+            color: #11284c;
+        }
+
+        /* Tab Buttons Container */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Tab Buttons */
+        .tab-button {
+            flex-grow: 1;
+            padding: 18px 0;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            transition: all 0.3s ease-in-out;
+            background-color: white;
+            color: #11284c;
+        }
+
+        .tab-button:not(:last-child) {
+            border-right: 1px solid #ddd;
+        }
+
+        .tab-button:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+
+        .tab-button .date {
+            font-size: 16px;
+            font-weight: normal;
+            opacity: 0.8;
+            color: #11284c;
+            transition: color 0.3s ease-in-out;
+            margin-top: 5px;
+        }
+
+        /* Active Tab */
+        .tab-button.active {
+            background-image: linear-gradient(to bottom, #ff4438, #FF837B);
+            color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .tab-button.active .date {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Specific radii */
+        .tab-button.active[data-tab="day1"] {
+            border-bottom-right-radius: 0;
+        }
+        .tab-button.active[data-tab="day2"] {
+            border-bottom-left-radius: 0;
+        }
+
+        /* Non-active tabs radius */
+        .tab-button:first-child:not(.active) {
+            border-top-left-radius: 8px;
+        }
+        .tab-button:last-child:not(.active) {
+            border-top-right-radius: 8px;
+        }
+
+        /* Tab Content Styling */
+        .tab-content {
+            display: none;
+            opacity: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+            background-color: white;
+            padding: 20px 0px;
+            border-radius: 8px;
+        }
+
+        .session-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 32px;
+            color: #11284c;
+        }
+
+        /* Schedule List Styles */
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+            margin-top: -16px;
+            position: relative;
+        }
+
+        /* Timeline vertical line */
+        .schedule-list::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            bottom: -10px;
+            width: 1px;
+            background-color: #11284c; /* Default blue */
+            z-index: 0;
+        }
+
+        .schedule-list li {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 32px;
+            z-index: 1;
+        }
+
+        /* Timeline bullet point */
+        .schedule-list li::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            background-color: #11284c;
+            border: 3px solid white;
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 2px #11284c;
+        }
+
+        /* 🔴 Make bullet + short line red when li has id="break" */
+        .schedule-list li#break::before {
+            background-color: red !important;
+            box-shadow: 0 0 0 2px red !important;
+        }
+
+        .schedule-list li#break::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 10px;        
+            height: 100%;    
+            width: 1px;
+            background-color: red !important;
+            z-index: 0;
+        }
+
+        /* 🔴 If the entire list has id="break", make all bullets and line red */
+        .schedule-list#break li::before {
+            background-color: red !important;
+            box-shadow: 0 0 0 2px red !important;
+        }
+        .schedule-list#break::after {
+            background-color: red !important;
+        }
+
+        .time-slot {
+            font-weight: bold;
+            color: #11284c;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .event-details {
+            font-size: 16px;
+            color: #11284c;
+        }
+
+        .event-details ul {
+            list-style: disc;
+            margin: 8px 0 0 24px;
+            padding: 0;
+            color: #11284c;
+        }
+
+        .event-details ul li {
+            padding-left: 0;
+            color: #11284c;
+        }
+
+        .event-details ul li::before {
+            content: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .schedule-container { padding: 0px 8px; }
+            h1 { font-size: 20px; margin-bottom: 20px; }
+            .tab-buttons { margin-bottom: 20px; }
+            .tab-button { padding: 16px; font-size: 18px; }
+            .tab-button .date { font-size: 14px; }
+            .tab-content.active { padding: 16px; }
+            .session-header { font-size: 18px; }
+            .schedule-list li { margin-bottom: 12px; margin-top: 12px; padding-left: 28px; }
+            .time-slot { font-size: 16px; }
+
+            /* Ensure red break styling still applies on smaller screens */
+            .schedule-list li#break::before {
+                background-color: red !important;
+                box-shadow: 0 0 0 2px red !important;
+            }
+            .schedule-list li#break::after {
+                content: '';
+                position: absolute;
+                left: 4px;
+                top: 12px;
+                height: 100%; 
+                width: 1px;
+                background-color: red !important;
+                z-index: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule-container">
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="day1">
+                Day 01
+                <span class="date">13<sup style="font-size: 10px;">th</sup> November, 2025</span>
+            </button>
+            <button class="tab-button" data-tab="day2">
+                Day 02
+                <span class="date">14<sup style="font-size: 10px;">th</sup> November, 2025</span>
+            </button>
+        </div>
+
+        <!-- Day 1 -->
+        <div id="day1" class="tab-content active">
+            <p class="session-header">OPENING SESSION</p>
+            <div class="schedule-list">
+                <li>
+                    <div class="time-slot">08:30 AM – 09:00 AM</div>
+                    <div class="event-details">Conference Registration/Sign-in</div>
+                </li>
+                <li>
+                    <div class="time-slot">09:00 AM – 09:05 AM</div>
+                    <div class="event-details">National Anthem</div>
+                </li>
+                <li>
+                    <div class="time-slot">09:05 AM – 09:20 AM</div>
+                    <div class="event-details">
+                        <strong>Welcome and Opening Remarks</strong>
+                        <ul>
+                           <li><strong>H.E. Dr. Samboeun Hean</strong><br/>Vice President of Cambodia Academy of Digital Technology (CADT)</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">09:20 AM – 09:50 AM</div>
+                    <div class="event-details">
+                        <strong>Keynote Speech: </strong>“Human Perception in the Age of Intelligent Systems: Accessible Design and Inclusive Innovation”
+                        <ul>
+                           <li><strong>Dr. Kyle Keane</strong><br/>Senior Lecturer in Assistive Technology in the School of Computer Science at the University of Bristol</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">09:50 AM – 10:20 AM</div>
+                    <div class="event-details">
+                        <strong>Keynote Speech: </strong>“Towards Responsible and Inclusive AI: China's Exploration in Multimodal LLMs”
+                        <ul>
+                           <li><strong>Dr. Yuerui Feng</strong><br/>Engineer, China Academy of Information and Communications Technology</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- 🔴 Coffee Break (dot + short red vertical line + text red) -->
+                <li id="break">
+                    <div class="time-slot" style="color:red;">10:20 AM – 10:40 AM</div>
+                    <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+                </li>
+            </div>
+
+            <p style="margin-top: 40px;" class="session-header">PARALLEL SESSION – Main Track (Cosmo Hall)</p>
+            <div class="schedule-list">
+              <li>
+                    <div class="time-slot">10:40 AM – 11:00 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Towards Explainable Khmer Polarity Classification”<br/>
+                        <i>Mary Kong, Rina Buoy, Sovisal chenda, Nguonly Taing</i>
+                        <ul>
+                           <li>Presented By: <strong>Dr. Rina Buoy</strong><br/>Techo Startup Center</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">11:00 AM – 11:20 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Fabric Detection in Real-Word Manufacturing Using YOLOv5-Transformer Models”<br/>
+                        <i>Makara Mao, Keovichear Ouk, Hongly Va, Min Hong</i>
+                        <ul>
+                           <li>Presented By: <strong>Dr. Makara Mao</strong><br/>Royal University of Phnom Penh</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- 🔴 Lunch Break (dot + short red vertical line + text red) -->
+                <li id="break">
+                    <div class="time-slot" style="color:red;">11:20 AM – 13:30 PM</div>
+                    <div class="event-details"><strong style="color:red;">Lunch Break</strong></div>
+                </li>
+            </div>
+
+            <div style="margin-top: 40px;"></div>
+            <p class="session-header">PARALLEL SESSION – Main Track (Cosmo Hall)</p>
+            <div class="schedule-list">
+                <li>
+                    <div class="time-slot">13:30 PM – 14:00 PM</div>
+                    <div class="event-details">
+                        <strong>Keynote Speech: </strong>“Aligning AI research with Cambodia’s National AI Priorities”
+                        <ul>
+                           <li><strong>Dr. Sovann En</strong><br/>Director, Department of Digital Government Transformation</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">14:00 PM – 14:20 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“A Study on ML-related Models for PM2.5 Air Quality Forecasting in Phnom Penh City”<br/>
+                        <i>Makara Roeum, Watcharaphong Yookwan, Linhour Nov</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Makara Roeum</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">14:20 PM – 14:40 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Classification of Rice Leaf Disease Using Convolutional Neural Network Models”<br/>
+                        <i>Sokhey Kim, Hongly Va</i>
+                        <ul>
+                           <li>Presented By: <strong>Ms. Sokhey Kim</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- 🔴 Coffee Break (dot + short red vertical line + text red) -->
+                <li id="break">
+                    <div class="time-slot" style="color:red;">14:40 PM – 15:00 PM</div>
+                    <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+                </li>
+
+                <li>
+                    <div class="time-slot">15:00 PM – 15:20 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“A Preliminary Study on Khmer Sign Language Recognition Using Neural Networks”<br/>
+                        <i>Ponleur Veng, Nab Mat, Kimhuoy Yann, Vichhika Sina, Sokleap Som, Rottana Ly</i>
+                        <ul>
+                           <li>Presented By: <strong>Ms. Kimhuoy Yann</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+
+            <div style="margin-top: 40px;"></div>
+            <p class="session-header">PARALLEL SESSION – Student Track (Jupyter Room)</p>
+            <div style="margin-bottom: 40px;"></div>
+            <div class="schedule-list">
+                <li>
+                    <div class="time-slot">13:30 PM – 13:45 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“A Two-Stage Approach to Khmer Scene Text Recognition using Faster R-CNN and TrOCR”<br/>
+                        <i>Sethisak San, Mitona Chan, Eklim Sek</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Sethisak San</strong><br/>American University of Phnom Penh</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">13:45 PM – 14:00 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“A Study on Enhancing Performance of Marker-Based Augmented Reality for Low-End Smartphone”<br/>
+                        <i>Ranghai Pov, Monioudom Mao, Lihour Nov</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Yanghai Pov</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">14:00 PM – 14:15 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“IoT-enabled Real-Time Water Level Monitoring System for Early Flash Flood Detection”<br/>
+                        <i>Dariya Kong, Sovanmonich Chea, Hengtong Lim, Sovanndara Am, Lihour Nov</i>
+                        <ul>
+                           <li>Presented By: <strong>Ms. Dariya Kong</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">14:15 PM – 14:30 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“JOMNAM: Khmer Scene Text Annotation Tool”<br/>
+                        <i>Pichphyrom Rin, Leangsreng Srean, Sovanthara Seng, Soklong Him</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Pichphyrom Rin</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- 🔴 Coffee Break (dot + short red vertical line + text red) -->
+                <li id="break">
+                    <div class="time-slot" style="color:red;">14:30 PM – 14:50 PM</div>
+                    <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+                </li>
+
+                <li>
+                    <div class="time-slot">14:50 PM – 15:05 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“A Comparative Analysis of Unimodal and Multi-Modal Architectures for the Robust Recognition of Khmer Consonant Hand Signs”<br/>
+                        <i>Sereyratank Heng, Sethisak San</i>
+                        <ul>
+                           <li>Presented By: <strong>Ms. Sereyratanka Heng</strong><br/>American University of Phnom Penh</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">15:05 PM – 15:30 PM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Modelling Insect Interactions in Rice Crops on the GAMA Platform as a Basis for Educational VR Games”<br/>
+                        <i>Rattanak Seth, Lucile Delatouche, Mathilde Sester, Alexis Drogoul, Sovuthy Cheab</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Rattanak Seth</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div id="day2" class="tab-content">
+            <p class="session-header">PARALLEL SESSION – Main Track (Cosmo Hall)</p>
+            <div class="schedule-list">
+                <li>
+                    <div class="time-slot">09:00 AM – 09:30 AM</div>
+                    <div class="event-details">
+                        <strong>Keynote Speech: </strong>“The Wrestling Between Public Health and Privacy: The Draft National Health Insurance Data Management Act in Taiwan”
+                        <ul>
+                           <li><strong>Ms. Rosalind Liu</strong><br/>Project Manager at Open Culture Foundation</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">09:30 AM – 10:00 AM</div>
+                    <div class="event-details">
+                        <strong>Keynote Speech: </strong>“Data Governance in Fintech – Legal Challenges and Opportunities”
+                        <ul>
+                           <li><strong>Mr. Teck Kheong Looi</strong><br/>Principal Consultant (ASEAN), Public Policy Asia Advisors</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- 🔴 Coffee Break (dot + short red vertical line + text red) -->
+                <li id="break">
+                    <div class="time-slot" style="color:red;">10:00 AM – 10:20 AM</div>
+                    <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+                </li>
+
+                <li>
+                    <div class="time-slot">10:20 AM – 10:40 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Baseline Deep Learning Model for Khmer Sign Language Recognition with a Small Dataset”<br/>
+                        <i>Sokleap Som, Rottana Ly, Nab Mat</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Sokleap Som</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">10:40 AM – 11:00 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Estimating Sand Volume Change and Analyzing Nearshore Dynamics with Airborne LiDAR Series Data for Coastal Monitoring: A Case Study in Chanthaburi”<br/>
+                        <i>Vichhika Sina, Phutphalla Kong, Kasorn Galajit, Surasak Boonkla, jessada Karnjana</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Vichhika Sina</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+
+            <div style="margin-top: 40px;"></div>
+            <p class="session-header">PARALLEL SESSION – Student Track (Jupyter Room)</p>
+            <div style="margin-bottom: 32px;"></div>
+            <div class="schedule-list">
+                <li>
+                    <div class="time-slot">09:00 AM – 09:20 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Student Performance Prediction Based on Final Grades: A Comparative Study of Machine Learning Models”<br/>
+                        <i>Sokchovy Monirath, Dynil Duch</i>
+                        <ul>
+                           <li>Presented By: <strong>Ms. Sokchovy Monirath</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">09:20 AM – 09:40 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“An Efficient OCR Pipeline for Semi-Structured Khmer Documents Using Layout Analysis and Text-Type Classification”<br/>
+                        <i>Sopanha Lay, Vichet Kao, Seavchhing Kong, Mengchhuong Ang, Hongly Va</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Sopanha Lay</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- 🔴 Coffee Break (dot + short red vertical line + text red) -->
+                <li id="break">
+                    <div class="time-slot" style="color:red;">10:00 AM – 10:20 AM</div>
+                    <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+                </li>
+
+                <li>
+                    <div class="time-slot">10:20 AM – 10:40 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Effective Resource Allocations Based on Network Slicing in O-RAN Networks”<br/>
+                        <i>Soriya Prum, Hongcheng Ngouch, Tha Khieng, Bondeth Hun, Sa Math, Tharoeun Thap</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Tha Khieng</strong><br/>Royal University of Phnom Penh</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="time-slot">10:40 AM – 11:00 AM</div>
+                    <div class="event-details">
+                        <strong>Paper Presentation: </strong>“Building a Khmer NER Benchmark from Health News Data Towards Event Extraction”<br/>
+                        <i>Cheaminh Chiep, Natt Korat, Vathna Lay, Rottana Ly</i>
+                        <ul>
+                           <li>Presented By: <strong>Mr. Cheaminh Chiep</strong><br/>Cambodia Academy of Digital Technology</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+
+            <div style="margin-top: 40px;"></div>
+            <p class="session-header">JOINT SESSION (Cosmo Hall)</p>
+            <div style="margin-bottom: 48px;"></div>
+            <div class="schedule-list">
+                 <li>
+                    <div style="margin-top: -16px;" class="time-slot">11:00 AM – 11:15 AM</div>
+                    <div class="event-details">
+                        Wrap-up and Closing Remarks
+                        <ul>
+                           <li><strong>Dr. Rottana Ly</strong><br/>Director of Research and Development, IDRI, CADT</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            function switchTab(tabId) {
+                tabButtons.forEach(button => button.classList.remove('active'));
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    content.style.opacity = '0';
+                    content.style.display = 'none';
+                });
+
+                const selectedButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+                if (selectedButton) selectedButton.classList.add('active');
+
+                const selectedContent = document.getElementById(tabId);
+                if (selectedContent) {
+                    selectedContent.style.display = 'block';
+                    setTimeout(() => {
+                        selectedContent.classList.add('active');
+                    }, 10);
+                }
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+
+            const initialTab = document.querySelector('.tab-button.active');
+            if (initialTab) {
+                switchTab(initialTab.getAttribute('data-tab'));
+            } else {
+                switchTab('day1');
+            }
+        });
+    </script>
+</body>
+</html>

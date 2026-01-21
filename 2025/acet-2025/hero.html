@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    :root {
+        --hero-red-accent: #ff4438; 
+        --hero-white-text: #FFFFFF;
+    }
+
+    .hero-banner-container {
+        display: flex;
+        align-items: stretch;
+        color: var(--hero-white-text);
+    }
+
+    .sup {
+        font-size: 14px;
+    }
+
+    .hero-left-panel {
+        width: 50%;
+        border-right: 4px solid var(--hero-white-text);
+        background-image: url('https://www.idri.edu.kh/wp-content/uploads/2025/11/Group-5.png'); 
+        background-size: 72%; 
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .hero-right-panel {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        padding: 32px; 
+        box-sizing: border-box;
+    }
+
+    .hero-main-message {
+        font-weight: 700;
+        font-size: 52px;
+        line-height: 1.2;
+        margin-bottom: 32px;
+    }
+
+    .hero-highlight {
+        color: var(--hero-red-accent);
+    }
+
+    .hero-date-info {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 32px;
+        color: white;
+    }
+
+    .hero-calendar-icon-wrapper {
+        width: 32px; 
+        height: 32px;
+        margin-right: 16px;
+        background-image: url('https://www.idri.edu.kh/wp-content/uploads/2025/11/calendar.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    @media (max-width: 1024px) {
+        .hero-banner-container {
+            flex-direction: column;
+        }
+        .hero-left-panel,
+        .hero-right-panel {
+            width: 100%;
+            border-right: none;
+            border-bottom: none;
+        }
+        .hero-left-panel {
+            background-size: 60%;
+            min-height: 150px;
+            padding: 5px 0;
+        }
+        .hero-right-panel {
+            padding: 8px 8px;
+        }
+        .hero-main-message {
+            font-size: 20px;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+        .hero-highlight {
+            font-size: 20px;
+        }
+        .hero-date-info {
+            font-size: 16px;
+            justify-content: center;
+            color: white;
+        }
+        .hero-date-text {
+            font-size: 16px;
+        }
+        .hero-calendar-icon-wrapper {
+            width: 20px; 
+            height: 20px;
+            margin-right: 8px;
+        }
+        .sup {
+            font-size: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="hero-banner-container">
+        <div class="hero-left-panel"></div>
+        <div class="hero-right-panel">
+            <div class="hero-main-message">
+                Connecting <span class="hero-highlight">ASEAN</span> Researchers for Digital Research
+            </div>
+            <div class="hero-date-info">
+                <div class="hero-calendar-icon-wrapper"></div> 
+                <span class="hero-date-text">November 13<sup class="sup">th</sup> — 14<sup class="sup">th</sup>, 2025</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

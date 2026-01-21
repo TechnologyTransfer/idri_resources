@@ -1,0 +1,385 @@
+<style>
+.events-page-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 25px;
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 100;
+    padding: 10px 0;
+}
+
+.events-page-tabs {
+    display: flex;
+    gap: 12px;
+}
+
+.events-page-tab {
+    padding: 12px 28px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #FF4438;
+    cursor: pointer;
+    font-weight: 700;
+    background: #ffffff;
+    color: #FF4438;
+    user-select: none;
+    font-size: 16px;
+    transition: all 0.25s ease;
+}
+
+.events-page-tab:hover {
+    transform: translateY(-1px);
+}
+
+.events-page-tab.active {
+    background: #FF4438;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(255, 68, 56, 0.35);
+}
+
+.events-page-dropdown {
+    position: relative;
+    width: 160px;
+    user-select: none;
+}
+
+.events-page-dropdown-selected {
+    padding: 10px 16px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #FF4438;
+    background: #ffffff;
+    font-weight: 700;
+    color: #FF4438;
+    cursor: pointer;
+    position: relative;
+    font-size: 16px;
+    transition: all 0.25s ease;
+}
+
+.events-page-dropdown-selected:hover {
+    background: #fff3f2;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(255, 68, 56, 0.25);
+}
+
+.events-page-dropdown-selected::after {
+    content: "▼";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #FF4438;
+    transition: 0.3s;
+}
+
+.events-page-dropdown.is-open .events-page-dropdown-selected::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.events-page-dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #d2d8e0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: 0.25s ease;
+    z-index: 10;
+}
+
+.events-page-dropdown.is-open .events-page-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.events-page-dropdown-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: #FF4438;
+    font-weight: 600;
+}
+
+.events-page-dropdown-item:hover {
+    background: #fff3f2;
+}
+
+.events-page-event-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.events-page-event-card {
+    background: #fff;
+    border: 1px solid #1A14144D;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    animation: fadeUp 0.5s ease both;
+}
+
+.events-page-event-card:hover {
+    transform: translateY(-6px);
+    border-color: #FF4438;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.events-page-event-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    background-color: #f2f2f2;
+    clip-path: polygon(0 0, 100% 0, 100% 82%, 92% 100%, 0 100%, 0% 50%);
+}
+
+.events-page-event-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.events-page-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.events-page-event-title {
+    color: #11284C;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.events-page-event-desc {
+    color: #9195a2;
+    font-size: 14px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.events-page-bottom-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.events-page-event-date {
+    color: #11284C;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.events-status {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%, 0% 50%);
+}
+
+.events-status-upcoming { background: #76BC21; }
+.events-status-launching { background: #F88D2A; }
+.events-status-closed { background: #FF4438; }
+
+.events-page-empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.events-page-empty-state img {
+    max-width: 260px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.events-page-empty-state p {
+    font-size: 20px;
+    font-weight: 600;
+    color: #9195a2;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+    .events-page-event-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .events-page-top-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .events-page-tabs { width: 100%; }
+    .events-page-tab {
+        flex: 1;
+        justify-content: center;
+    }
+    .events-page-dropdown,
+    .events-page-dropdown-selected { width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .events-page-event-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="events-page-top-row">
+    <div class="events-page-tabs">
+        <div class="events-page-tab active" data-type="conference">Conference</div>
+        <div class="events-page-tab" data-type="workshop">Workshop</div>
+    </div>
+
+    <div class="events-page-dropdown" id="yearDropdown">
+        <div class="events-page-dropdown-selected">All Years</div>
+        <div class="events-page-dropdown-menu">
+            <div class="events-page-dropdown-item" data-value="all">All Years</div>
+            <div class="events-page-dropdown-item" data-value="2026">2026</div>
+            <div class="events-page-dropdown-item" data-value="2025">2025</div>
+            <div class="events-page-dropdown-item" data-value="2024">2024</div>
+            <div class="events-page-dropdown-item" data-value="2023">2023</div>
+            <div class="events-page-dropdown-item" data-value="2022">2022</div>
+        </div>
+    </div>
+
+    <select id="yearFilter" style="display:none;">
+        <option value="all">all</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+    </select>
+</div>
+
+<div class="events-page-event-grid" id="eventGrid"></div>
+
+<script>
+const events = [
+// 2026 Conferences
+    
+// 2025 Conferences
+    { title: "AI for Education National Conference 2025", type: "conference", description: "Foster digital transformation and Artificial Intelligence adoption in Cambodia’s education sector as outlined in the Pentagonal Strategy.", date: "20-21 November, 2025", year: 2025, image: "https://www.idri.edu.kh/wp-content/uploads/2025/11/AI-for-Education-National-Conference-update-VV-01-scaled.jpg", status: "Closed", url: "https://www.idri.edu.kh/events/ai-for-education-conference/" },
+    { title: "ASEAN Conference on Emerging Technology 2025", type: "conference", description: "Bringing together researchers from local and international through a forum for professionals, and researchers to discuss and fostering advancements in the field.", date: "15-16 November, 2025", year: 2025, image: "https://www.idri.edu.kh/wp-content/uploads/2025/05/Thumbnail-scaled.png", status: "Closed", url: "https://www.idri.edu.kh/events/acet/" },
+    { title: "Cambodia Developer Conference (CODE-C) 2026", type: "conference", description: "Bringing together tech leaders and talents to explore, adopt, and scale AI Applications and emerging technologies for real-world impact.", date: "10-11 October, 2025", year: 2025, image: "https://www.idri.edu.kh/wp-content/uploads/2025/10/CODE-C-04-scaled.jpg", status: "Closed", url: "https://www.idri.edu.kh/events/code-c-2025/" },
+    { title: "AI for Good: AI Application for Sustainable Development", type: "workshop", description: "AI for Good: AI Application for Sustainable Development", date: "02 April, 2025", year: 2025, image: "https://www.idri.edu.kh/wp-content/uploads/2025/03/workshop-AI-for-Good-AI-Applications-for-01-scaled.jpg", status: "Closed", url: "https://www.idri.edu.kh/events/workshop-ai-for-good-ai-application/" },
+// 2024 Conferences
+    { title: "Barcamp Battambang 2024", type: "conference", description: "Digital technology and startup conference - Building a Better Connected Talent", date: "25-26, October 2024", year: 2024, image: "https://www.idri.edu.kh/wp-content/uploads/2024/10/463609022_532130949420443_613665748238427237_n.jpg", status: "Closed", url: "https://www.idri.edu.kh/events/barcamp-battambang-2024/" },
+    { title: "ASEAN Conference on Emerging Technology 2024", type: "conference", description: "Bringing together researchers from local and international through a forum for professionals, and researchers to discuss and fostering advancements in the field.", date: "23-24 November, 2024", year: 2024, image: "https://www.idri.edu.kh/wp-content/uploads/2024/06/ACET-2024-Logo-navy@4x.png", status: "Closed", url: "https://www.idri.edu.kh/events/acet-2024/" },
+    { title: "Cambodia Developer Conference (CODE-C) 2024", type: "conference", description: "Bringing together tech leaders and talents to explore, adopt, and scale AI Applications and emerging technologies for real-world impact.", date: "28-29 June, 2024", year: 2024, image: "https://www.idri.edu.kh/wp-content/uploads/2024/05/Card-Banner.png", status: "Closed", url: "https://www.idri.edu.kh/events/code-c-2024/" },
+// 2023 Conferences
+    { title: "Spin-Offs 2023", type: "conference", description: "A new initiative designed to incubate digital products and services in Cambodia. The program aim to assist startups in intial stage to successfully enter the market by offering essential mentorship and support in validating your business model and building your MVP.", date: "23 December, 2023", year: 2023, image: "https://www.idri.edu.kh/wp-content/uploads/2023/07/spin-offs-poster.jpg", status: "Closed", url: "https://www.idri.edu.kh/events/spinoffs/" },
+    { title: "ASEAN Conference on Emerging Technology 2023", type: "conference", description: "Bringing together researchers from local and international through a forum for professionals, and researchers to discuss and fostering advancements in the field.", date: "23-24 November, 2023", year: 2023, image: "https://www.idri.edu.kh/wp-content/uploads/2023/07/ACET-2023-logo.png", status: "Closed", url: "https://www.idri.edu.kh/events/acet-2023/" },
+    { title: "Cambodia Developer Conference (CODE-C) 2022", type: "conference", description: "We aim to CONNECT, COLLABORATE, and CREATE with tech talent, digital businesses, and industry leaders from the Cambodian ecosystem and regional players across various sectors", date: "8-9 September, 2023", year: 2023, image: "https://www.idri.edu.kh/wp-content/uploads/2023/07/code-c-poster.jpg", status: "Closed", url: "https://www.idri.edu.kh/events/code-c-2023/" },
+    { title: "Data Science Area 2023", type: "workshop", description: "Perspective of Multistakeholder on Data Science", date: "30 August, 2023", year: 2023, image: "https://www.idri.edu.kh/wp-content/uploads/2023/08/data-science-area.jpg", status: "Closed", url: "https://www.idri.edu.kh/events/dsa-2023/" },
+// 2022 Conferences
+    { title: "MICRO GAME HACKATHON", type: "conference", description: "Develop online games with social impact Learn about food & health", date: "15 October, 2022", year: 2022, image: "https://www.idri.edu.kh/wp-content/uploads/2023/06/302188733_447547584076020_7779732369405185453_n.jpg", status: "Closed", url: "https://microgame.idri.edu.kh/" },
+];
+
+let currentTab = "conference";
+
+function renderEvents() {
+    const selectedYear = document.getElementById("yearFilter").value;
+    const grid = document.getElementById("eventGrid");
+    grid.innerHTML = "";
+
+    const filteredEvents = events.filter(e =>
+        e.type === currentTab &&
+        (selectedYear === "all" || e.year === parseInt(selectedYear))
+    );
+
+    if (!filteredEvents.length) {
+        grid.innerHTML = `
+            <div class="events-page-empty-state">
+                <img src="https://www.idri.edu.kh/wp-content/uploads/2026/01/empty-state.png">
+                <p>No Content ...</p>
+            </div>
+        `;
+        return;
+    }
+
+    filteredEvents.forEach(e => {
+        const card = document.createElement("div");
+        card.className = "events-page-event-card";
+        card.tabIndex = 0;
+        card.innerHTML = `
+            <img src="${e.image}" class="events-page-event-image">
+            <div class="events-page-event-content">
+                <div class="events-page-text-group">
+                    <h3 class="events-page-event-title">${e.title}</h3>
+                    <p class="events-page-event-desc">${e.description}</p>
+                </div>
+                <div class="events-page-bottom-group">
+                    <p class="events-page-event-date">${e.date}</p>
+                    <span class="events-status events-status-${e.status.toLowerCase()}">${e.status}</span>
+                </div>
+            </div>
+        `;
+        card.onclick = () => window.open(e.url, "_blank");
+        grid.appendChild(card);
+    });
+}
+
+document.querySelectorAll(".events-page-tab").forEach(tab => {
+    tab.onclick = () => {
+        document.querySelectorAll(".events-page-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        currentTab = tab.dataset.type;
+        renderEvents();
+    };
+});
+
+const dropdown = document.getElementById("yearDropdown");
+const selectedText = dropdown.querySelector(".events-page-dropdown-selected");
+
+dropdown.onclick = () => dropdown.classList.toggle("is-open");
+
+dropdown.querySelectorAll(".events-page-dropdown-item").forEach(item => {
+    item.onclick = e => {
+        selectedText.textContent = item.textContent;
+        document.getElementById("yearFilter").value = item.dataset.value;
+        dropdown.classList.remove("is-open");
+        renderEvents();
+        e.stopPropagation();
+    };
+});
+
+document.addEventListener("click", e => {
+    if (!dropdown.contains(e.target)) dropdown.classList.remove("is-open");
+});
+
+renderEvents();
+</script>

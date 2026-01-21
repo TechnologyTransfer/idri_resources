@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive Event Agenda</title>
+  <style>
+    :root {
+      --text-color: #11284C;
+      --gradient-active: linear-gradient(135deg, #76BC21 0%, #D9F91C 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      line-height: 1.4;
+      font-family: Arial, sans-serif;
+    }
+
+    hr.solid {
+      border: none;
+      border-top: 1px solid #76BC21;
+      width: 100%;
+    }
+
+    .main-container {
+      display: flex;
+      height: 90vh;
+    }
+
+    .day-tabs {
+      width: 20%;
+      border-right: 1px solid #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .day-tab {
+      padding: 20px;
+      cursor: pointer;
+      background: white;
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 18px;
+      transition: background 0.3s, color 0.3s;
+      text-align: left;
+    }
+
+    .day-tab:hover {
+      background: #f0f0f0;
+    }
+
+    .day-tab.active {
+      background: var(--gradient-active);
+      color: var(--text-color);
+      font-weight: bold;
+      border-top-left-radius: 16px;
+    }
+
+    .agenda {
+      width: 80%;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .agenda-scroll {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 10px;
+      padding-bottom: 20px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .agenda-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .room-tabs-wrapper {
+      overflow-x: auto;
+      background: #11284C;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      margin-bottom: -15px;
+      padding-bottom: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #fff;
+    }
+
+    .room-tabs-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .room-tabs {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 16px;
+      padding: 20px 20px 10px 20px;
+      white-space: nowrap;
+    }
+
+    .day-tab,
+    .room-tab {
+      user-select: none; /* Prevent text selection */
+      -webkit-user-select: none; /* Safari/Chrome */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE/Edge */
+    }
+
+
+    .room-tab {
+      padding: 16px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      background: white;
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s, box-shadow 0.2s;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 0;
+    }
+
+    .room-tab:hover {
+      background: #f0f0f0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .room-tab.active {
+      background: var(--gradient-active);
+      color: var(--text-color);
+      font-weight: bold;
+    }
+
+    .room-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .room-content.active {
+      display: block;
+    }
+
+    .session,
+    .session-break {
+      background: white;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin: 32px 20px -12px 20px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .session {
+      border-left: 8px solid #76BC21;
+    }
+
+    .session-break {
+      border-left: 8px solid #FF4438;
+    }
+
+    .session:hover,
+    .session-break:hover {
+      transform: translateX(3px);
+    }
+
+    .session-time,
+    .session-break-time {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .session-time {
+      color: #63AE1C;
+    }
+
+    .session-break-time {
+      color: #FF4438;
+    }
+
+    .session-topic,
+    .session-break-topic {
+      font-size: 16px;
+      color: var(--text-color);
+      max-width: 100%;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 1025px) {
+      .day-tab.active[data-day="day1"] {
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 0;
+      }
+      .day-tab.active[data-day="day2"] {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 16px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .main-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .session,
+      .session-break {
+        padding: 12px 12px;
+      }
+
+      .session-time,
+      .session-break-time {
+        font-size: 14px;
+      }
+
+      .room-tab {
+        font-size: 16px;
+      }
+
+      .session-topic,
+      .session-break-topic {
+        font-size: 14px;
+      }
+
+      .day-tabs {
+        width: 100%;
+        flex-direction: row;
+        border-right: none;
+        justify-content: space-around;
+        padding: 0;
+        margin: 0;
+        color: white;
+      }
+
+      .day-tab {
+        flex: 1;
+        padding: 12px 0;
+        margin: 0;
+        border: none;
+        color: var(--text-color);
+        font-weight: bold;
+        text-align: center;
+        font-size: 16px;
+        box-shadow: none;
+      }
+
+      .agenda {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+
+      .agenda-scroll {
+        max-height: 90vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .day-tab.active[data-day="day1"] {
+        border-top-left-radius: 16px;
+        border-top-right-radius: 0;
+      }
+
+      .day-tab.active[data-day="day2"] {
+        border-top-right-radius: 16px;
+        border-top-left-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="day-tabs">
+      <div class="day-tab active" data-day="day1">10<sup style="font-size: 12px;">th</sup> October 2025</div>
+      <div class="day-tab" data-day="day2">11<sup style="font-size: 12px;">th</sup> October 2025</div>
+    </div>
+
+    <div class="agenda">
+      <div class="agenda-scroll">
+        <div class="room-tabs-wrapper">
+          <div class="room-tabs">
+            <div class="room-tab active" data-room="roomA">Opening Day</div>
+            <div class="room-tab" data-room="roomB">AI & Machine Learning</div>
+            <div class="room-tab" data-room="roomC">Data Science</div>
+            <div class="room-tab" data-room="roomD">IoT & Robotics</div>
+            <div class="room-tab" data-room="roomE">Cyber Security</div>
+            <div class="room-tab" data-room="roomF">Software Development</div>
+            <div class="room-tab" data-room="roomG">Fintech</div>
+          </div>
+        </div>
+
+        <div id="day1-roomA" class="room-content active">
+          <div class="session">
+            <div class="session-time">8:00 AM – 9:00 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">Arrival, registration, and coffee</div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">9:00 AM – 9:10 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">Program introduction and national anthem</div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">9:10 AM – 9:20 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Remarks</strong><br/>
+              <div style="margin-top: 6px;" class="session-topic">
+                <strong>H.E. Dr. Seng Sopheap</strong>, President, Cambodia Academy of Digital Technology (CADT)
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">9:20 AM – 9:35 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Keynote:</strong> Bridging the Gap Between Research and Real-World Impact – Highlight successful applied research and industrial applications at CADT
+              <div style="margin-top: 6px;" class="session-topic">
+                <strong>Mr. Bonpagna Kann</strong>, PhD Candidate and Lecturer in AI
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">9:35 AM – 9:40 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Remarks:</strong> 5G Technology: A Catalyst for AI-Driven Innovation Across Industries 
+              <div style="margin-top: 6px;" class="session-topic">
+                <strong>Mr. Vichet Laing</strong>, Head of Core Infrastructure & 2B2C Operations, Smart Axiata
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">9:40 AM – 10:00 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Opening Remarks</strong>
+              <div style="margin-top: 6px;" class="session-topic">
+                <strong>H.E. Dr. Makara Khov</strong>, Secretary of State of, <strong>Ministry of Post and Telecommunications (MPTC)</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">10:00 AM – 10:15 AM</div>
+            <div class="session-break-topic"><strong>Break ( Delegates - Exhibition tour )</strong></div>
+          </div>
+        </div>
+
+        <div id="day1-roomB" class="room-content">
+          <div class="session">
+            <div class="session-time">10:20 AM – 11:15 AM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> AI in Health: Revolutionizing Cambodia’s Healthcare Landscape with Smart, Scalable Solutions
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Sophal Thear</strong>, Data Science Lecturer-Researcher, CADT
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">10:20 AM – 11:15 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Keynote:</strong> The Future of AI: How Emerging AI Technologies Are Reshaping Industries and Redefining Innovation
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Sopheakmonkol Sok</strong>, CEO, Codingate Technology
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">11:15 AM – 12:15 PM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Panel discussion:</strong> AI Across Sectors: Unlocking Cambodia’s Potential in Education, Industry, and Public Services
+              <div style="margin-top: 6px;" class="session-topic">
+                Moderator: <strong>Mr. Panharith In</strong>, Head of Innovation, CADT<br/>
+                <div style="margin-top: 16px;"><strong>Panelist:</strong></div>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Mr. Sopheakmonkol Sok</strong>, CEO, Codingate Technology</li>
+                  <li><strong>Ms. Pichhemy Ros</strong>, Chief Digital and Technology Officer, Manulife Cambodia</li>
+                  <li><strong>Dr. Dynil Duch</strong>, Vice-Dean, CADT</li>
+                  <li><strong>Mr. Ruzmetov Bekzod</strong>, Head of Internet Banking for Business and Data Analytics Division, ABA Bank</li>
+                  <li><strong>Dr. Kennarey Seang</strong>, Grant Manager, UHS</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">12:15 PM – 1:30 PM</div>
+            <div class="session-break-topic"><strong>Lunch Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">1:30 PM – 2:15 PM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Khmer Accessibility Technologies: Integrating Sign Language Recognition and Braille Translation for Inclusive Communication
+              <div style="margin-top: 6px;" class="session-topic">
+                By: 
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Ms. Kimhuoy Yann</strong>, AI and NLP Assistant Researcher, CADT</li>
+                  <li><strong>Mr. Raingsey Samol</strong>, AI and NLP Assistant Researcher, CADT</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">1:30 PM – 2:15 PM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Masterclass:</strong> AI in practice: How to Build Your First AI Model
+              <div style="margin-top: 6px;" class="session-topic">
+                ( Tools and Methodologies to build a simple AI model ) - using AI tools<br/>
+                <div style="margin-top: 16px;"><strong>Activities:</strong></div>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li>15mn: Introduction, context-setting, learning objectives</li>
+                  <li>30mn: Demo, Live codes, technical workflow, or methods</li>
+                </ul>
+              </div>
+              <div style="margin-top: -20px;" class="session-topic">
+                <br/><strong>Lead by:</strong>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Mr. Bonpagna Kann</strong>, PhD Candidate and Lecturer in AI</li>
+                </ul>
+              </div>
+              <div style="margin-top: -20px;" class="session-topic">
+                <br/><strong>Facilitated by:</strong>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Mr. Natt Korat</strong>, AI Assistant Researcher, CADT</li>
+                  <li><strong>Ms. Sokchovy Monirath</strong>, AI Assistant Researcher, CADT</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">2:15 PM – 2:30 PM</div>
+            <div class="session-break-topic"><strong>Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">2:30 PM – 3:15 PM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Masterclass:</strong> Model Development Activities ( Continue )
+              <div style="margin-top: 16px;"><strong>Activities:</strong></div>
+              <div style="margin-top: 6px;" class="session-topic">
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li>30mn: Hands-on application</li>
+                  <li>10mn: Group Reflection on learning</li>
+                  <li>5mn: Wrap up & Next steps</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">2:30 PM – 3:15 PM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Prompt Engineering vs. Context Engineering
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Vathna Lay</strong>, Senior Lecturer-Researcher, CADT
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">3:15 PM – 3:30 PM</div>
+            <div class="session-break-topic"><strong>Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">3:30 PM – 4:15 PM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> No-Code & AI: Turning Your Ideas into Web Applications
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Chanudomvathana Tork</strong>, Full-Stack Developer, CamMob Co., Ltd.
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">4:15 PM – 5:00 PM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Mastering Effective Techniques of Khmer Data Collection for High-Quality AI Models 
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Seanghort Born</strong>, PhD Candidate and Lecturer in AI
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="day1-roomC" class="room-content">
+          <div class="session">
+            <div class="session-time">10:20 AM – 11:15 AM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Masterclass:</strong> Revealing Patterns and Insights through Data Visualization
+              <div style="margin-top: 16px;"><strong>Activities:</strong></div>
+              <div style="margin-top: 6px;" class="session-topic">
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li>15mn: Introduction, context-setting, learning objectives</li>
+                  <li>30mn: Demo, Live codes, technical workflow, or methods</li>
+                </ul>
+              </div>
+              <div style="margin-top: -20px;" class="session-topic">
+                <br/><strong>Lead by:</strong>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Mr. Leangsiv Han</strong>, Computer Science Program Coordinator and Lecturer, CADT</li>
+                  <li><strong>Ms. Mat Nab</strong>, AI Lecturer Researcher, CADT</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">11:15 AM – 11:30 AM</div>
+            <div class="session-break-topic"><strong>Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">11:30 AM – 12:15 PM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Masterclass:</strong> Data Visualization and Analysis Activities ( Continue )
+              <div style="margin-top: 16px;"><strong>Activities:</strong></div>
+              <div style="margin-top: 6px;" class="session-topic">
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li>30mn: Hands-on application</li>
+                  <li>10mn: Group Reflection on learning</li>
+                  <li>5mn: Wrap up & Next steps</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">12:15 PM – 1:30 PM</div>
+            <div class="session-break-topic"><strong>Lunch Break</strong></div>
+          </div>
+        </div>
+
+        <div id="day1-roomE" class="room-content">
+          <div class="session">
+            <div class="session-time">2:30 PM – 3:15 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> What Roles ISP Should Play in Combating DDoS Attacks
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Songkeng Meng</strong>, CEO
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">3:15 PM – 3:30 PM</div>
+            <div class="session-break-topic"><strong>Break</strong></div>
+          </div>
+          
+          <div class="session">
+            <div class="session-time">3:30 PM – 4:15 PM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Defending the Digital Frontier: A Guide to Protecting What Matters Most
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Reth Sengvisoth</strong>, Lecturer, NPIC and Camtech University
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">4:15 PM – 5:00 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Digital Sovereignty for Cambodia, What Needs to be Done
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Mike Gaertner</strong>, CEO, Cambodian Network Exchange
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">4:15 PM – 5:00 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Cybersecurity
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Songkeng Meng</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="day1-roomF" class="room-content">
+          <div class="session">
+            <div class="session-time">10:20 AM – 11:15 AM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Building Seamless Payments Online & In-Store: ABA PayWay Checkout + QR API Integration
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Ms. Makara Prom</strong>, Head of Technical Integration Support Unit, ABA Bank
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">11:15 AM – 11:30 AM</div>
+            <div class="session-break-topic"><strong>Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">11:30 AM – 12:15 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> How Innovation Fuels Technology to Tackle Challenges in Business, Society, and the World
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Phally Phoeurn</strong>, Founder and CEO, VP.Start Technology Co., Ltd.
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">11:30 AM – 12:15 PM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Digitalize Small Businesses Using Tech Mindset
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Mengsreang Chhoeung</strong>, Backend Developer, Sabay Tekh
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">12:15 PM – 1:30 PM</div>
+            <div class="session-break-topic"><strong>Lunch Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">1:30 PM – 2:15 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Scaling Seamlessly: Launching Your Mini App on ABA Mobile
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Lyhor Din</strong>, Head of Frontend Development Department, ABA Bank
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">1:30 PM – 2:15 PM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Keynote:</strong> Navigating the New Era of Software Engineering
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Ronan Ogor</strong>, Lecturer and Researcher, CADT
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">2:15 PM – 3:15 PM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Panel discussion:</strong> Rethinking Software Engineers in the Age of AI
+              <div style="margin-top: 6px;" class="session-topic">
+                Moderator: <strong>Mr. Ronan Ogor</strong>, Lecturer and Researcher, CADT<br/>
+                <div style="margin-top: 16px;"><strong>Panelist:</strong></div>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Mr. Sokha Pen</strong>, Head of IT, Smart Axiata</li>
+                  <li><strong>Ms. Sisavuthary Sim</strong>, Head of Technology, Heineken Cambodia</li>
+                  <li><strong>Mr. Nicolas Delrieu</strong>, La French Tech Representative and AI consultant, Wing Bank</li>
+                  <li><strong>Ms. Vitheavy Samnang</strong>, CTO, SoulAdvisor</li>
+                  <li><strong>Mr. Yin Seng</strong>, Lead Engineer, Slash</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">2:15 PM – 2:30 PM</div>
+            <div class="session-break-topic"><strong>Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">3:30 PM – 4:15 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Smart Infrastructure for Developers: Building Reliable and Scalable Systems on DP CLOUD.
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Sergei Zubkov</strong>, General Manager, Daun Penh Cloud
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">4:15 PM – 5:00 PM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> A CTO’s Lessons: Building a Career in Technology
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Punleu Chomnan</strong>, CTO, Pointer Property Co., Ltd
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">4:15 PM – 5:00 PM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> How My Game "The Brain Washer" is Made
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Buneav Ros</strong>, Founder,  Null Studio and X_ware 
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="day1-roomG" class="room-content">
+          <div class="session">
+            <div class="session-time">3:30 PM – 4:15 PM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> From SaaS to Web3: Powering SMBs and Enterprises in the Decentralized Era
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr.Channa Ly</strong>, Tech partner of FirstWave
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="day2-roomB" class="room-content">
+          <div class="session">
+            <div class="session-time">9:30 AM – 10:15 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> AI Automation for SMS Marketing: From Bulk Messaging to Smart Conversations with n8n
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Sok Kimsea</strong>, CTO, +Gate
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">9:30 AM – 10:45 AM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> The path of developing Khmer Text-to-Speech: Sarika  
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Seanghay Yath</strong>, Front-End Team Lead, Digital Government Committee
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">9:30 AM – 10:45 AM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Masterclass:</strong> Document Extraction Using Generative AI
+              <div style="margin-top: 16px;" class="session-topic">
+                <strong>Activities:</strong>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li>30mn: Introduction, context-setting, learning & Demo</li>
+                  <li>25mn: Demo (Partial) & Hands-on application (Guided)</li>
+                  <li>20mn: Group Reflection on: Discussing the concept of implementing an OCR model from scratch</li>
+                  <li>15mn: Wrap up & Next steps</li>
+                </ul>
+              </div>
+              <div style="margin-top: -20px;" class="session-topic">
+                <br/><strong>Lead by:</strong>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Dr. Hongly Va</strong>, Senior Lecturer Researcher, CADT</li>
+                  <li><strong>Mr. Mengchhuong Ang</strong>, Program Coordinator and Lecturer Researcher, CADT</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">10:45 AM – 11:00 AM</div>
+            <div class="session-break-topic"><strong>Break</strong></div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">11:00 AM – 12:00 PM <div style="color: #11284C;">Room: Unicorn Room</div></div>
+            <div class="session-topic">
+              <strong>Masterclass:</strong> Document Extraction Using Generative AI (continues)
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">11:00 AM – 12:00 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Prompt Engineering for LLM
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong> Mr. Sovichea Sou</strong>, CEO, TITB
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">12:15 PM – 1:30 PM</div>
+            <div class="session-break-topic"><strong>Lunch Break</strong></div>
+          </div>
+        </div>
+
+        <div id="day2-roomD" class="room-content">
+          <div class="session">
+            <div class="session-time">11:00 AM – 12:00 PM <div style="color: #11284C;">Room: Co-Working Space</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Design for Inclusion,  Braille Technology Showcase
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Ms. Chansocheata Poum</strong>, Makerspace Coordinator, CADT
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">12:15 PM – 1:30 PM</div>
+            <div class="session-break-topic"><strong>Lunch Break</strong></div>
+          </div>
+        </div>
+
+        <div id="day2-roomE" class="room-content">
+          <div class="session">
+            <div class="session-time">9:30 AM – 10:45 AM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong> Securing What’s Next: Cyber Risks in Emerging Technologies
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Prasad Jayabalan</strong>, Head of Cybersecurity Strategy and Architecture, Axiata Group
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">10:15 AM – 11:00 AM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Keynote:</strong> Cybersecurity in the Age of AI-Driven Cyberattacks
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Tom Watson</strong>, VP/Chief Information Security Officer, ABA Bank
+              </div>
+            </div><br/>
+            <div class="session-topic">
+              <strong>Panel discussion:</strong> The Digital Guardians of Cambodia: From Understanding the Cybersecurity Landscape to Career Paths
+              <div style="margin-top: 6px;" class="session-topic">
+                Moderator: <strong>Ms. Phallydeth Phen</strong>, Cybersecurity specialist from the General Department of ICT, MPTC<br/>
+                <div style="margin-top: 16px;"><strong>Panelist:</strong></div>
+                <ul style="display: flex; flex-direction: column; gap: 8px;">
+                  <li><strong>Mr. Tom Watson</strong>, VP/Chief Information Security Officer, ABA Bank</li>
+                  <li><strong>Dr. Vong Sokha</strong>, CEO, Technovage Solution</li>
+                  <li><strong>Mr. Sacha Mear</strong>, Director, Asia Data Destruction</li>
+                  <li><strong>Mr. Piseth Ros</strong>, CTO, Daun Penh Cloud</li>
+                  <li><strong>Mr. Porhai Eung</strong>, CEO and Founder, Karpia</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-break">
+            <div class="session-break-time">12:15 PM – 1:30 PM</div>
+            <div class="session-break-topic"><strong>Lunch Break</strong></div>
+          </div>
+        </div>
+
+        <div id="day2-roomG" class="room-content">
+          <div class="session">
+            <div class="session-time">1:30 PM – 3:00 PM <div style="color: #11284C;">Room: Cosmos Hall</div></div>
+            <div class="session-topic">
+              <strong>Topic 1:</strong> Blockchain powered Gamification Apps
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Rithy Thul</strong>, Co-Founder, SmallWorld
+              </div>
+            </div><br/>
+            <div class="session-topic">
+              <strong>Topic 2:</strong> Re-imagine Computation with AI
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Brilliant Phal</strong>, Developer, SmallWorld
+              </div>
+            </div><br/>
+            <div class="session-topic">
+              <strong>Topic 3:</strong> Self-hosted Containerized Application Orchestration Platform
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Hangsia Hong</strong>, Developer, SmallWorld
+              </div>
+            </div><br/>
+            <div class="session-topic">
+              <strong>Topic 4:</strong> Power Cambodian Football through Technology
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Mr. Vuthy San</strong>, Developer, SmallWorld
+              </div>
+            </div>
+          </div>
+
+          <div class="session">
+            <div class="session-time">1:30 PM – 3:00 PM <div style="color: #11284C;">Room: Jupiter Room</div></div>
+            <div class="session-topic">
+              <strong>Workshop:</strong>  The Rise of Blockchain in Cambodia: Association & Real-World Use Case
+              <div style="margin-top: 6px;" class="session-topic">
+                By: <strong>Ms. Freya Lou</strong>, Founder, Blockchain Community Cambodia
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+   </div>
+
+  <script>
+    const dayTabs = document.querySelectorAll('.day-tab');
+    const roomTabs = document.querySelectorAll('.room-tab');
+    let currentDay = 'day1';
+    let currentRoom = 'roomA';
+
+    // Define available rooms per day
+    const dayRooms = {
+      day1: ['roomA', 'roomB', 'roomC', 'roomE', 'roomF', 'roomG'],
+      day2: ['roomB', 'roomD', 'roomE', 'roomG']
+    };
+
+    function showContent() {
+      const agendaScroll = document.querySelector('.agenda-scroll');
+      agendaScroll.scrollTo({ top: 0, behavior: 'smooth' });
+
+      document.querySelectorAll('.room-content').forEach(c => c.classList.remove('active'));
+      roomTabs.forEach(t => t.classList.remove('active'));
+
+      // Show selected room content if it exists
+      const activeContent = document.getElementById(`${currentDay}-${currentRoom}`);
+      if (activeContent) {
+        activeContent.classList.add('active');
+        document.querySelector(`.room-tab[data-room="${currentRoom}"]`)?.classList.add('active');
+      } else {
+        // fallback: show first available room if the current one doesn’t exist
+        const fallbackRoom = dayRooms[currentDay][0];
+        currentRoom = fallbackRoom;
+        document.getElementById(`${currentDay}-${fallbackRoom}`)?.classList.add('active');
+        document.querySelector(`.room-tab[data-room="${fallbackRoom}"]`)?.classList.add('active');
+      }
+    } 
+
+    function updateRoomTabs() {
+      roomTabs.forEach(tab => {
+        const room = tab.dataset.room;
+        if (dayRooms[currentDay].includes(room)) {
+          tab.style.display = 'flex';
+        } else {
+          tab.style.display = 'none';
+        }
+      });
+    }
+
+    dayTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Switch day
+        dayTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentDay = tab.dataset.day;
+
+        // Update visible room tabs
+        updateRoomTabs();
+
+        // Set currentRoom to first available room for that day
+        currentRoom = dayRooms[currentDay][0];
+        showContent();
+      });
+    });
+
+    roomTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (tab.style.display === 'none') return; // skip hidden tabs
+        roomTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentRoom = tab.dataset.room;
+        showContent();
+      });
+    });
+
+    // Initialize
+    updateRoomTabs();
+    showContent();
+  </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conference Timeline</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    .timeline {
+        position: relative;
+        margin: auto;
+    }
+
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        background-color: #FF4438;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        
+        transform: translateX(-50%);
+    }
+
+    .timeline-item {
+        padding: 0px 0;
+        position: relative;
+        width: 50%;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        background-color: #11284C;
+        border: 4px solid #FF4438;
+        border-radius: 50%;
+        top: 8%;
+        left: 100%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+    }
+
+    .timeline-item::after {
+        content: '';
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background-color: #f23b3b;
+        border-radius: 50%;
+        top: 8%;
+        left: 100%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+    }
+
+    /* Positioning */
+    .left {
+        left: 0;
+        text-align: right;
+    }
+
+    .right {
+        left: 50%;
+        text-align: left;
+    }
+
+    .right::before, 
+    .right::after { 
+        left: 0;
+    }
+
+    .timeline-content {
+        padding: 20px;
+        background-color: #0b2348;
+        position: relative;
+        border-radius: 0; /* Removed rounded corners */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    /* Clip-path for odd and even cards */
+    .timeline-item:nth-child(odd) .timeline-content {
+        clip-path: polygon(0 0, 96% 0, 100% 16%, 100% 100%, 0 100%, 0% 50%);
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+        clip-path: polygon(4% 0, 100% 0, 100% 12%, 100% 100%, 0 100%, 0 12%);
+    }
+
+    .left .timeline-content {
+        margin-right: 40px;
+    }
+
+    .right .timeline-content {
+        margin-left: 40px;
+    }
+
+    .timeline-content h2 {
+        font-size: 20px;
+        text-align: left;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    .timeline-content p {
+        font-size: 16px;
+        text-align: left;
+        line-height: 1.4;
+    }
+
+    .timeline-date {
+        font-weight: 600;
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        justify-content: flex-start;
+    }
+
+    .right .timeline-date {
+        justify-content: flex-start;
+    }
+
+    .timeline-date i {
+        margin-right: 8px;
+    }
+
+    /* Alternate background colors */
+    .timeline-item:nth-child(odd) .timeline-content {
+        background-color: #FF4438; /* Red background for odd */
+        color: #ffffff;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+        background-color: #ffffff; /* White background for even */
+        color: #000000;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content h2,
+    .timeline-item:nth-child(odd) .timeline-content p,
+    .timeline-item:nth-child(odd) .timeline-content .timeline-date {
+        color: #ffffff;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content h2,
+    .timeline-item:nth-child(even) .timeline-content p,
+    .timeline-item:nth-child(even) .timeline-content .timeline-date {
+        color: #11284C;
+    }
+
+    /* Responsive Design (Mobile Single-Column Fix) */
+    @media screen and (max-width: 1024px) {
+        .timeline::after {
+            left: 0px;
+            transform: none;
+        }
+
+        .timeline-content h2 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .timeline-content p {
+            font-size: 14px;
+        }
+
+        .timeline-item {
+            width: 100%;
+            padding-left: 32px;
+            padding-right: 0px;
+            text-align: left;
+        }
+
+        .timeline-item::before {
+            left: 2px;
+            top: 0%;
+            transform: translate(-50%, -50%);
+        }
+
+        .timeline-item::after {
+            left: 2px;
+            top: 0%;
+            transform: translate(-50%, -50%);
+        }
+
+        .right {
+            left: 0;
+        }
+
+        .timeline-content {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .timeline-date {
+            font-size: 14px;
+        
+        }
+        .left .timeline-date {
+            justify-content: flex-start;
+        }
+        /* Clip-path for odd and even cards */
+        .timeline-item:nth-child(odd) .timeline-content {
+            clip-path: polygon(7% 0, 100% 0, 100% 11%, 100% 100%, 0 100%, 0 9%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            clip-path: polygon(7% 0, 100% 0, 100% 11%, 100% 100%, 0 100%, 0 9%);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="timeline">
+    <div class="timeline-item left">
+        <div class="timeline-content">
+            <h2>CALL FOR PAPER</h2>
+            <p>Researchers are welcome to submit papers on topics including AI, Data Science, IoT, and NLP. All submissions will be reviewed for potential presentation at the ACET Conference and consideration for inclusion in the conference proceedings.</p>
+            <div class="timeline-date"><i class="fa-solid fa-calendar-days"></i>19th May 2025</div>
+        </div>
+    </div>
+
+    <div class="timeline-item right">
+        <div class="timeline-content">
+            <h2>PAPER SUBMISSION DEADLINE</h2>
+            <p>This is the final date for authors to submit their research papers for review. All submissions must adhere to the required format and be uploaded through the official submission portal before the deadline.</p>
+            <div class="timeline-date"><i class="fa-solid fa-calendar-days"></i>15th September 2025</div>
+        </div>
+    </div>
+
+    <div class="timeline-item left">
+        <div class="timeline-content">
+            <h2>NOTIFICATION OF ACCEPTED PAPER</h2>
+            <p>Authors will be notified if their paper has been accepted, rejected, or recommended for revision. Reviewer feedback may also be provided to help authors enhance and refine their work.</p>
+            <div class="timeline-date"><i class="fa-solid fa-calendar-days"></i>6th October 2025</div>
+        </div>
+    </div>
+
+    <div class="timeline-item right">
+        <div class="timeline-content">
+            <h2>CAMERA-READY PAPER SUBMISSION</h2>
+            <p>Authors of accepted papers are required to submit the final version, formatted in accordance with the ACET Conference’s publication guidelines. This final version will be included in the official conference proceedings.</p>
+            <div class="timeline-date"><i class="fa-solid fa-calendar-days"></i>30th October 2025</div>
+        </div>
+    </div>
+
+     <div class="timeline-item left">
+        <div class="timeline-content">
+            <h2>CONFERENCE REGISTRATION DEADLINE</h2>
+            <p>All presenters and attendees must complete their registration by this date to confirm their participation in the event. Early registration is recommended, as seating is limited.</p>
+            <div class="timeline-date"><i class="fa-solid fa-calendar-days"></i>31st October 2025</div>
+        </div>
+    </div>
+
+    <div class="timeline-item right">
+        <div class="timeline-content">
+            <h2>CONFERENCE DATE</h2>
+            <p>The conference officially begins on this day, featuring keynote addresses, paper presentations, panel discussions, and networking sessions. Authors of accepted papers will present their work during the scheduled sessions.</p>
+            <div class="timeline-date"><i class="fa-solid fa-calendar-days"></i>13th-14th November 2025</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

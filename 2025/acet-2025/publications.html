@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACET Conference Cards</title>
+    <style>
+        :root {
+            --primary-blue: #12284C;
+            --accent-orange: #FF4438;
+            --text-dark: #1A2B48;
+            --figma-shadow: 0px 16px 48px rgba(145, 158, 171, 0.2);
+        }
+
+        #card-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: flex-start; 
+        }
+
+        .conference-card {
+            background: white;
+            padding: 1.5rem;
+            box-shadow: var(--figma-shadow);
+            width: 440px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            flex-shrink: 0; /* prevent shrinking below width */
+        }
+
+        .conference-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-mockup {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.1));
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.5em;
+        }
+
+        .highlight {
+            color: var(--accent-orange);
+        }
+
+        .year {
+            color: var(--accent-orange);
+        }
+
+        /* Responsive styles for screens ≤1024px */
+        @media (max-width: 1024px) {
+            #card-container {
+                gap: 1.5rem;
+                padding: 0.5rem;
+            }
+
+            .conference-card {
+                width: 45%; /* two cards per row */
+            }
+
+            .card-title {
+                font-size: 18px;
+            }
+        }
+
+        /* Optional: Responsive for tablets and phones ≤768px */
+        @media (max-width: 768px) {
+            .conference-card {
+                width: 100%; /* single column */
+            }
+
+            .card-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="card-container"></div>
+
+    <script>
+        const conferenceData = [
+            {
+                year: "2025",
+                image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/ACET-Book-2025.webp", 
+                title: "ASEAN Conference on Emerging Technology",
+                link: "https://www.idri.edu.kh/events/acet/publication-articles/" 
+            },
+            {
+                year: "2024",
+                image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/ACET-Book-2024.webp", 
+                title: "ASEAN Conference on Emerging Technology",
+                link: "https://www.idri.edu.kh/events/acet-2024/"
+            }
+        ];
+
+        const container = document.getElementById('card-container');
+
+        function renderCards() {
+            container.innerHTML = conferenceData.map(data => `
+                <a href="${data.link}" target="_blank" style="text-decoration: none;">
+                    <div class="conference-card">
+                        <img src="${data.image}" alt="ACET ${data.year}" class="book-mockup">
+                        <div class="card-title">
+                            <span class="highlight">ASEAN</span> ${data.title.replace('ASEAN ', '')} 
+                            <span class="year">${data.year}</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        renderCards();
+    </script>
+</body>
+</html>

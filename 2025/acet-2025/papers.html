@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dynamic Paper Collapse with Image Arrow</title>
+<style>
+    .paper-accordion {
+        margin: 40px auto;
+    }
+    .paper-card {
+        background: #fff;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        border: 1px solid #0000004D;
+    }
+    .paper-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 16px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .paper-card-header:hover {
+        background: #f1f1f1;
+    }
+    .paper-card-header h2 {
+        margin: 0;
+        padding-right: 16px;
+        font-size: 18px;
+        color: #11284C!important;
+        font-weight: bold;
+        line-height: 1.4em;
+    }
+    .paper-card-header h2 span {
+        color: #FF4438;
+    }
+    .paper-arrow {
+        width: 1.5rem;
+        transition: transform 0.3s ease;
+    }
+    .paper-card-content {
+        color: #12284C;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        padding: 0 16px;
+    }
+    .paper-card.active .paper-card-content {
+        padding: 16px;
+    }
+    .paper-meta {
+        margin: 4px 0;
+        font-size: 14px;
+    }
+    .paper-meta-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 8px;
+    }
+    .paper-meta-row .paper-meta {
+        margin: 0;
+    }
+    .paper-abstract-title {
+        margin-top: 0.25rem;
+        font-weight: bold;
+    }
+    .paper-abstract {
+        font-size: 14px;
+        line-height: 1.5em;
+        margin-top: 4px;
+    }
+    .paper-read-more {
+        margin-top: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        background: #FF4438;
+        color: #fff;
+        padding: 12px 20px;
+        text-decoration: none;
+        font-size: 1rem;
+        gap: 4px;
+        transition: transform 0.3s ease;
+        clip-path: polygon(0 0, 100% 0, 100% 80%, 92% 100%, 0 100%, 0% 50%);
+    }
+    .paper-read-more svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: #fff;
+        flex-shrink: 0;
+    }
+    .paper-read-more:hover {
+        animation: bounce 0.5s;
+    }
+    .paper-meta-row .paper-meta:first-child {
+        margin-top: 8px;
+    }
+    .paper-meta-row .paper-meta:last-child {
+        margin-top: -6px;
+    }
+    @keyframes bounce {
+        0% { transform: scale(1); }
+        30% { transform: scale(1.15); }
+        50% { transform: scale(0.95); }
+        70% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    @media (max-width: 1024px) {
+        .paper-card-header h2 {
+            font-size: 14px;
+            line-height: 1.2em;
+        }
+        .paper-read-more {
+            padding: 10px 16px;
+            font-size: 0.95rem;
+        }
+        .paper-meta-row {
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-start;
+        }
+        .paper-meta-row .paper-meta:first-child {
+            margin-top: 8px;
+        }
+        .paper-meta-row .paper-meta:last-child {
+            margin-bottom: 8px;
+        }
+    }
+
+</style>
+</head>
+<body>
+<div class="paper-accordion" id="accordion"></div>
+<script>
+const papers = [
+    // Main Tracks
+    {
+        title: "Khmer Polarity Classification",
+        highlight: "Towards Explainable",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Mary Kong, Rina Buoy, Sovisal chenda, Gnuonly Taing",
+        abstract: "Khmer polarity classification is a fundamental natural language processing task that assigns a positive, negative, or neutral label to a given Khmer text input. Existing Khmer models typically predict the label without explaining the rationale behind their predictions. This paper proposes an explainable Khmer polarity classifier by fine-tuning an instruction-based reasoning Qwen-3 model. The notion of explainability in this study is limited to self-explanations, which the model uses to rationalize its predictions. Experimental results show that the fine-tuned model not only predicts labels accurately but also provides reasoning by identifying polarity-related keywords or phrases to support its predictions. In addition, we contribute a new Khmer polarity dataset consisting of short- to medium-length casual, romanized, and mixed-code Khmer expressions. This dataset was constructed using both heuristic rules and human curation and is publicly available through a gated Hugging Face repository. The fine-tuned Qwen-3 models are also made available in the same Hugging Face account.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "2-10",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/M1.pdf"
+    },
+    {
+        title: "in Real-World Manufacturing Using YOLOv5-Transformer Models",
+        highlight: "Fabric Detection",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Makara Mao, Keovichear Ouk, Hongly Va, Min Hong",
+        abstract: "Detecting fabric defects, especially in textiles with complex textures, presents significant challenges due to the intricate nature of fabric patterns. Among various object detection methods, the YOLO algorithm is renowned for its real-time performance and accuracy. By treating object detection as a single regression problem, YOLO predicts bounding boxes and class probabilities from an entire image in one pass. This paper proposes a novel approach for fabric detection using the YOLOv5-Transformer model, which integrates Transformer architecture to enhance defect detection in textiles. YOLOv5, a fully convolutional neural network, strikes an optimal balance between speed and accuracy in end-to-end detection tasks. Leveraging the latest advancements in deep learning, YOLO achieves high detection speeds without significantly compromising precision, making it ideal for real-world applications. Our proposed YOLOv5-Transformer model surpasses other YOLOv5 variants, achieving an accuracy of 82.9%, representing a 5.6% improvement over YOLOv5s and YOLOv5n and a 2.7%–3.2% improvement over other versions YOLOv5m, YOLOv5l, YOLOv5x. Comparative performance metrics are also presented, including processing time on GPU, precision, recall, and F1 score.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "11-17",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/M2.pdf"
+    },
+    {
+        title: "Models for PM2.5 Air Quality Forecasting in Phnom Penh City",
+        highlight: "A Study on ML-related",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Makara Roeum, Watcharaphong Yookwan, Linhour Nov",
+        abstract: "Air pollution from fine particulate matter (PM2.5) is a major public health concern in Phnom Penh, Cambodia, driven by rapid urbanization, traffic congestion, and industrial activity. Accurate forecasting of PM2.5 concentrations is essential for issuing early warnings and supporting policy interventions. This study evaluates six machine learning and deep learning models: Light Gradient Boosting Machine (LightGBM), eXtreme Gradient Boosting (XGBoost), Extra Trees, Deep Neural Networks (DNN), Long Short-Term Memory (LSTM), and Bidirectional LSTM (Bi-LSTM), using OpenAQ data from May to August 2025. To mitigate extreme outliers, a logarithmic transformation was applied to positively skewed variables, improving stability and predictive reliability. Among the models, Extra Trees achieved the best performance, with an RMSE of 0.0607, MAE of 0.0468, and R² of 0.9962. These findings demonstrate that well-optimized ensemble tree-based models can outperform complex deep learning approaches under local data constraints, providing an efficient and reliable solution for PM2.5 forecasting and supporting timely public health interventions in Cambodia.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "18-23",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/M3.pdf"
+    },
+    {
+        title: "Disease Using Convolutional Neural Network Models",
+        highlight: "Classification of Rice Leaf",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Sokhey Kim, Hongly Va",
+        abstract: "Rice is a crucial crop globally, particularly in Asia, where it serves as a staple food. However, various diseases severely affect rice crop yields, and without proper detection, these diseases can spread, leading to a substantial decline in production. In extreme cases, diseases can result in a total crop loss, threatening food security. Deep learning, particularly Convolutional Neural Networks (CNNs), has become the standard method for image identification and classification tasks. Accurate diagnosis of rice diseases is essential to mitigate these impacts, yet current diagnostic methods are often inefficient, requiring specialized equipment. This study developed a deep learning–based automatic rice disease diagnosis method using an ensemble of CNN models. The method utilized a dataset of 17,500 images covering seven types of rice diseases, including bacterial blight, hispa, leaf blast, and others. The Ensemble Model, which combined several submodels, was the core of this method. Validation showed that EfficientNet-B0, DenseNet121, and MobileNetV2 were the most effective submodels, achieving an overall accuracy of 96%. The Ensemble Model minimized confusion between disease types, reducing misdiagnosis and enhancing disease recognition accuracy, making it a reliable tool for rice disease detection.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "24-34",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/M4.pdf"
+    },
+    {
+        title: "on Khmer Sign Language Recognition Using Neural Networks",
+        highlight: "A Preliminary Study",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Ponleur Veng, Nab Mat, Kimhuoy Yann, Vichhika Sina, Sokleap Som, Rottana Ly",
+        abstract: "People with hearing impairments often face challenges in both social interactions and language development, especially when communicating with individuals who have little or no knowledge of sign language. Although sign language research has progressed rapidly, further work is needed to address linguistic differences across countries. This paper presents a preliminary study of Khmer Sign Language (KSL) recognition using various neural network approaches. We also compare the performance of models trained with RGB video frames and pose keypoint extraction to evaluate both accuracy and computational efficiency. We collected a dataset consisting of six deaf participants, featuring 20 signs across 580 videos, with each video recorded at 30 frames per second. The dataset was captured using digital cameras and smartphones in different environments to ensure model robustness across devices and conditions. Several architectures were trained, and SlowFast achieved the best performance, with 92.81% accuracy, 92.50% F1 score, 92.81% recall, and 93.57% precision. The keypoint pipeline with R3D-18 also performed competitively (92.05% accuracy, 92.56% F1, 92.05% recall, 95.21% precision), suggesting a promising trade-off for scenarios with tighter computational budgets. This research shows that SlowFast with RGB frames provides higher accuracy, while the pose keypoint approach offers better scalability for training. Future work will focus on expanding the dataset and increasing the number of classes to improve accuracy and generalizability, particularly in real-world scenarios.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "35-45",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/M5.pdf"
+    },
+    {
+        title: "Model for Khmer Sign Language Recognition with a Small Dataset",
+        highlight: "Baseline Deep Learning",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Sokleap Som, Rottana Ly, Nab Mat",
+        abstract: "People with hearing impairments in Cambodia often face challenges in daily communication and learning, especially when others cannot understand Khmer Sign Language. These difficulties can limit social interaction and access to education. To address this problem, this research proposes a Khmer Sign Language recognition approach using deep learning to support better communication and self-learning tools for the Deaf community. A dataset containing 100 sign classes was collected, with 20 fully annotated classes used for training, each including 28 to 31 samples recorded in varied environments at the National Institute for Special Education (NISE). The data were processed at 30 fps and 1920 × 1080 resolution to ensure temporal smoothness and clear motion capture. Two models based on 3D ResNet (R3D-18) were trained and compared: one using raw RGB frames and another using keypoints extracted by MediaPipe. The RGB-based model achieved 88.35% precision, 84.09% recall, 83.72% F1-score, and 84.09% accuracy. The keypoint-based model achieved 95.21% precision, 92.05% recall, 92.56% F1-score, and 92.05% accuracy, showing that focusing on body and hand landmarks improves robustness and generalization on small datasets. This research provides a foundation for Khmer Sign Language recognition using limited data. Future work will expand the dataset, explore more classes, and improve inference for real-time applications while applying Early Stopping to prevent overfitting.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "46-53",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/M6.pdf"
+    },
+    {
+        title: "Change and Analyzing Nearshore Dynamics with Airborne LiDAR Series Data for Coastal Monitoring: A Case Study in Chanthaburi",
+        highlight: "Estimating Sand Volume",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Vichhika Sina, Phutphalla Kong, Kasorn Galajit, Surasak Boonkla, jessada Karnjana",
+        abstract: "Coastal erosion is a global challenge that requires accurate and reliable monitoring of sediment dynamics. This study presents an effective approach for estimating sand volume changes and analyzing coastal dynamics using time-series airborne LiDAR data. Digital Elevation Models (DEMs) derived from LiDAR surveys were used to quantify elevation changes, and an offset compensation method was applied to reduce systematic measurement errors. Calibration using known reference box volumes confirmed that the offset-corrected results closely matched ground-truth measurements, improving volumetric accuracy. Seasonal analysis revealed distinct patterns of sediment transport along the coastline. From October 2024 to April 2025, all sections experienced notable sediment deposition, indicating beach accretion during the dry season. Conversely, from April to August 2025, significant erosion likely occurred due to intensified wave energy and monsoonal influences during the rainy season. The results demonstrate the reliability of airborne LiDAR, when combined with error correction and DEM differencing, as a powerful tool for high-resolution coastal monitoring and for supporting evidence-based shoreline management.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "54-62",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/M7.pdf"
+    },
+
+    // Student Tracks
+    {
+        title: "to Khmer Scene Text Recognition using Faster R-CNN and TrOCR",
+        highlight: "A Two-Stage Approach",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Sethisak San, Mitona Chan, Eklim Sek",
+        abstract: "Khmer scene text recognition presents significant challenges due to the complex structure of Khmer script, which includes stacked consonants, special diacritics, and inconsistent word spacing. In this work, we propose a two-stage approach to detect and recognize Khmer scene text. First, we utilize Faster R-CNN, a deep learning–based object detection model, to identify text region coordinates in various images. Subsequently, the detected regions are processed by TrOCR, a Transformer-based model, for character recognition. Our model is trained and evaluated on a combination of real-world and synthetic data, including the KhmerST dataset, the 62k Khmer Printed Dataset, and the Khmer Annotation dataset. Our approach achieves strong detection performance, with a high recall rate of 91.4% and a precision of 70.1%, indicating robust text localization. The recognition stage yields a Character Error Rate (CER) of 18.3%. On a manually curated real-world test set, the detection model achieves a precision of 62.2% and a recall of 55.5%, demonstrating reasonable generalization. Our analysis shows that while the detector effectively localizes the text, recognition errors are primarily linked to the script’s inherent complexity and inconsistencies in text-line segmentation.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "64-73",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S1.pdf"
+    },
+    {
+        title: "on Enhancing performance of Marker-Based Augmented Reality for Low-end Smartphone",
+        highlight: "A Study",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Yanghai Pov, Monioudom Mao, Lihour Nov",
+        abstract: "Augmented reality (AR) allows people to interact with virtual objects in the real world using their smartphones. However, most AR systems require powerful devices to run smoothly, excluding many users with older or low-end phones. This research focuses on enabling marker-based AR to work efficiently on less powerful smartphones. By using simple and fast algorithms for pattern detection and optimized techniques for rendering 3D models, the system can recognize images accurately and run smoothly even on budget devices. Tests show that the system maintains strong performance and high image recognition accuracy, demonstrating that AR can be made more accessible to a wider audience. This work aims to extend the benefits of AR to more people worldwide, regardless of the device they use.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "74-80",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S2.pdf",
+    },
+    {
+        title: "Real-Time Water Level Monitoring System for Early Flash Flood Detection",
+        highlight: "IoT-enabled",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Dariya Kong, Sovanmonich Chea, Hengtong Lim, Sovanndara Am, Lihour Nov",
+        abstract: "Flash floods are a significant natural hazard in Cambodia, causing severe damage to infrastructure and posing substantial risks to human life. Their sudden and unpredictable occurrence, intensified by climate change, underscores the need for reliable real-time monitoring and early warning systems. This paper presents an Internet of Things (IoT)-based solution that employs multiple sensors to capture critical environmental data, including water level, rainfall, and water flow. The system is designed with an emphasis on accuracy, durability in outdoor conditions, and cost-effectiveness, making it suitable for deployment in vulnerable communities. Sensor data are transmitted to a cloud platform for storage and analysis, while a real-time notification mechanism delivers early alerts to users, enabling prompt responses to potential flood events. The proposed prototype provides a practical and affordable approach to enhancing community preparedness, awareness, and disaster risk reduction in flood-prone regions.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "81-85",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S3.pdf",
+    },
+    {
+        title: "Khmer Scene Text Annotation Tool",
+        highlight: "JOMNAM",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Pichphyrom Rin, Leangsreng Srean, Sovanthara Seng, Soklong Him",
+        abstract: "The creation of large-scale annotated Khmer datasets is a key challenge for advancing Artificial Intelligence and Natural Language Processing (NLP) in Cambodia. We present the Khmer Sense Text Annotation Tool, which integrates a YOLOv8 detection model trained on 12,000 images with Khmer Tesseract OCR and a human-in-the-loop correction process. Evaluation using Intersection over Union (IoU), Precision, Recall, Confusion Matrix, and mean Average Precision (mAP) shows higher precision in detecting stacked characters and complex script structures while reducing manual labeling effort. The system demonstrates consistent improvements in both annotation speed and label accuracy compared to manual-only workflows. By addressing Khmer’s unique challenges, including the absence of word boundaries and character stacking, the tool enables more reliable dataset construction. This contribution not only accelerates resource development but also lays the foundation for future Khmer NLP advancements through deeper model integration.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "86-92",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S4.pdf",
+    },
+    {
+        title: "of Unimodal and Multi-Modal Architectures for the Robust Recognition of Khmer Consonant Hand Signs",
+        highlight: "A Comparative Analysis",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Sereyratank Heng, Sethisak San",
+        abstract: "Automated systems for under-resourced languages like Khmer Sign Language require real-world robustness, a factor often overlooked in favor of accuracy on clean data. This study evaluates deep learning models on both a large, curated dataset of 33 Khmer consonant signs and a manually created “Challenge Set” featuring realistic degradations. We systematically compared unimodal (Vision-Only, Skeleton-Only) and various multi-modal fusion architectures (MLP, LSTM, Attention). Our findings were decisive and counter-intuitive: a unimodal Skeleton-Only (LSTM) model was the most robust, achieving 81% accuracy on the Challenge Set. In stark contrast, all multi-modal fusion models, which combined skeletal data with features from a pretrained EfficientNet-B0, underperformed significantly, with an advanced attention model collapsing to just 11% accuracy. We identify this failure as a critical case of “Modality Mismatch,” where the brittle vision model produces erroneous, high-confidence features (“Confident Garbage”) that degrade the fusion process. This work demonstrates that for applications with significant domain shifts, a simpler, more robust unimodal model can be decisively superior to a complex multi-modal system, challenging the assumption that more data is always better.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "93-102",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S5.pdf"
+    },
+    {
+        title: "insect interactions in rice crops on the GAMA platform as a basis for educational VR games",
+        highlight: "Modelling",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Rattanak Seth, Lucile Delatouche Mathilde Sester, Alexis Drogoul , Sovuthy Cheab",
+        abstract: "Digital technology and agriculture are crucial for helping farmers and students understand insect interactions in rice fields and how to apply treatments effectively. An agent-based framework is appropriate for studying the population dynamics of insects interacting with rice crops, but it remains challenging to adapt for non-computer scientists in specific application contexts, such as various treatment scenarios, insect reproduction, insect resistance, and crop yields, which require integrating particular behaviors for agents. In this paper, we present a built-in model integrated into the GAMA open-source modeling and simulation platform, allowing modelers to easily define insect interactions within a detailed representation of rice fields, insect populations, and treatment decisions. In particular, it enables modeling the application of insecticide on paddy fields while understanding its effects. This agent-based model serves as a foundation for creating a comprehensive virtual reality (VR) game that presents scenarios involving pesticide application decisions, insect interactions, and their impact on crop yields.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "103-113",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S6.pdf"
+    },
+    {
+        title: "Prediction Based on Final Grades: A Comparative Study of Machine Learning Models",
+        highlight: "Student Performance",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Sokchovy Monirath, Dynil Duch",
+        abstract: "Student performance prediction is increasingly important in higher education as Learning Management Systems (LMSs) capture detailed academic and behavioral data. This paper provides a systematic comparative review of machine learning models for final grade prediction, primarily using benchmark datasets such as the Open University Learning Analytics Dataset (OULAD). Classical models like Logistic Regression, Decision Trees, and Support Vector Machines achieve 75–82% accuracy, ensemble methods such as Random Forest and XGBoost reach 85–91%, and deep learning approaches like Long Short-Term Memory (LSTM) and Convolutional Neural Networks (CNN) achieve up to 93%. Behavioral features, including submission timeliness, login frequency, and resource engagement, consistently emerge as key predictors. However, most studies focus on Western contexts and often overlook model interpretability and practical applicability in developing regions, rather than solely optimizing for accuracy. The main goal is to identify at-risk students to enable early interventions. This review synthesizes technical and contextual insights to inform effective deployment in Southeast Asian settings, with an emphasis on the Cambodia Academy of Digital Technology (CADT).",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "114-121",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S7.pdf"
+    },
+    {
+        title: "Pipeline for Semi-Structured Khmer Documents Using Layout Analysis and Text- Type Classification",
+        highlight: "An Efficient OCR",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Sopanha Lay, Vichet Kao, Seavchhing Kong, Mengchhuong Ang, Hongly Va",
+        abstract: "The digitization of documents presents a significant challenge, particularly for complex, low-resource scripts like Khmer. Standard Optical Character Recognition (OCR) systems often fail when faced with mixed-media content, hindered by the complexity and scarcity of Khmer training data. This paper introduces a modular, resource-efficient pipeline designed to address these limitations through a classification-first approach that identifies text type prior to recognition, enabling the application of specialized OCR engines accordingly. At the core of our framework is a lightweight text-type classifier based on the MobileNetV3 architecture, integrated within a pipeline that leverages pre-trained models for layout analysis. Trained on a custom Khmer dataset, our experiments establish a performance benchmark for this challenging task: the classifier achieves an accuracy of 74.6% on a held-out validation set. Crucially, its performance remains stable at 74.5% within the full end-to-end pipeline, indicating robustness to noise from automated segmentation. Our work validates the classification-first strategy as essential for mixed-media OCR and provides a realistic benchmark for this low-resource task.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "122-131",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S8.pdf"
+    },
+    {
+        title: "Allocations Based on Network Slicing in O-RAN Networks",
+        highlight: "Effective Resource",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Soriya Prum, Hongcheng Ngouch, Tha Khieng, Bondeth Hun, Sa Math, Tharoeun Thap",
+        abstract: "Recent research has increasingly focused on resource allocation strategies tailored for the effective use of resources to meet the diverse Quality of Service (QoS) requirements of 5G networks, particularly within the Open RAN (O-RAN) architecture. This paper presents an evaluation of the end-to-end QoS of millimeter-wave communications in 5G O-RAN networks by investigating key metrics, including throughput, latency, and signal-to-interference-plus-noise ratio (SINR). The results provide critical insights for the design and optimization of resource allocation in O-RAN networks. Accordingly, we propose an extensible application (xApp) that resides in the near-real-time RAN intelligent controller (near-RT RIC), addressing the allocation of resource blocks based on the QoS requirements of different services and varying traffic conditions on a near real-time scale.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "132-139",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S9.pdf"
+    },
+    {
+        title: "Benchmark from Health News Data Towards Event Extraction",
+        highlight: "Building a Khmer NER",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Cheaminh Chiep, Natt Korat, Vathna Lay, Rottana Ly",
+        abstract: "Khmer Named Entity Recognition (NER) is a sub-task in Khmer Natural Language Processing (NLP) that extracts information to locate and classify named entities in Khmer text into predefined categories, such as names of persons, organizations, and locations. As a low-resource language, Khmer lacks high-quality datasets for NER. This study addresses this gap, particularly in the public health domain, by introducing the Khmer Health Event Extraction Dataset (KHEED). KHEED comprises 525 annotated articles (5,980 sentences) from Khmer health news, covering eight entity types: Disease, Pathogen, Location, Human Count, Organization, Symptom, Medication, and Date. To evaluate the performance of Khmer NER on this dataset, five Khmer-compatible NLP models were tested, with XLM-RoBERTa Base achieving the best performance, reaching a moderate F1-score of 0.7646. The KHEED dataset will be publicly available and serve as a foundation and benchmark for future Event Extraction (EE) datasets.",
+        published: 'ASEAN Conference on Emerging Technology 2025',
+        date: "12 November 2025",
+        page: "140-149",
+        link: "https://www.idri.edu.kh/wp-content/uploads/2026/01/S10.pdf"
+    },
+];
+
+const pdfIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5L18.5 9H13V3.5zM8 13h8v1H8v-1zm0 3h8v1H8v-1z"/></svg>`;
+
+const accordion = document.getElementById('accordion');
+
+papers.forEach(paper => {
+    const card = document.createElement('div');
+    card.className = 'paper-card';
+    card.innerHTML = `
+        <div class="paper-card-header">
+            <h2><span>${paper.highlight}</span> ${paper.title}</h2>
+            <img class="paper-arrow" src="https://www.idri.edu.kh/wp-content/uploads/2025/12/→.png" alt="arrow">
+        </div>
+        <div class="paper-card-content">
+            <div class="paper-card-content-inner">
+                ${paper.author ? `<p class="paper-meta"><strong>Author:</strong> ${paper.author}</p>` : ''}
+                ${paper.publisher ? `<p class="paper-meta"><strong>Publisher:</strong> ${paper.publisher}</p>` : ''}
+                <div class="paper-abstract-title">Abstract:</div>
+                <p class="paper-abstract">${paper.abstract}</p>
+                <!-- ${paper.published ? `<p class="paper-meta"><strong>Published:</strong> ${paper.published}</p>` : ''} -->
+                ${(paper.date || paper.page) ? `
+                <div class="paper-meta-row">
+                    ${paper.date ? `<p class="paper-meta"><strong>Date of Publication:</strong> ${paper.date}</p>` : ''}
+                    ${paper.page ? `<p class="paper-meta"><strong>Page:</strong> ${paper.page}</p>` : ''}
+                </div>` : ''}
+                ${paper.link ? `<a href="${paper.link}" class="paper-read-more" target="_blank">${pdfIconSVG} Read More</a>` : ''}
+            </div>
+        </div>
+    `;
+    accordion.appendChild(card);
+});
+
+const firstCard = accordion.querySelector('.paper-card');
+if (firstCard) {
+    firstCard.classList.add('active');
+    const firstContent = firstCard.querySelector('.paper-card-content');
+    firstContent.style.maxHeight = firstContent.scrollHeight + "100%";
+    const firstArrow = firstCard.querySelector('.paper-arrow');
+    firstArrow.style.transform = "rotate(180deg)";
+}
+
+document.querySelectorAll('.paper-card-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const card = header.parentElement;
+        const content = card.querySelector('.paper-card-content');
+        const arrow = card.querySelector('.paper-arrow');
+
+        if (card.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + "100%";
+            requestAnimationFrame(() => { content.style.maxHeight = "0"; });
+            arrow.style.transform = "rotate(0deg)";
+            card.classList.remove('active');
+        } else {
+            content.style.maxHeight = content.scrollHeight + "100%";
+            arrow.style.transform = "rotate(180deg)";
+            card.classList.add('active');
+            content.addEventListener('transitionend', function removeMaxHeight() {
+                if (card.classList.contains('active')) {
+                    content.style.maxHeight = "none";
+                }
+                content.removeEventListener('transitionend', removeMaxHeight);
+            });
+        }
+    });
+});
+</script>
+</body>
+</html>

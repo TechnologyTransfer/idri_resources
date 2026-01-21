@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Event Schedule - Animated & Responsive</title>
+
+    <style>
+        /* Define a subtle fade-in animation */
+        @keyframes fadeIn {	
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .schedule-container {
+            margin: 0 auto;
+            padding: 0px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 25px;
+            color: #11284c;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab-button {
+            flex-grow: 1;
+            padding: 18px 0;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            transition: all 0.3s ease-in-out;
+            background-color: white;
+            color: #11284c;
+        }
+
+        .tab-button:not(:last-child) {
+            border-right: 1px solid #ddd;
+        }
+
+        .tab-button:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+
+        .tab-button .date {
+            font-size: 16px;
+            font-weight: normal;
+            opacity: 0.8;
+            color: #11284c;
+            transition: color 0.3s ease-in-out;
+            margin-top: 5px;
+        }
+
+        .tab-button.active {
+            background-image: linear-gradient(to bottom, #3CB4E5, #7CCCF1);
+            color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .tab-button.active .date {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .tab-button.active[data-tab="day1"] {
+            border-bottom-right-radius: 0;
+        }
+        .tab-button.active[data-tab="day2"] {
+            border-bottom-left-radius: 0;
+        }
+
+        .tab-button:first-child:not(.active) {
+            border-top-left-radius: 8px;
+        }
+        .tab-button:last-child:not(.active) {
+            border-top-right-radius: 8px;
+        }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+            background-color: white;
+            padding: 20px 0px;
+            border-radius: 8px;
+        }
+
+        .session-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 32px;
+            color: #3CB4E5;
+        }
+
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+            margin-top: -16px;
+            position: relative;
+        }
+
+        .schedule-list::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            bottom: -10px;
+            width: 1px;
+            background-color: #3CB4E5;
+            z-index: 0;
+        }
+
+        .schedule-list li {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 32px;
+            z-index: 1;
+        }
+
+        .schedule-list li::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            background-color: #3CB4E5;
+            border: 3px solid white;
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 2px #3CB4E5;
+        }
+
+        .schedule-list li#break::before {
+            background-color: red !important;
+            box-shadow: 0 0 0 2px red !important;
+        }
+
+        .schedule-list li#break::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 10px;
+            height: 100%;
+            width: 1px;
+            background-color: red !important;
+            z-index: 0;
+        }
+
+        .schedule-list#break li::before {
+            background-color: red !important;
+            box-shadow: 0 0 0 2px red !important;
+        }
+        .schedule-list#break::after {
+            background-color: red !important;
+        }
+
+        .time-slot {
+            font-weight: bold;
+            color: #3CB4E5;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .event-details {
+            font-size: 16px;
+            color: #11284c;
+        }
+
+        .event-details ul {
+            list-style: disc;
+            margin: 8px 0 0 24px;
+            padding: 0;
+            color: #11284c;
+        }
+
+        .event-details ul li {
+            padding-left: 0;
+            color: #11284c;
+        }
+
+        .event-details ul li::before {
+            content: none;
+        }
+
+        @media (max-width: 1024px) {
+            .schedule-container { padding: 0px 8px; }
+            h1 { font-size: 20px; margin-bottom: 20px; }
+            .tab-buttons { margin-bottom: 20px; }
+            .tab-button { padding: 16px; font-size: 18px; }
+            .tab-button .date { font-size: 14px; }
+            .tab-content.active { padding: 16px; }
+            .session-header { font-size: 18px; }
+            .schedule-list li { margin-bottom: 12px; margin-top: 12px; padding-left: 28px; }
+            .time-slot { font-size: 16px; }
+
+            .schedule-list li#break::before {
+                background-color: red !important;
+                box-shadow: 0 0 0 2px red !important;
+            }
+            .schedule-list li#break::after {
+                content: '';
+                position: absolute;
+                left: 4px;
+                top: 12px;
+                height: 100%;
+                width: 1px;
+                background-color: red !important;
+                z-index: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="schedule-container">
+
+    <div class="tab-buttons">
+        <button class="tab-button active" data-tab="day1">
+            Day 01
+            <span class="date">24<sup style="font-size: 10px;">th</sup> November, 2025</span>
+        </button>
+        <button class="tab-button" data-tab="day2">
+            Day 02
+            <span class="date">25<sup style="font-size: 10px;">th</sup> November, 2025</span>
+        </button>
+    </div>
+
+    <!-- DAY 1 -->
+    <div id="day1" class="tab-content active">
+
+        <p class="session-header">Opening Ceremony</p>
+        <div style="margin-bottom: -28px;"></div>
+
+        <div class="schedule-list">
+            <li>
+                <div style="margin-top: -16px;" class="time-slot">08:00 AM – 08:45 AM</div>
+                <div class="event-details">Registration & Networking</div>
+            </li>
+
+            <li>
+                <div class="time-slot">08:45 AM – 09:00 AM</div>
+                <div class="event-details">Arrival of Distinguish Guests</div>
+            </li>
+
+            <li>
+                <div class="time-slot">09:00 AM – 09:10 AM</div>
+                <div class="event-details">
+                    <strong>Inauguration Ceremony</strong>
+                    <ul>
+                        <li>Official Launching of the AI for Education Research Center</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="time-slot">09:10 AM – 10:30 AM (Opening Session)</div>
+                <div class="event-details">
+                    <ul>
+                        <li>National Anthem of the Kingdom of Cambodia</li>
+                        <li>Welcome Remarks by <strong>H.E Dr. Seng Sopheap</strong>, President of RCC</li>
+                        <li>Keynote Address: AI4Education: Global Trends and Opportunities by <strong>Prof. Wayne Holmes</strong>, Professor of Critical Studies of Artificial Intelligence and Education University College London and UNESCO Chair in the Ethics of Artificial Intelligence and Education</li>
+                        <li>Remarks by <strong>Ms. Esther Mcfarlane</strong>, Office-in-Charge, UNESCO Office in Phnom Penh</li>
+                        <li>Keynote Address by <strong>H.E Dr. Chea Vandeth</strong>, Minister of Post and Telecommunications</li>
+                        <li>Opening Remark by <strong>H.E Dr. Hang Chuon Naron</strong>, Deputy Prime Minister, Minister of Education, Youth, and Sport</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="time-slot">10:30 AM – 10:45 AM</div>
+                <div class="event-details">
+                    <strong style='margin-bottom: 20px;'>Award Ceremony: AI for Education Competition</strong>
+                    <ul>
+                        <li>Video Competition Journey (3 mins)</li>
+                        <li>Award by <strong>H.E Dr. Hang Chuon Naron</strong> and <strong>H.E Dr. Chea Vandeth</strong></li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Exhibition Tour (Coffee Break time unchanged as requested) -->
+            <li id="break">
+                <div class="time-slot" style="color:red;">10:45 AM – 11:00 AM</div>
+                <div class="event-details">
+                    <strong style="color:red;">Exhibition Tour & Coffee Break</strong>
+                    <ul>
+                        <li>Exhibition tour by <strong>H.E Dr. Hang Chuon Naron</strong>, <strong>H.E Dr. Chea Vandeth</strong>, and Distinguished Guests</li>
+                    </ul>
+                </div>
+            </li>
+        </div>
+
+        <!-- SESSION 1 -->
+        <div style="margin-top: 40px;"></div>
+        <p class="session-header">Session 1: Shaping the Future of Education in Cambodia</p>
+        <div style="margin-bottom: -28px;"></div>
+
+        <div class="schedule-list">
+            <li>
+                <div class="time-slot">11:00 AM – 12:15 PM</div>
+                <div class="event-details">
+
+                    <p>Keynote Address: Cambodia’s National AI Strategy by <strong>Mr. Taing Bunhong</strong>, Director of Policy and Legal Affairs of the General Secretariat of the Digital Government Committee</p>
+
+                    <p>Keynote Address: AI Landscape in Cambodia and its Potential for Education by <strong>Dr. Duch Dynil</strong>, Researcher, AI for Education</p>
+
+                    <p><strong>Panel discussion: Shaping the Future of Education in Cambodia</strong><br>
+                        Moderator: <strong>Mr. Chanty Pisal</strong>, Director of Digital & Innovation Policy Research, CADT
+                    </p>
+
+                    <p><strong>Panelists:</strong></p>
+                    <ul>
+                        <li><strong>H.E Dr. Sann Vathana</strong>, Secretary of State, MoEYS</li>
+                        <li><strong>Dr. Phinith Chanthalangsay</strong>, UNESCO Regional Advisor for the Social and Human Sciences, UNESCO Bangkok Office</li>
+                        <li><strong>H.E Dr. Chea Ratha</strong>, Director of Battambang Teacher Education College (BTEC)</li>
+                        <li><strong>Mr. Taing Bunhong</strong>, Director of Policy and Legal Affairs of the General Secretariat of the Digital Government Committee</li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Lunch Break -->
+            <li id="break">
+                <div class="time-slot" style="color:red;">12:15 PM – 13:45 PM</div>
+                <div class="event-details"><strong style="color:red;">Lunch Break</strong></div>
+            </li>
+        </div>
+
+        <!-- SESSION 2 -->
+        <div style="margin-top: 40px;"></div>
+        <p class="session-header">Session 2: Bridging the AI Divide: Core Pedagogical and Equity Challenges in the Cambodian Classroom</p>
+        <div style="margin-bottom: -28px;"></div>
+
+        <div class="schedule-list">
+            <li>
+                <div class="time-slot">13:45 PM – 15:15 PM</div>
+                <div class="event-details">
+                    <p>Keynote Address: Human-Centered AI for Cambodian Education: Pedagogy, Ethics, and Equity by <strong>Dr. Nicol F. C. Pan</strong>, Senior Consultant (Educational Technology and Digital Transformation), Strengthening Teacher Education Programmes in Cambodia (STEPCam), UNESCO Phnom Penh</p>
+
+                    <p>Presentation: Empowering Educators with AI-driven outcomes on AWS by <strong>Mr. Nikhil Anand</strong>, Senior Industry Solutions Architect EDU, Amazon Web Services (AWS)</p>
+
+                    <p><strong> Panel Discussion: Bridging the AI Divide: Core Pedagogical and Equity Challenges in the Cambodian Classroom</strong> <br>
+                        Moderator: <strong>Ms. Poum ChanSocheata</strong>, CEO & Co-Founder, SNOOPEDU Education
+                    </p>
+
+                    <p><strong>Panelists:</strong></p>
+                    <ul>
+                        <li><strong>Dr. Song Sopheak</strong>, Senior Research Fellow, CDRI</li>
+                        <li><strong>Dr. Nicol F. C. Pan</strong>, Senior Consultant (Educational Technology and Digital Transformation), Strengthening Teacher Education Programmes in Cambodia (STEPCam), UNESCO Phnom Penh</li>
+                        <li><strong>Mr. Sar Sophanak</strong>, Project Coordinator, KAPE</li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Coffee Break (time unchanged as requested) -->
+            <li id="break">
+                <div class="time-slot" style="color:red;">15:15 PM – 15:30 PM</div>
+                <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+            </li>
+        </div>
+
+        <!-- AI Showcase -->
+        <div style="margin-top: 40px;"></div>
+        <p class="session-header">AI Showcase</p>
+        <div style="margin-bottom: 40px;"></div>
+
+        <div class="schedule-list">
+            <li>
+                <div class="time-slot">15:30 PM – 16:30 PM</div>
+                <div class="event-details">
+                    <strong>AI Showcase</strong>
+                    <ul><li>AI Showcase of Exhibitor: AI Showcase (12 Exhibitors)</li></ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="time-slot">16:30 PM – 16:45 PM</div>
+                <div class="event-details">Recap of Day 1</div>
+            </li>
+        </div>
+
+    </div> <!-- END DAY 1 -->
+
+    <!-- DAY 2 -->
+    <div id="day2" class="tab-content">
+
+        <div class="schedule-list">
+            <li>
+                <div class="time-slot">08:00 AM – 09:00 AM</div>
+                <div class="event-details">Registration & Networking</div>
+            </li>
+        </div>
+
+        <div style="margin-bottom: 40px;"></div>
+        <p class="session-header">Session 3: AI Pedagogy in Action</p>
+        <div style="margin-bottom: -20px;"></div>
+
+        <div class="schedule-list">
+            <li>
+                <div class="time-slot">09:00 AM – 10:15 AM</div>
+                <div class="event-details">
+                    <p>Keynote Address: Developing Energy-Efficient, Sustainable, Purpose-Built AI Tools for Educators  
+                        by <strong>Prof. Lin, Angel Mei Yi</strong>, Chair Professor of Language, Literacy and Social Semiotics in Education, The Education University of Hong Kong</p>
+
+                    <p><strong>Panel Discussion: AI Pedagogy in Action</strong><br>
+                        Moderator: <strong>Ms. Heng Sovanmonynuth</strong>, Innovation Program Coordinator, CADT
+                    </p>
+
+                    <p><strong>Panelists:</strong></p>
+                    <ul>
+                        <li><strong>Prof. Lin, Angel Mei Yi</strong>, The Education University of Hong Kong</li>
+                        <li><strong>Dr. Tek Ming Ng</strong>, Dean of School of Digital Technologies and Associate Professor, AUPP</li>
+                        <li><strong>Ms. Heang Omouy</strong>, Founder of Tech for Kids Academy, ADITI and ADITI Academy</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li id="break">
+                <div class="time-slot" style="color:red;">10:15 AM – 10:30 AM</div>
+                <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+            </li>
+        </div>
+
+        <!-- SESSION 4 -->
+        <div style="margin-top: 40px;"></div>
+        <p class="session-header">Session 4: AI for Pedagogy: New Approaches to Teaching and Learning</p>
+
+        <div class="schedule-list">
+            <li>
+                <div class="time-slot">10:30 AM – 11:45 AM</div>
+                <div class="event-details">
+
+                    <p>Keynote Address: Rethinking Pedagogy: From Traditional Classrooms to AI-Enhanced Learning Environment  
+                        by <strong>Mr. Ronan Ogor</strong>, Senior Academic Expert on EdTech/ Pedagogy, CADT</p>
+
+                    <p><strong>Panel Discussion: AI for Pedagogy: New Approaches to Teaching and Learning</strong><br>
+                        Moderator: <strong>Mr. Peou Sopheak</strong>, Social Entrepreneur, Lecturer and Consultant
+                    </p>
+
+                    <p><strong>Panelists:</strong></p>
+                    <ul>
+                        <li><strong>Mr. Ronan Ogor</strong>, Senior Academic Expert on EdTech/Pedagogy, CADT.</li>
+                        <li><strong>Dr. Jordan Holbrook</strong>, Digital Innovation and Sustainable Economy Economist, Economic Research Institute for ASEAN and East Asia</li>
+                        <li><strong>Ms. Lay Sivhuang</strong>, Director, DICHI Academy</li>
+                        <li><strong>Winner Team (s)</strong>, AI for Education Competition</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li id="break">
+                <div class="time-slot" style="color:red;">11:45 AM – 13:30 PM</div>
+                <div class="event-details"><strong style="color:red;">Lunch Break</strong></div>
+            </li>
+        </div>
+
+        <!-- POSTER SESSION -->
+        <div style="margin-top: 40px;"></div>
+        <p class="session-header">Poster Presentation Session: Scientific Knowledge Sharing</p>
+
+        <div class="schedule-list">
+            <li>
+                <div class="time-slot">13:30 PM – 14:30 PM</div>
+                <div class="event-details">
+                    <ul>
+                        <li>Khmer PenPal: An AI-powered Khmer Writing Teaching Assistant by <strong>Dr. Valy Dona</strong>, Head of Mechatronics and Information Technology Unit, Institute of Technology of Cambodia</li>
+                        <li>Sor-Ser: Integrating NLP with Learning Analytics for Khmer Homophone Spelling Correction by <strong>Mr. Born Seanghort</strong>, PhD Candidate, Le Mans University</li>
+                        <li>AI for Special Education: Enhances Accessibility for Learners with Disabilities by <strong>Ms. Yann Kimhuoy</strong>, Lecturer & Researcher Assistant, CADT</li>
+                        <li>AI for Classroom Data: Engineering and Visualizing Teacher-Student Interaction by <strong>Dr. Liang Di</strong>, Associate Professor, School of Logistics Engineering, Nanning Normal University China        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li id="break">
+                <div class="time-slot" style="color:red;">14:30 PM – 14:45 PM</div>
+                <div class="event-details"><strong style="color:red;">Coffee Break</strong></div>
+            </li>
+        </div>
+
+        <!-- PARALLEL WORKSHOPS -->
+        <div style="margin-top: 40px;"></div>
+        <p class="session-header">Parallel Session: Knowledge Sharing and Hand-on Workshop</p>
+        <div style="margin-bottom: 40px;"></div>
+
+        <div class="schedule-list">
+
+            <!-- Workshop 1 -->
+            <li>
+                <div class="time-slot">14:45 PM – 15:15 PM</div>
+                <div class="event-details">
+
+                    <p style="color: #76bc21; margin-bottom: -8px;"><strong>Conference Hall (4th Floor)</strong></p>
+                    <ul>
+                        <li>Workshop 1: Scaffolds. Worked Examples. Differentiation: Designing AI-Enhanced Learning Pathways to Independent Problem Solving 
+                            by <strong>Mr. Ronan Ogor</strong>, Senior Academic Expert on EdTech/ Pedagogy, CADT</li>
+                    </ul>
+
+                    <p style="color: #76bc21; margin-top: 4px;"><strong>Jupiter (4th Floor)</strong></p>
+                    <ul>
+                        <li>Workshop 1: AI Tools for Writing in Academia  
+                            by <strong>Ms. Te Sonita</strong>, PhD Candidate, Le Mans University</li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Workshop 2 -->
+            <li>
+                <div class="time-slot">15:15 PM – 15:45 PM</div>
+                <div class="event-details">
+
+                    <p style="color: #76bc21; margin-bottom: -8px;"><strong>Conference Hall (4th Floor)</strong></p>
+                    <ul>
+                        <li>Workshop 2: Prompt Engineering: Master Effective Prompting for Research, Synthesis, and Creative Assignments  
+                            by <strong>Dr. Ly Rottana</strong>, Director of Research and Development, CADT</li>
+                    </ul>
+
+                    <p style="color: #76bc21; margin-top: 4px;"><strong>Jupiter (4th Floor)</strong></p>
+                    <ul>
+                        <li>Workshop 2: Prompt Engineering: Master Effective Prompting for Students  
+                            by <strong>Mr. Born Seanghort</strong>, PhD Candidate, Le Mans University</li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Workshop 3 -->
+            <li>
+                <div class="time-slot">15:45 PM – 16:15 PM</div>
+                <div class="event-details">
+                    <p style="color: #76bc21; margin-bottom: -8px;"><strong>Conference Hall (4th Floor)</strong></p>
+                    <ul>
+                        <li>Workshop 3: Notebook LM for Research  
+                            by <strong>Dr. Va Hongly</strong>, Senior Lecturer and Researcher, CADT</li>
+                    </ul>
+
+                    <p style="color: #76bc21; margin-top: 4px;"><strong>Jupiter (4th Floor)</strong></p>
+                    <ul>
+                        <li>Workshop 3: Notebook LM for Students  
+                            by <strong>Dr. Chuor Porchourng</strong>, Senior Lecturer and Researcher, CADT</li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Closing -->
+            <li id="break">
+                <div class="time-slot" style="color:red;">16:15 PM – 16:30 PM</div>
+                <div class="event-details"><strong style="color:red;">Wrap-up and Closing Session</strong></div>
+            </li>
+
+        </div>
+    </div> <!-- END DAY 2 -->
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        function switchTab(tabId) {
+            tabButtons.forEach(button => button.classList.remove('active'));
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                content.style.opacity = '0';
+                content.style.display = 'none';
+            });
+
+            const selectedButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+            if (selectedButton) selectedButton.classList.add('active');
+
+            const selectedContent = document.getElementById(tabId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+                setTimeout(() => {
+                    selectedContent.classList.add('active');
+                }, 10);
+            }
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+
+        const initialTab = document.querySelector('.tab-button.active');
+        if (initialTab) {
+            switchTab(initialTab.getAttribute('data-tab'));
+        } else {
+            switchTab('day1');
+        }
+    });
+</script>
+
+</body>
+</html>

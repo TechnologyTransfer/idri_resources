@@ -1,0 +1,237 @@
+<style>
+  /* --- 1. ORIGINAL CARD CSS --- */
+  .speaker-card {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .speaker-card img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+  }
+
+  .speaker-card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 64%;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(22, 40, 64, 0.6) 60%,
+      #3cb4e5 100%
+    );
+    z-index: 1;
+  }
+
+  .text-content {
+    position: absolute;
+    bottom: 16px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+    color: white;
+  }
+
+  .text-content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .text-content p {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: -4px;
+  }
+
+  /* --- 2. POPOVER CSS WITH FADE ANIMATION --- */
+  #speakerPopover {
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    width: 95%;
+    max-width: 900px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: #333;
+
+    /* Animation */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  #speakerPopover.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  #speakerPopover::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .popover-container {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .popover-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    color: #a0a0a0;
+  }
+
+  .popover-header {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+  }
+
+  .popover-img-wrapper {
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-right: 20px;
+  }
+
+  .popover-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .popover-info h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #162840;
+    margin: 0;
+  }
+
+  .popover-info p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  .popover-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  .popover-body h4 {
+    color: #3cb4e5;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+</style>
+
+<body>
+  <!-- --- Speaker Card --- -->
+  <div>
+    <div id="speakerProfileCard" class="speaker-card">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Rectangle-23.jpg"
+        loading="lazy"
+      />
+      <div class="speaker-card-overlay"></div>
+      <div class="text-content">
+        <h2>H.E. Dr. Hangchuon Naron</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- Popover Dialog --- -->
+  <dialog id="speakerPopover">
+    <div class="popover-container">
+      <button id="closePopover" class="popover-close-btn" aria-label="Close">
+        &times;
+      </button>
+
+      <div class="popover-header">
+        <div class="popover-img-wrapper">
+          <img
+            src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Rectangle-23.jpg"
+          />
+        </div>
+        <div class="popover-info">
+          <h3>H.E. Dr. Hangchuon Naron</h3>
+          <p>
+            Deputy Prime Minister, Minister of MoEYS
+          </p>
+        </div>
+      </div>
+
+      <div class="popover-body">
+        <p>
+          H.E. Dr. Seng Sopheap is the President of the Cambodia Academy of Digital Technology (CADT). He plays a pivotal role in leading national efforts to advance digital skills, innovation, and technological development in Cambodia.
+        </p>
+        <p>
+          His work focuses on driving digital transformation across various sectors, promoting research in emerging technologies, and fostering a strong ecosystem for digital talents and startups. He is a key advocate for digital governance and policy development in the region.
+        </p>
+      </div>
+    </div>
+  </dialog>
+</body>
+
+<script>
+  const speakerCard = document.getElementById('speakerProfileCard');
+  const popover = document.getElementById('speakerPopover');
+  const closeButton = document.getElementById('closePopover');
+
+  function openPopover() {
+    popover.showModal();
+    document.body.style.overflow = 'hidden';
+    // Small timeout to allow transition
+    setTimeout(() => popover.classList.add('show'), 10);
+  }
+
+  function closePopover() {
+    popover.classList.remove('show');
+    // Wait for animation to finish before closing
+    setTimeout(() => {
+      popover.close();
+      document.body.style.overflow = '';
+    }, 250); // match transition duration
+  }
+
+  // Open Popover
+  if (speakerCard && popover) {
+    speakerCard.addEventListener('click', openPopover);
+  }
+
+  // Close Popover
+  if (closeButton && popover) {
+    closeButton.addEventListener('click', closePopover);
+  }
+
+  // Click outside to close
+  popover.addEventListener('click', (e) => {
+    if (e.target === popover) {
+      closePopover();
+    }
+  });
+</script>
