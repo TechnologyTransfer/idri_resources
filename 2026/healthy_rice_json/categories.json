@@ -1,0 +1,67 @@
+{
+  "categories": [
+    {
+      "id": "pests",
+      "label": "Pests",
+      "filters": ["Sucking", "Biting", "Boring", "Leaf-eating"],
+      "items": [
+        {
+          "id": 101,
+          "name": "Brown Planthopper",
+          "scientific": "Nilaparvata lugens",
+          "type": "Sucking",
+          "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1615811361523-6bd03d7748e7%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400"
+        },
+        {
+          "id": 102,
+          "name": "Stem Borer",
+          "scientific": "Scirpophaga incertulas",
+          "type": "Boring",
+          "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1565193998836-39832267676e%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400"
+        }
+      ]
+    },
+    {
+      "id": "beneficial",
+      "label": "Beneficial Insects",
+      "filters": ["Predators", "Parasitoids", "Pollinators"],
+      "items": [
+        {
+          "id": 201,
+          "name": "Ladybug",
+          "scientific": "Coccinellidae",
+          "type": "Predators",
+          "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1551010173-047f64871d87%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400"
+        }
+      ]
+    },
+    {
+      "id": "diseases",
+      "label": "Diseases",
+      "filters": ["Leaf", "Stem", "Root", "Grain"],
+      "items": [
+        {
+          "id": 1,
+          "name": "Rice Blast",
+          "scientific": "Magnaporthe oryzae",
+          "type": "Leaf",
+          "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1599403399061-00122146813b%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400"
+        },
+        {
+          "id": 2,
+          "name": "Sheath Blight",
+          "scientific": "Rhizoctonia solani",
+          "type": "Stem",
+          "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1589923188900-85dae523342b%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400"
+        },
+        {
+          "id": 3,
+          "name": "Bacterial Blight",
+          "scientific": "Xanthomonas oryzae",
+          "type": "Leaf",
+          "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1530836361253-efad5cb2fcc2%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400"
+        }
+      ]
+    }
+  ]
+}

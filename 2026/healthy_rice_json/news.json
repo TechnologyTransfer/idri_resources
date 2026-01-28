@@ -1,0 +1,54 @@
+{
+  "news_feed": [
+    {
+      "id": 1,
+      "title": "Safe Pesticide Application in Rice Farming",
+      "tag": "GUIDE",
+      "date": "2023-10-01",
+      "color": "bg-blue-100 text-blue-600",
+      "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1628352081506-83c43123ed6d%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400",
+      "content": "<p>When applying pesticides, safety should be your top priority. Always wear protective gear including masks, gloves, and boots.</p><img src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=400' alt='Protective gear' /><p>Timing is also crucial. The best time to spray is usually early morning or late afternoon when wind speeds are low to prevent drift to other crops.</p><img src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=400' alt='Rice field spraying' />",
+      "saved": false
+    },
+    {
+      "id": 2,
+      "title": "Understanding Chemical Resistance in Local Pests",
+      "tag": "TECH",
+      "date": "2023-09-28",
+      "color": "bg-orange-100 text-orange-600",
+      "img": "https://www.google.com/search?q=https://images.unsplash.com/photo-1592982537447-7440770cbfc9%3Fauto%3Dformat%26fit%3Dcrop%26q%3D80%26w%3D400",
+      "content": "<p>Over-reliance on a single chemical group can lead to pests developing resistance. This means the pesticide no longer works effectively against them.</p><img src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=400' alt='Pest on rice' /><p>Rotate chemicals and monitor pest populations regularly.</p><img src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=400' alt='Monitoring tools' />",
+      "saved": false
+    },
+    {
+      "id": 3,
+      "title": "Sustainable Rice Farming Practices",
+      "tag": "GUIDE",
+      "date": "2023-09-25",
+      "color": "bg-green-100 text-green-600",
+      "img": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&q=80&w=400",
+      "content": "<p>Sustainable farming reduces environmental impact. Use organic fertilizers and integrated pest management.</p><img src='https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=400' alt='Organic fertilizer' /><p>This approach helps maintain soil health and biodiversity.</p><img src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=400' alt='Biodiverse field' />",
+      "saved": false
+    },
+    {
+      "id": 4,
+      "title": "Latest Innovations in Rice Pest Control",
+      "tag": "TECH",
+      "date": "2023-09-20",
+      "color": "bg-purple-100 text-purple-600",
+      "img": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=400",
+      "content": "<p>New biotech solutions offer targeted pest control without broad chemical use.</p><img src='https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80&w=400' alt='Biotech lab' /><p>These innovations include genetically modified varieties resistant to pests.</p><img src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=400' alt='GM rice' />",
+      "saved": false
+    },
+    {
+      "id": 5,
+      "title": "Weather Impacts on Rice Cultivation",
+      "tag": "GUIDE",
+      "date": "2023-09-15",
+      "color": "bg-yellow-100 text-yellow-600",
+      "img": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=400",
+      "content": "<p>Climate change affects rice yields. Monitor weather patterns and adapt irrigation.</p><img src='https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=400' alt='Weather monitoring' /><p>Use drought-resistant varieties for better resilience.</p><img src='https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&q=80&w=400' alt='Drought-resistant rice' />",
+      "saved": false
+    }
+  ]
+}

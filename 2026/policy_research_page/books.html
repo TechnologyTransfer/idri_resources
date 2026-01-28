@@ -1,0 +1,196 @@
+<style>
+    /* GRID */
+    .all-policy-books-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* CARD */
+    .all-policy-books-card {
+      background: #fff;
+      border: 1px solid #1A14144D;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .all-policy-books-card:hover {
+      transform: translateY(-6px);
+      border-color: #FF4438;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    /* IMAGE */
+    .all-policy-books-image-wrapper {
+      width: 100%;
+      height: 260px;              
+      background: #f6f7fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .all-policy-books-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;   
+    }
+
+    /* CONTENT */
+    .all-policy-books-content {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .all-policy-books-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .all-policy-books-title {
+      color: #11284C;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .all-policy-books-desc {
+      color: #9195a2;
+      font-size: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .all-policy-books-date {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #11284C;
+    }
+  
+    .all-policy-books-date-label {
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    /* ANIMATION */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .all-policy-books-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .all-policy-books-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+</style>
+
+<body>
+
+  <div class="all-policy-books-grid" id="eventGrid"></div>
+
+  <script>
+    const events = [
+      {
+        title: "Key Findings and Recommendations of Assessing Internet Development In Cambodia",
+        description: "A strategic evaluation based on UNESCO’s ROAM-X indicators, examining the internet through the lens of human Rights, Openness, Accessibility, and Multi-stakeholder participation to guide evidence-based policy improvements.",
+        date: "2025",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/book-02.webp",
+        url: "https://cadt.edu.kh/key-findings-and-recommendations-of-assessing-internet-development-in-cambodia/"
+      },
+      {
+        title: "ASEAN Conference on Emerging Technologies 2025",
+        description: "This volume contains research from keynote speakers and authors from Cambodia, France, Japan, and China, concentrating on key areas such as NLP, AI, Data Science, and IoT & Networking.",
+        date: "2025",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/book-01.webp",
+        url: "https://www.idri.edu.kh/events/acet/publication-articles/"
+      },
+      {
+        title: "Cambodia Artificial Intelligence Readiness Assessment",
+        description: "A comprehensive evaluation of Cambodia’s AI landscape using UNESCO’s RAM framework, focusing on policy, ethics, and infrastructure to guide the responsible adoption of AI technology.",
+        date: "2025",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/book-08-08.webp",
+        url: "https://cadt.edu.kh/cambodia-artificial-intelligence-readiness-assessment-report/"
+      },
+      {
+        title: "Digital Skill Development Roadmap 2024–2035 ",
+        description: "The official strategic blueprint for transforming Cambodia’s workforce, outlining long-term goals to enhance digital literacy and high-level tech expertise over the next decade.",
+        date: "2024",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/book-05.webp",
+        url: "https://cadt.edu.kh/digital-skill-development-roadmap-2024-2035d/"
+      },
+      {
+        title: "ASEAN Conference on Emerging Technologies 2024",
+        description: "This volume contains research from keynote speakers and authors from Cambodia, Thailand, France, Japan, and China, concentrating on key areas such as NLP, AI, Data Science, and IoT & Networking.",
+        date: "2024",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/book-03.webp",
+        url: "https://www.idri.edu.kh/wp-content/uploads/2025/04/ACET_2024_Publication.pdf"
+      },
+      {
+        title: "Digital Insights: Future of Education",
+        description: "An analysis of how digital transformation is reshaping Cambodian classrooms, focusing on innovative teaching methods and the integration of technology in the education sector.",
+        date: "2023",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/book-06.webp",
+        url: "https://cadt.edu.kh/demand-for-and-supply-of-digital-skills-in-cambodia-2021-2/"
+      },
+      {
+        title: "Cambodian Cyber Security Capability Assessment",
+        description: "A technical review of the nation’s cybersecurity maturity, identifying critical strengths and gaps to help build a more resilient and secure digital infrastructure.",
+        date: "2022",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/Cambodian-Cyber-Security-Capability-Assessment-08.webp",
+        url: "https://cadt.edu.kh/digital-skill-development-roadmap-2024-2035d-2/"
+      },
+      {
+        title: "Demand for and Supply of Digital Skills in Cambodia",
+        description: "An evidence-based study identifying the gap between industry needs and current workforce capabilities, offering insights into the most sought-after digital skills in the local market.",
+        date: "2021",
+        image: "https://www.idri.edu.kh/wp-content/uploads/2026/01/book-04.webp",
+        url: "https://cadt.edu.kh/demand-for-and-supply-of-digital-skills-in-cambodia-2021/"
+      },
+    ];
+
+    const grid = document.getElementById("eventGrid");
+
+    events.forEach(e => {
+      const card = document.createElement("div");
+      card.className = "all-policy-books-card";
+      card.innerHTML = `
+        <div class="all-policy-books-image-wrapper">
+            <img src="${e.image}" class="all-policy-books-image">
+        </div>
+        <div class="all-policy-books-content">
+          <div class="all-policy-books-text-group">
+            <h3 class="all-policy-books-title">${e.title}</h3>
+            <p class="all-policy-books-desc">${e.description}</p>
+          </div>
+          <div class="all-policy-books-date">
+            <span class="all-policy-books-date-label">Published Date:</span> ${e.date}
+          </div>
+        </div>
+      `;
+      card.onclick = () => window.open(e.url, "_blank");
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
