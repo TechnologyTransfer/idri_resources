@@ -1,0 +1,119 @@
+<style>
+:root {
+  --green: #76BC21;
+  --navy: #12284C;
+}
+
+/* Header */
+.rfs-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  z-index: 999;
+  transition: box-shadow 0.3s ease;
+}
+
+.rfs-header.scrolled {
+  box-shadow: 0px 4px 48px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Container */
+.rfs-header__container {
+  max-width: 1440px;
+  margin: auto;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.rfs-header__logo img {
+  height: 48px;
+}
+
+/* Nav */
+.rfs-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.rfs-header__nav a {
+  text-decoration: none;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+.rfs-header__nav a:hover {
+  color: var(--green);
+}
+
+.rfs-header__nav a.active {
+  color: var(--green);
+}
+
+/* Button */
+.btn-ticket {
+  background: var(--green);
+  color: white !important;
+  padding: 10px 18px;
+  border-radius: 4px;
+}
+
+.btn-ticket:hover {
+  opacity: 0.9;
+}
+
+/* ================== */
+/* Responsive */
+/* ================== */
+
+@media (max-width: 1024px) {
+  .rfs-header__container {
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rfs-header__nav {
+    display: none; /* You can replace with hamburger menu */
+  }
+}
+</style>
+
+<header class="rfs-header" id="rfsHeader">
+  <div class="rfs-header__container">
+    
+    <!-- Logo -->
+    <div class="rfs-header__logo">
+      <img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Run-for-Smile-Logo-Small.png" alt="Run For Smile">
+    </div>
+
+    <!-- Navigation -->
+    <nav class="rfs-header__nav">
+      <a href="#" class="active">Home</a>
+      <a href="#">Map</a>
+      <a href="#">Bags of Smile</a>
+      <a href="#">Partners</a>
+      <a href="#">Sponsors</a>
+      <a href="#" class="btn-ticket">Get Ticket Now</a>
+    </nav>
+
+  </div>
+</header>
+
+<script>
+const header = document.getElementById("rfsHeader");
+
+window.addEventListener("scroll", function() {
+  if (window.scrollY > 10) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+});
+</script>

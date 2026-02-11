@@ -1,0 +1,93 @@
+<style>
+.sponsor-slider {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.sponsor-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+.sponsor-group {
+    display: flex;
+    align-items: center;
+}
+
+.sponsor-group img {
+    height: 72px;
+    margin: 0 20px;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.sponsor-group img:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 1024px) {
+    .sponsor-group img {
+        height: 52px;
+    }
+}
+</style>
+
+<div class="sponsor-slider">
+    <div class="sponsor-track">
+        <div class="sponsor-group" id="sponsorGroup">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/Exhibitor-Logo_IDRI.webp">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/Exhibitor-Logo_ADITI-Academy.webp">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/Exhibitor-Logo_Bamnang.webp">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/Exhibitor-Logo_CDRI.webp">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/Exhibitor-Logo_Data-U-Academy-1.webp">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/Exhibitor-Logo_NIE.webp">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/Exhibitor-Logo_Sala.Co_.webp">
+            <img src="https://www.idri.edu.kh/wp-content/uploads/2025/11/488206257_1077724794393978_4021130165503537085_n.jpg">
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const track = document.querySelector(".sponsor-track");
+    const group = document.getElementById("sponsorGroup");
+
+    // Clone the group dynamically
+    const clone = group.cloneNode(true);
+    track.appendChild(clone);
+
+    function startAnimation() {
+        const groupWidth = group.offsetWidth;
+
+        // Create dynamic keyframes
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes scrollDynamic {
+                from { transform: translateX(0); }
+                to { transform: translateX(-${groupWidth}px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Speed control
+        const speed = groupWidth / 100; 
+        track.style.animation = `scrollDynamic ${speed}s linear infinite`;
+    }
+
+    // Wait until images fully load
+    const images = group.querySelectorAll("img");
+    let loaded = 0;
+
+    images.forEach(img => {
+        img.onload = () => {
+            loaded++;
+            if (loaded === images.length) {
+                startAnimation();
+            }
+        };
+    });
+});
+</script>

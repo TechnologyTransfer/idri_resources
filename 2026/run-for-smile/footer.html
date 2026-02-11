@@ -1,0 +1,206 @@
+<style>
+:root {
+  --green: #76BC21;
+  --navy: #12284C;
+  --bg: #F3F4F6;
+}
+
+/* ============================= */
+/* Footer */
+/* ============================= */
+
+.rfs-footer {
+  background: var(--bg);
+  padding: 40px 0;
+}
+
+/* Container */
+.rfs-footer__container {
+  max-width: 1440px;
+  margin: auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Logo */
+.rfs-footer__logo {
+  height: 72px;
+  margin-bottom: 18px;
+  display: block;
+}
+
+/* Text */
+.rfs-footer__text {
+  color: var(--navy);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Titles */
+.rfs-footer__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 18px 0;
+}
+
+/* ============================= */
+/* WORDPRESS RESET */
+/* ============================= */
+
+.rfs-footer ul,
+.rfs-footer ol {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.rfs-footer li {
+  list-style: none !important;
+  margin: 0 0 12px 0 !important;
+  padding: 0 !important;
+  background: none !important;
+}
+
+.rfs-footer li::marker {
+  content: "" !important;
+}
+
+.rfs-footer li::before,
+.rfs-footer li::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* ============================= */
+/* Links */
+/* ============================= */
+
+.rfs-footer a,
+.rfs-footer a:visited,
+.rfs-footer a:hover,
+.rfs-footer a:focus,
+.rfs-footer a:active {
+  text-decoration: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Default */
+.rfs-footer a {
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+/* Hover = green only (no underline) */
+.rfs-footer a:hover {
+  color: var(--green);
+}
+
+/* Active page */
+.rfs-footer a.is-active {
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ============================= */
+/* Responsive */
+/* ============================= */
+
+@media (max-width: 1024px) {
+  .rfs-footer__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .rfs-footer__brand {
+    grid-column: span 2;
+  }
+
+  .rfs-footer__logo {
+    height: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rfs-footer__container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 0 24px;
+  }
+
+  .rfs-footer__logo {
+    height: 55px;
+  }
+
+  .rfs-footer {
+    padding: 50px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .rfs-footer {
+    padding: 40px 0;
+  }
+
+  .rfs-footer__logo {
+    height: 48px;
+  }
+
+  .rfs-footer__text {
+    font-size: 13px;
+  }
+
+  .rfs-footer__title {
+    font-size: 14px;
+  }
+
+  .rfs-footer a {
+    font-size: 13px;
+  }
+}
+</style>
+
+<footer class="rfs-footer">
+  <div class="rfs-footer__container">
+
+    <div class="rfs-footer__col rfs-footer__brand">
+      <img 
+        src="http://cadt.edu.kh/wp-content/uploads/2026/02/Run-for-Smile-Logo-Medium.png" 
+        alt="Run For Smile Logo"
+        class="rfs-footer__logo"
+      />
+      <p class="rfs-footer__text">
+        Running for a cause, racing for a goal.<br>
+        Join us to complete our mission of<br>
+        5,000 Bags of Smile.
+      </p>
+    </div>
+
+    <div class="rfs-footer__col">
+      <h4 class="rfs-footer__title">Quick Links</h4>
+      <ul>
+        <li><a href="#" class="is-active">Home</a></li>
+        <li><a href="#">Route Map</a></li>
+        <li><a href="#">Bags of Smile</a></li>
+        <li><a href="#">Get Ticket</a></li>
+      </ul>
+    </div>
+
+    <div class="rfs-footer__col">
+      <h4 class="rfs-footer__title">Contact</h4>
+      <ul>
+        <li><a href="tel:+855000000">Phone</a></li>
+        <li><a href="mailto:hello@email.com">Email</a></li>
+        <li><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>
