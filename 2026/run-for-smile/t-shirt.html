@@ -1,0 +1,147 @@
+<style>
+:root{
+  --green:#76BC21;
+  --navy:#12284C;
+}
+
+/* =========================
+  T-Shirt Section (Divi-safe)
+========================= */
+.rfs-tshirt{
+  position: relative;
+  overflow: visible !important; /* important for Divi wrappers */
+  padding: 60px 0;              /* ensure proper spacing on desktop too */
+}
+
+/* Divi sometimes wraps code modules with overflow hidden */
+.rfs-tshirt,
+.rfs-tshirt *{
+  box-sizing: border-box;
+}
+
+/* Make sure Divi doesn't clip absolute children */
+.rfs-tshirt .et_pb_code_inner,
+.rfs-tshirt .et_pb_module,
+.rfs-tshirt .et_pb_row,
+.rfs-tshirt .et_pb_section{
+  overflow: visible !important;
+}
+
+.rfs-tshirt__container{
+  width: 100%;
+  max-width: 1400px;     /* align with your site system */
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* Title */
+.rfs-tshirt__title{
+  margin: 0 0 8px 0;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--navy);
+}
+.rfs-tshirt__title .accent{ color: var(--green); }
+
+/* Subtitle */
+.rfs-tshirt__subtitle{
+  margin: 0 auto 18px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--navy);
+  opacity: .9;
+}
+
+/* Stage (layering area) */
+.rfs-tshirt__stage{
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  height: clamp(360px, 52vw, 650px); 
+}
+
+/* Runner watermark (background image) */
+.rfs-tshirt__runner{
+  position: absolute;
+  left: 50%;
+  bottom: -70px;                 
+  transform: translateX(-50%);
+  width: min(980px, 115vw);      
+  max-width: none;               
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Shirt image on top */
+.rfs-tshirt__shirt{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 780px;                  
+  max-width: 92vw;              
+  height: auto;
+  z-index: 2;
+  display: block;
+}
+
+/* =========================
+  Responsive
+========================= */
+@media (max-width:1024px){
+  .rfs-tshirt{ padding: 56px 0; }
+  .rfs-tshirt__title{ font-size: 36px; }
+  .rfs-tshirt__shirt{ width: 640px; }
+  .rfs-tshirt__runner{ width: min(820px, 120vw); }
+}
+
+@media (max-width:768px){
+  .rfs-tshirt{ padding: 50px 0; }
+  .rfs-tshirt__title{ font-size: 30px; }
+  .rfs-tshirt__subtitle{ font-size: 14px; }
+  .rfs-tshirt__shirt{ width: 520px; }
+  .rfs-tshirt__runner{ width: min(700px, 130vw); }
+  .rfs-tshirt__stage{ height: clamp(320px, 70vw, 520px); }
+}
+
+@media (max-width:480px){
+  .rfs-tshirt{ padding: 44px 0; }
+  .rfs-tshirt__title{ font-size: 26px; }
+  .rfs-tshirt__shirt{ width: 420px; }
+  .rfs-tshirt__runner{ width: min(600px, 150vw); }
+  .rfs-tshirt__stage{ height: 360px; }
+}
+</style>
+
+<section class="rfs-tshirt" id="t-shirt">
+  <div class="rfs-tshirt__container">
+
+    <h2 class="rfs-tshirt__title">
+      Run For Smile,<br>
+      Exclusive <span class="accent">T-Shirt</span>
+    </h2>
+
+    <p class="rfs-tshirt__subtitle">
+      Every registered runner receives an exclusive Run for Smile T-shirt.
+    </p>
+
+    <div class="rfs-tshirt__stage">
+      <img
+        class="rfs-tshirt__runner"
+        src="http://cadt.edu.kh/wp-content/uploads/2026/02/Run-for-Smile-Icon.png"
+        alt=""
+        aria-hidden="true"
+      >
+
+      <img
+        class="rfs-tshirt__shirt"
+        src="http://cadt.edu.kh/wp-content/uploads/2026/02/T-Shirt.png"
+        alt="Run For Smile Exclusive T-shirt"
+      >
+    </div>
+
+  </div>
+</section>

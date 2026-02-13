@@ -1,0 +1,226 @@
+<style>
+:root{
+  --green:#76BC21;
+  --navy:#12284C;
+}
+
+/* =============================
+   Hero / Mission Section
+============================= */
+.rfs-mission{
+  position: relative;
+  overflow: hidden;
+  padding: 60px 0;
+}
+
+/* =============================
+   Container (GLOBAL GRID)
+============================= */
+.rfs-mission__container{
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* =============================
+   Runner Icon (decorative)
+============================= */
+.rfs-mission__runner-float{
+  position: absolute;
+  left: 0;
+  bottom:-20px;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-16%, 2%);
+}
+
+.rfs-mission__runner-float img{
+  width: 500px;
+  height: auto;
+  display: block;
+  opacity:.95;
+}
+
+/* =============================
+   Typography
+============================= */
+.rfs-mission__title{
+  margin: 0 0 12px 0;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--navy);
+}
+
+.rfs-mission__title .accent{ color:var(--green); }
+
+.rfs-mission__desc{
+  margin: 0 0 22px 0;
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--navy);
+}
+
+/* =============================
+   Button
+============================= */
+.rfs-mission__btn{
+  display: inline-block;
+  background: var(--green);
+  color:#fff !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 12px 18px;
+  border-radius: 6px;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.rfs-mission__btn:hover{
+  opacity:.92;
+  transform: translateY(-1px);
+}
+
+.rfs-gallery{
+  overflow: hidden;
+  position: relative;
+  border-radius: 16px;
+
+  /* Smooth edge fade like your reference slider */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.rfs-gallery__track{
+  display: flex;
+  width: max-content;
+  animation: rfsScroll 20s linear infinite;
+  will-change: transform;
+  transform: translate3d(0,0,0);
+}
+
+.rfs-gallery__group{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+.rfs-gallery__item{
+  flex: 0 0 auto;
+  width: 360px;
+  height: 360px;
+  aspect-ratio: 16/9;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.rfs-gallery__item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Infinite scroll */
+@keyframes rfsScroll{
+  0%   { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(-33.333333%,0,0); }
+}
+
+/* =============================
+   Responsive
+============================= */
+@media (max-width:1024px){
+  .rfs-mission__container{
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .rfs-mission__title{ font-size: 36px; }
+  .rfs-gallery__item{ width: 260px; }
+}
+
+@media (max-width:768px){
+  .rfs-mission{ padding: 50px 0; }
+  .rfs-mission__title{ font-size: 30px; }
+  .rfs-mission__desc{ font-size: 16px; }
+  .rfs-gallery__item{ width: 220px; }
+}
+
+@media (max-width:480px){
+  .rfs-mission__title{ font-size: 26px; }
+  .rfs-gallery__item{ width: 180px; }
+}
+</style>
+
+<section class="rfs-mission" id="mission">
+
+  <!-- Decorative Runner -->
+  <div class="rfs-mission__runner-float" aria-hidden="true">
+    <img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Run-for-Smile-Icon.png" alt="">
+  </div>
+
+  <div class="rfs-mission__container">
+
+    <!-- Left Content -->
+    <div>
+      <h2 class="rfs-mission__title">
+        Every Step Brings Us<br>
+        Closer to 5,000 Bags of<br>
+        <span class="accent">Smile</span>
+      </h2>
+
+      <p class="rfs-mission__desc">
+        Join us for a marathon with a mission. Every ticket purchased goes directly toward providing essential supplies for children in need.
+        Whether you run 5km or 10km, your energy translates into tangible help because no gesture of kindness is ever too small.
+        Together, we’re racing toward a brighter future for those who need it most.
+      </p>
+
+      <a class="rfs-mission__btn" href="#get-ticket">Get Ticket Now</a>
+    </div>
+
+    <!-- Right Moving Gallery (UPDATED STRUCTURE = 3 groups like your smooth slider) -->
+    <div class="rfs-gallery" aria-label="Event photos">
+      <div class="rfs-gallery__track">
+
+        <div class="rfs-gallery__group">
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9256.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9270.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9271.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9272.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9273.png" alt=""></div>
+        </div>
+
+        <div class="rfs-gallery__group" aria-hidden="true">
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9256.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9270.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9271.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9272.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9273.png" alt=""></div>
+        </div>
+
+        <div class="rfs-gallery__group" aria-hidden="true">
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9256.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9270.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9271.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9272.png" alt=""></div>
+          <div class="rfs-gallery__item"><img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Rectangle-9273.png" alt=""></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

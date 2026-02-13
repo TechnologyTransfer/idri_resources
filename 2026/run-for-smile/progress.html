@@ -58,7 +58,7 @@
 .bos-title{
   margin:0 0 10px 0;
   font-size:44px;
-  font-weight:800;
+  font-weight: 600;
   line-height:1.1;
   letter-spacing:.2px;
 }
@@ -106,7 +106,7 @@
 .bos-count,
 .bos-percent{
   font-size:34px;
-  font-weight:800;
+  font-weight: 600;
   line-height:1;
 }
 
@@ -131,15 +131,16 @@
 
 /* Button */
 .bos-btn{
-  display:inline-block;
-  margin-top:20px;
-  background:var(--green);
+  display: inline-block;
+  margin-top: 20px;
+  background: var(--green);
   color:#fff !important;
-  text-decoration:none !important;
-  font-weight:700;
-  font-size:16px;
-  padding:12px 12px;
-  transition:opacity .2s ease, transform .2s ease;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 12px 12px;
+  transition: opacity .2s ease, transform .2s ease;
+  clip-path: polygon(0 0, 94.8% 0, 100% 32%, 100% 100%, 0 100%, 0% 50%);
 }
 
 .bos-btn:hover{
@@ -153,32 +154,32 @@
 @media (max-width:1024px){
   .bags-of-smile{ padding:70px 0 60px; }
   .bos-title{ font-size:38px; }
-  .bos-label,.bos-count,.bos-percent{ font-size:30px; }
+  .bos-label,.bos-count,.bos-percent{ font-size:28px; }
   .bos-bag{ width:280px; }
 }
 
 @media (max-width:768px){
   .bags-of-smile{ padding:60px 0 54px; }
   .bos-title{ font-size:32px; }
-  .bos-desc{ font-size:13px; }
+  .bos-desc{ font-size:14px; }
   .bos-bag{ width:240px; margin:14px auto 22px; }
 
   .bos-row{
     flex-direction:column;
-    align-items:flex-start;
+    align-items: center;
     gap:10px;
   }
 
-  .bos-percent{ align-self:flex-end; }
-  .bos-label,.bos-count,.bos-percent{ font-size:26px; }
+  .bos-percent{ align-self: center; }
+  .bos-label,.bos-count,.bos-percent{ font-size: 20px; line-height: 1.2; }
 }
 
 @media (max-width:480px){
   .bags-of-smile{ padding:50px 0 46px; }
   .bos-title{ font-size:26px; }
-  .bos-desc{ font-size:12.5px; }
+  .bos-desc{ font-size:14px; }
   .bos-bag{ width:210px; }
-  .bos-label,.bos-count,.bos-percent{ font-size:22px; }
+  .bos-label,.bos-count,.bos-percent{ font-size: 20px; line-height: 1.2; }
   .bos-card{ padding:16px 16px 18px; }
   .bos-bar{ height:16px; }
 }
@@ -201,7 +202,7 @@
     <div class="bos-card" role="group" aria-label="Bags delivered progress">
       <div class="bos-row">
         <div class="bos-label">
-          Bags <span class="accent">Delivered</span> <span style="font-weight:700;">to kids</span>
+          Bags <span class="accent">Delivered</span> <span style="font-weight: 600;">to kids</span>
           <span class="bos-count">3,300/5000</span>
         </div>
         <div class="bos-percent">66%</div>

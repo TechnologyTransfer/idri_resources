@@ -1,0 +1,411 @@
+  <style>
+  :root{
+    --green:#76BC21;
+    --navy:#12284C;
+    --bg:#F3F4F7;
+  }
+
+  /* =========================
+    Route Map Section (Aligned)
+  ========================= */
+  .rfs-route__container{
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 0 20px; 
+  }
+
+  .rfs-route__title{
+    text-align:center;
+    margin: 0 0 12px 0;
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+
+  .rfs-route__subtitle{
+    text-align:center;
+    margin: 0 auto 40px;
+    max-width: 920px;
+    font-size: 14px;      
+    line-height: 1.65;
+    color: var(--navy);
+    opacity: .9;
+  }
+
+  /* Grid */
+  .rfs-route__grid{
+    display:grid;
+    grid-template-columns: 320px 1fr;
+    gap: 32px;
+    align-items:start;
+  }
+
+  /* =========================
+    Left Tabs
+  ========================= */
+  .rfs-tabs{
+    display:flex;
+    flex-direction:column;
+    gap: 18px;
+  }
+
+  .rfs-tab{
+    background:#fff;
+    border: 1px solid rgba(18,40,76,.12);
+    border-radius: 0px;
+    padding: 18px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    text-align:left;
+  }
+
+  .rfs-tab:hover{
+    border-color: rgba(118,188,33,.55);
+    box-shadow: 0 10px 24px rgba(0,0,0,.06);
+    transform: translateY(-1px);
+  }
+
+  .rfs-tab.is-active{
+    border-color: var(--green);
+    box-shadow: 0 14px 30px rgba(0,0,0,.07);
+  }
+
+  .rfs-tab__left{
+    display:flex;
+    flex-direction:column;
+    gap: 4px;
+  }
+
+  .rfs-tab__km{
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--navy);
+  }
+
+  .rfs-tab.is-active .rfs-tab__km{
+    color: var(--green);
+  }
+
+  .rfs-tab__label{
+    font-size: 14px;
+    color: var(--navy);
+    opacity: .9;
+  }
+
+  /* Arrow image */
+  .rfs-tab__arrow{
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    flex: 0 0 auto;
+  }
+
+  /* =========================
+    Note Card
+  ========================= */
+  .rfs-note{
+    margin-top: 20px;
+    background: var(--navy);
+    color:#fff;
+  }
+
+  .rfs-note__title{
+    color: white;
+    margin: 0 0 10px 0;
+    font-size: 32px;
+    font-weight: 600;
+    padding: 20px 20px 0px;
+    letter-spacing: .2px;
+  }
+
+  .rfs-note__desc{
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 0px 20px 20px;
+  }
+
+  .rfs-note__img{
+    width: 140px;
+  }
+
+  /* =========================
+    Right Panel
+  ========================= */
+  .rfs-panel{
+    background: var(--bg);
+    padding: 26px;
+  }
+
+  .rfs-badges{
+    display:flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap:wrap;
+  }
+
+  .rfs-badge{
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    background:#fff;
+    border: 1px solid rgba(18,40,76,.10);
+    padding: 8px 12px;
+    font-size: 16px;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* UPDATED: icon image instead of dot */
+  .rfs-badge__icon{
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex: 0 0 auto;
+    display:block;
+  }
+
+  .rfs-panel__heading{
+    margin: 0 0 10px 0;
+    font-size: 44px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.05;
+  }
+
+  .rfs-panel__desc{
+    margin: 0 0 18px 0;
+    max-width: 760px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--navy);
+  }
+
+  .rfs-map img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+
+  /* Button */
+  .rfs-map__btnwrap{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    clip-path: polygon(0 0, 98.6% 0, 100% 36%, 100% 100%, 0 100%, 0% 50%);
+  }
+
+  .rfs-map__btn{
+    display: inline-block;
+    background: var(--green);
+    color:#fff !important;
+    text-decoration:none !important;
+    font-weight: 600;
+    font-size: 18px;     
+    padding: 12px 18px;  
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  .rfs-map__btn:hover{
+    opacity: .92;
+    transform: translateY(-1px);
+  }
+
+  /* Tabs content */
+  .rfs-tabpanel{ display:none; }
+  .rfs-tabpanel.is-active{ display:block; }
+
+  /* Responsive */
+  @media (max-width:1024px){
+    .rfs-route__title{ font-size: 38px; }
+    .rfs-route__grid{ grid-template-columns: 300px 1fr; }
+    .rfs-panel__heading{ font-size: 38px; }
+    .rfs-tab__km{ font-size: 32px; }
+  }
+
+  @media (max-width:768px){
+    .rfs-route{ padding: 56px 0; }
+    .rfs-route__title{ font-size: 30px; }
+    .rfs-route__subtitle{ font-size: 16px; margin-bottom: 26px; }
+
+    .rfs-route__grid{ grid-template-columns: 1fr; }
+    .rfs-panel{ padding: 20px; }
+    .rfs-panel__heading{ font-size: 32px; }
+    .rfs-map__btnwrap{ justify-content:flex-start; }
+  }
+
+  @media (max-width:480px){
+    .rfs-route{ padding: 44px 0; }
+    .rfs-route__title{ font-size: 26px; }
+    .rfs-panel__heading{ font-size: 28px; }
+    .rfs-tab__km{ font-size: 30px; }
+    .rfs-note__title{ font-size: 28px; }
+    .rfs-note__desc{ max-width: none; }
+    .rfs-note__img{ width: 76px; }
+  }
+  </style>
+
+  <section class="rfs-route" id="route-map">
+    <div class="rfs-route__container">
+
+      <h2 class="rfs-route__title">Route Map</h2>
+      <p class="rfs-route__subtitle">
+        Whether you’re here for a light jog with friends or a competitive personal best, every kilometer you cover helps us deliver essential supplies
+        to children in need. Pick the path that inspires you most.
+      </p>
+
+      <div class="rfs-route__grid">
+
+        <!-- LEFT -->
+        <div>
+          <div class="rfs-tabs" role="tablist" aria-label="Route tabs">
+
+            <!-- TAB 5KM -->
+            <button class="rfs-tab is-active" type="button"
+              role="tab" aria-selected="true" aria-controls="panel-5km" id="tab-5km"
+              data-target="#panel-5km">
+              <span class="rfs-tab__left">
+                <span class="rfs-tab__km">5Km</span>
+                <span class="rfs-tab__label">Fun Run</span>
+              </span>
+              <img class="rfs-tab__arrow" src="http://cadt.edu.kh/wp-content/uploads/2026/02/→.svg" alt="">
+            </button>
+
+            <!-- TAB 10KM -->
+            <button class="rfs-tab" type="button"
+              role="tab" aria-selected="false" aria-controls="panel-10km" id="tab-10km"
+              data-target="#panel-10km">
+              <span class="rfs-tab__left">
+                <span class="rfs-tab__km">10Km</span>
+                <span class="rfs-tab__label">Challenge</span>
+              </span>
+              <img class="rfs-tab__arrow" src="http://cadt.edu.kh/wp-content/uploads/2026/02/→.svg" alt="">
+            </button>
+          </div>
+
+          <!-- Note card -->
+          <div class="rfs-note">
+            <h3 class="rfs-note__title">Note:</h3>
+            <p class="rfs-note__desc">
+              Your safety and comfort are our priority. Both routes are fully equipped with hydration stations and medical support teams.
+              Just follow our signature green markers to stay on track!
+            </p>
+            <img class="rfs-note__img" src="http://cadt.edu.kh/wp-content/uploads/2026/02/Run-for-Smile-draft-20-3.png" alt="">
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="rfs-panel">
+
+          <!-- 5KM PANEL -->
+          <div class="rfs-tabpanel is-active" id="panel-5km" role="tabpanel" aria-labelledby="tab-5km">
+            <div class="rfs-badges">
+              <!-- UPDATED: replace dot with icon image -->
+              <span class="rfs-badge">
+                <img class="rfs-badge__icon" src="http://cadt.edu.kh/wp-content/uploads/2026/02/ri_time-line-1.png" alt="">
+                6:30AM, Start
+              </span>
+              <span class="rfs-badge">
+                <img class="rfs-badge__icon" src="http://cadt.edu.kh/wp-content/uploads/2026/02/mingcute_location-3-line-1.png" alt="">
+                OCIC
+              </span>
+            </div>
+
+            <h3 class="rfs-panel__heading">5Km Fun Run</h3>
+            <p class="rfs-panel__desc">
+              Perfect for families, students, and beginners. This accessible route is all about the community spirit—enjoy the scenery, share a laugh,
+              and take pride in knowing your participation creates a big impact.
+            </p>
+
+            <div class="rfs-map">
+              <img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sample-Route.png" alt="5Km Route Map">
+            </div>
+
+            <div class="rfs-map__btnwrap">
+              <a class="rfs-map__btn" href="YOUR_5KM_HIGH_QUALITY_LINK_HERE" target="_blank" rel="noopener">
+                View High Quality Map
+              </a>
+            </div>
+          </div>
+
+          <!-- 10KM PANEL -->
+          <div class="rfs-tabpanel" id="panel-10km" role="tabpanel" aria-labelledby="tab-10km">
+            <div class="rfs-badges">
+              <!-- UPDATED: replace dot with icon image -->
+              <span class="rfs-badge">
+                <img class="rfs-badge__icon" src="http://cadt.edu.kh/wp-content/uploads/2026/02/ri_time-line-1.png" alt="">
+                6:00AM, Start
+              </span>
+              <span class="rfs-badge">
+                <img class="rfs-badge__icon" src="http://cadt.edu.kh/wp-content/uploads/2026/02/mingcute_location-3-line-1.png" alt="">
+                OCIC
+              </span>
+            </div>
+
+            <h3 class="rfs-panel__heading">10Km Challenge</h3>
+            <p class="rfs-panel__desc">
+              Built for runners who want to push their pace. This longer route is ideal for personal best attempts while still contributing to the same
+              mission—every step supports children in need.
+            </p>
+
+            <div class="rfs-map">
+              <img src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sample-Route.png" alt="10Km Route Map">
+            </div>
+
+            <div class="rfs-map__btnwrap">
+              <a class="rfs-map__btn" href="YOUR_10KM_HIGH_QUALITY_LINK_HERE" target="_blank" rel="noopener">
+                View High Quality Map
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    const tabs = document.querySelectorAll(".rfs-tab");
+    const panels = document.querySelectorAll(".rfs-tabpanel");
+
+    const normalArrow = "http://cadt.edu.kh/wp-content/uploads/2026/02/→.svg";
+    const activeArrow = "http://cadt.edu.kh/wp-content/uploads/2026/02/Grenn-→.svg";
+
+    function updateArrows(){
+      tabs.forEach(tab=>{
+        const img = tab.querySelector(".rfs-tab__arrow");
+        if(!img) return;
+        img.src = tab.classList.contains("is-active") ? activeArrow : normalArrow;
+      });
+    }
+
+    function activateTab(tab){
+      tabs.forEach(t=>{
+        const isActive = t === tab;
+        t.classList.toggle("is-active", isActive);
+        t.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      const target = tab.getAttribute("data-target");
+      panels.forEach(p=>{
+        p.classList.toggle("is-active", "#" + p.id === target);
+      });
+
+      updateArrows();
+    }
+
+    tabs.forEach(tab=>{
+      tab.addEventListener("click", ()=> activateTab(tab));
+    });
+
+    updateArrows();
+  })();
+  </script>
