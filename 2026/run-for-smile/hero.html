@@ -83,10 +83,10 @@
   color:#fff !important;
   text-decoration: none !important;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   padding: 12px 18px;
-  border-radius: 6px;
   transition: opacity .2s ease, transform .2s ease;
+  clip-path: polygon(0 0, 94.8% 0, 100% 32%, 100% 100%, 0 100%, 0% 50%);
 }
 
 .rfs-mission__btn:hover{
@@ -149,20 +149,22 @@
     grid-template-columns: 1fr;
     gap: 26px;
   }
-  .rfs-mission__title{ font-size: 36px; }
+  .rfs-mission__title{ font-size: 36px;}
   .rfs-gallery__item{ width: 260px; }
 }
 
 @media (max-width:768px){
-  .rfs-mission{ padding: 50px 0; }
-  .rfs-mission__title{ font-size: 30px; }
-  .rfs-mission__desc{ font-size: 16px; }
-  .rfs-gallery__item{ width: 220px; }
+  .rfs-mission{ padding: 32px 0; }
+  .rfs-mission__title{ font-size: 30px; text-align: center; }
+  .rfs-mission__desc{ font-size: 16px; text-align: center; }
+  .rfs-gallery__item{ width: 220px; height: 220px; }
+  .rfs-mission__btn{ display: flex; align-items: center; justify-content: center; }
 }
 
 @media (max-width:480px){
-  .rfs-mission__title{ font-size: 26px; }
-  .rfs-gallery__item{ width: 180px; }
+  .rfs-mission__title{ font-size: 26px; text-align: center; }
+  .rfs-gallery__item{ width: 180px; height: 180px; }
+  .rfs-mission__btn{ display: flex; align-items: center; justify-content: center; }
 }
 </style>
 

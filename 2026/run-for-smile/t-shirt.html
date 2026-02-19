@@ -68,7 +68,7 @@
   left: 50%;
   bottom: -70px;                 
   transform: translateX(-50%);
-  width: min(980px, 115vw);      
+  width: min(980px, 100vw);      
   max-width: none;               
   height: auto;
   z-index: 1;
@@ -95,23 +95,22 @@
   .rfs-tshirt{ padding: 56px 0; }
   .rfs-tshirt__title{ font-size: 36px; }
   .rfs-tshirt__shirt{ width: 640px; }
-  .rfs-tshirt__runner{ width: min(820px, 120vw); }
+  .rfs-tshirt__runner{ position: absolute; left: 50%; bottom: -70px; width: min(820px, 100vw); }
 }
 
 @media (max-width:768px){
-  .rfs-tshirt{ padding: 50px 0; }
+  .rfs-tshirt{ padding: 32px 0; }
   .rfs-tshirt__title{ font-size: 30px; }
   .rfs-tshirt__subtitle{ font-size: 14px; }
   .rfs-tshirt__shirt{ width: 520px; }
-  .rfs-tshirt__runner{ width: min(700px, 130vw); }
+  .rfs-tshirt__runner{ position: absolute; left: 50%; bottom: 0px; width: min(700px, 100vw); }
   .rfs-tshirt__stage{ height: clamp(320px, 70vw, 520px); }
 }
 
 @media (max-width:480px){
-  .rfs-tshirt{ padding: 44px 0; }
   .rfs-tshirt__title{ font-size: 26px; }
   .rfs-tshirt__shirt{ width: 420px; }
-  .rfs-tshirt__runner{ width: min(600px, 150vw); }
+  .rfs-tshirt__runner{ position: absolute; left: 50%; bottom: 0px; width: min(600px, 100vw); }
   .rfs-tshirt__stage{ height: 360px; }
 }
 </style>

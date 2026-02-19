@@ -1,0 +1,158 @@
+<style>
+:root{
+  --green:#76BC21;
+  --navy:#12284C;
+  --muted:#6b7a90;
+}
+
+.rfs-ps{
+  padding: 32px 0;
+}
+
+.rfs-ps__container{
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  text-align:center;
+}
+
+.rfs-ps__title{
+  margin:0 0 12px 0;
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--navy);
+}
+
+.rfs-ps__subtitle{
+  margin:0 auto 40px;
+  max-width: 920px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--navy);
+  opacity: .9;
+}
+
+.rfs-ps__grid{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+@media (max-width:1024px){
+  .rfs-ps__grid{
+    flex-wrap: wrap;
+    justify-content:center;
+  }
+}
+
+.rfs-ps__item{
+  background: transparent;
+  padding: 0;
+  min-height: auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap: 12px;
+  transition: none;
+}
+
+.rfs-ps__item:hover{
+  border-color: initial;
+  box-shadow: none;
+  transform: none;
+}
+
+.rfs-ps__label{
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  opacity: .95;
+}
+
+.rfs-ps__logos{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 18px;
+  flex-wrap:wrap;
+}
+
+.rfs-ps__logo{
+  height: 60px;
+  width: auto;
+  display:block;
+  object-fit: contain;
+}
+
+@media (max-width:1024px){
+  .rfs-ps__title{ font-size: 38px; }
+}
+
+@media (max-width:768px){
+  .rfs-ps{ padding: 56px 0; }
+  .rfs-ps__title{ font-size: 30px; }
+  .rfs-ps__subtitle{ font-size: 16px; margin-bottom: 26px; }
+  .rfs-ps__logo{ height: 48px; }
+}
+
+@media (max-width:480px){
+  .rfs-ps{ padding: 44px 0; }
+  .rfs-ps__title{ font-size: 26px; }
+  .rfs-ps__logo{ height: 46px; }
+}
+</style>
+
+<section class="rfs-ps" id="partners-sponsors">
+  <div class="rfs-ps__container">
+
+    <h2 class="rfs-ps__title">Partners & Sponsors</h2>
+
+    <p class="rfs-ps__subtitle">
+      We are proud to collaborate with our partners that believe in the power of community and digital innovation to solve social challenges,
+      and a special thank you to our sponsors fueling this mission and supporting our runners.
+    </p>
+
+    <div class="rfs-ps__grid">
+
+      <div class="rfs-ps__item">
+        <div class="rfs-ps__label">Organize by</div>
+        <div class="rfs-ps__logos">
+          <img class="rfs-ps__logo" src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sponsor-Logo-01-1.png" alt="CADT">
+        </div>
+      </div>
+
+      <div class="rfs-ps__item">
+        <div class="rfs-ps__label">Venue Sponsor</div>
+        <div class="rfs-ps__logos">
+          <img class="rfs-ps__logo" src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sponsor-Logo-02-1.png" alt="OCIC">
+        </div>
+      </div>
+
+      <div class="rfs-ps__item">
+        <div class="rfs-ps__label">Venue Sponsor</div>
+        <div class="rfs-ps__logos">
+          <img class="rfs-ps__logo" src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sponsor-Logo-03-1.png" alt="Midas">
+        </div>
+      </div>
+
+      <div class="rfs-ps__item">
+        <div class="rfs-ps__label">Outreach Partner</div>
+        <div class="rfs-ps__logos">
+          <img class="rfs-ps__logo" src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sponsor-Logo-04-1.png" alt="GRC">
+          <img class="rfs-ps__logo" src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sponsor-Logo-05-1.png" alt="CADT Alumni">
+        </div>
+      </div>
+
+      <div class="rfs-ps__item">
+        <div class="rfs-ps__label">Ticket Partner</div>
+        <div class="rfs-ps__logos">
+          <img class="rfs-ps__logo" src="http://cadt.edu.kh/wp-content/uploads/2026/02/Sponsor-Logo-06-1.png" alt="BookMe+">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

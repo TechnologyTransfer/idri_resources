@@ -12,7 +12,6 @@
     width: 100%;
     max-width: 1250px;
     margin: 0 auto;
-    padding: 0 20px; 
   }
 
   .rfs-route__title{
@@ -27,9 +26,8 @@
   .rfs-route__subtitle{
     text-align:center;
     margin: 0 auto 40px;
-    max-width: 920px;
-    font-size: 14px;      
-    line-height: 1.65;
+    font-size: 16px;      
+    line-height: 1.4;
     color: var(--navy);
     opacity: .9;
   }
@@ -144,15 +142,15 @@
   }
 
   .rfs-badges{
-    display:flex;
+    display: flex;
     gap: 12px;
     margin-bottom: 14px;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
 
   .rfs-badge{
-    display:inline-flex;
-    align-items:center;
+    display: inline-flex;
+    align-items: center;
     gap: 8px;
     background:#fff;
     border: 1px solid rgba(18,40,76,.10);
@@ -168,7 +166,7 @@
     height: 16px;
     object-fit: contain;
     flex: 0 0 auto;
-    display:block;
+    display: block;
   }
 
   .rfs-panel__heading{
@@ -188,9 +186,9 @@
   }
 
   .rfs-map img{
-    width:100%;
-    height:auto;
-    display:block;
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   /* Button */
@@ -198,7 +196,6 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 16px;
-    clip-path: polygon(0 0, 98.6% 0, 100% 36%, 100% 100%, 0 100%, 0% 50%);
   }
 
   .rfs-map__btn{
@@ -210,6 +207,7 @@
     font-size: 18px;     
     padding: 12px 18px;  
     transition: opacity .2s ease, transform .2s ease;
+    clip-path: polygon(0 0, 94.8% 0, 100% 32%, 100% 100%, 0 100%, 0% 50%);
   }
 
   .rfs-map__btn:hover{
@@ -222,22 +220,28 @@
   .rfs-tabpanel.is-active{ display:block; }
 
   /* Responsive */
-  @media (max-width:1024px){
-    .rfs-route__title{ font-size: 38px; }
+  @media (max-width: 1024px){
+    .rfs-route__title{ font-size: 32px; }
     .rfs-route__grid{ grid-template-columns: 300px 1fr; }
-    .rfs-panel__heading{ font-size: 38px; }
+    .rfs-panel__heading{ font-size: 32px; }
     .rfs-tab__km{ font-size: 32px; }
   }
 
   @media (max-width:768px){
-    .rfs-route{ padding: 56px 0; }
+    .rfs-badges{ justify-content: center; }
+    .rfs-route{ padding: 40px 0; }
     .rfs-route__title{ font-size: 30px; }
     .rfs-route__subtitle{ font-size: 16px; margin-bottom: 26px; }
 
     .rfs-route__grid{ grid-template-columns: 1fr; }
     .rfs-panel{ padding: 20px; }
-    .rfs-panel__heading{ font-size: 32px; }
-    .rfs-map__btnwrap{ justify-content:flex-start; }
+    .rfs-panel__heading{ font-size: 32px; text-align: center; }
+    .rfs-panel__desc{ text-align: center; }
+    .rfs-map__btn{ font-size: 16px; clip-path: polygon(0 0, 94.8% 0, 100% 32%, 100% 100%, 0 100%, 0% 50%); }
+    .rfs-map__btnwrap{ justify-content: center; }
+    .rfs-note__title{ text-align: center; }
+    .rfs-note__desc{ text-align: center; margin-bottom: 16px; }
+    .rfs-note__img{ position: relative; left: 40%; }
   }
 
   @media (max-width:480px){
@@ -245,7 +249,7 @@
     .rfs-route__title{ font-size: 26px; }
     .rfs-panel__heading{ font-size: 28px; }
     .rfs-tab__km{ font-size: 30px; }
-    .rfs-note__title{ font-size: 28px; }
+    .rfs-note__title{ font-size: 28px; text-align: center;  }
     .rfs-note__desc{ max-width: none; }
     .rfs-note__img{ width: 76px; }
   }
