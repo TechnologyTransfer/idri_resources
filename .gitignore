@@ -1,0 +1,41 @@
+# Dependency directories
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Build folders
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Cache
+.cache/
+.tmp/
+
+# WordPress
+wp-content/cache/
+wp-content/uploads/
+
+# Composer
+composer.lock
+
+# Package lock files (optional)
+package-lock.json
+yarn.lock
