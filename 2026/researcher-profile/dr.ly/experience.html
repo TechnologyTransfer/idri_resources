@@ -1,0 +1,196 @@
+<style>
+/* ========================= */
+/* DEFAULT (1440px) */
+/* ========================= */
+.researcher-experience-container {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px 0px;
+}
+
+.researcher-experience-section-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #e63946;
+  margin-bottom: 32px;
+}
+
+/* Timeline */
+.researcher-experience-timeline {
+  position: relative;
+  padding-left: 8px;
+}
+
+/* Line */
+.researcher-experience-timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 4px;
+  bottom: 0;
+  width: 2px;
+  background: #e63946;
+}
+
+/* Item */
+.researcher-experience-timeline-item {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+/* Dot */
+.researcher-experience-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background: #e63946;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #e63946;
+}
+
+/* Content */
+.researcher-experience-timeline-content {
+  padding: 4px 32px;
+}
+
+.researcher-experience-timeline-content h3 {
+  font-size: 20px;
+  color: #12284C;
+  font-weight: bold;
+}
+
+.researcher-experience-timeline-content p {
+  font-size: 14px;
+  color: #12284C;
+}
+
+/* ========================= */
+/* LAPTOP (1080px) */
+/* ========================= */
+@media (max-width: 1080px) {
+  .researcher-experience-container {
+    padding: 60px 20px;
+  }
+
+  .researcher-experience-section-title {
+    font-size: 36px;
+  }
+
+  .researcher-experience-timeline {
+    padding-left: 45px;
+  }
+}
+
+/* ========================= */
+/* TABLET (768px) */
+/* ========================= */
+@media (max-width: 768px) {
+  .researcher-experience-container {
+    padding: 50px 16px;
+  }
+
+  .researcher-experience-section-title {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .researcher-experience-timeline {
+    padding-left: 35px;
+  }
+
+  .researcher-experience-timeline::before {
+    left: 8px;
+  }
+
+  .researcher-experience-timeline-item::before {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* ========================= */
+/* MOBILE (425px) */
+/* ========================= */
+@media (max-width: 425px) {
+  .researcher-experience-container {
+    padding: 40px 12px;
+  }
+
+  .researcher-experience-section-title {
+    font-size: 26px;
+  }
+
+  .researcher-experience-timeline {
+    padding-left: 28px;
+  }
+
+  .researcher-experience-timeline::before {
+    left: 6px;
+  }
+
+  .timeline-item {
+    margin-bottom: 30px;
+  }
+
+  .timeline-item::before {
+    width: 10px;
+    height: 10px;
+  }
+
+  .timeline-content h3 {
+    font-size: 16px;
+  }
+
+  .timeline-content p {
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section>
+  <div class="researcher-experience-container">
+    <h2 class="researcher-experience-section-title">Experiences</h2>
+    <div class="researcher-experience-timeline" id="timelineContainer"></div>
+  </div>
+</section>
+
+<script>
+const experiences = [
+  {
+    title: "R&D Director - Cambodia Academy of Digital Technology",
+    description: "Jan 2024 - Present"
+  },
+  {
+    title: "PHD Student - Grenoble Informatics Laboratory",
+    description: "Nov 2019 - Nov 2023"
+  },
+  {
+    title: "Lecturer and Researcher - NIPTICT",
+    description: "Oct 2018 - Dec 2020"
+  }
+];
+
+// 🔹 Render Function
+function renderTimeline(data) {
+  const container = document.getElementById("timelineContainer");
+
+  container.innerHTML = data.map(item => `
+    <div class="researcher-experience-timeline-item">
+      <div class="researcher-experience-timeline-content">
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+      </div>
+    </div>
+  `).join("");
+}
+
+// 🔹 Init
+renderTimeline(experiences);
+</script>

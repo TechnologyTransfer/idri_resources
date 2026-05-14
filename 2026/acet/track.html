@@ -1,0 +1,264 @@
+<section class="acet-conference-tracks-section">
+  <div class="acet-conference-tracks-container">
+    <h2 class="acet-conference-tracks-title">Conference Research Tracks</h2>
+
+    <div class="acet-conference-tracks-list" id="acet-conference-tracks-list"></div>
+  </div>
+</section>
+
+<style>
+  .acet-conference-tracks-section {
+    width: 100%;
+    color: #ffffff;
+  }
+
+  .acet-conference-tracks-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .acet-conference-tracks-title {
+    width: fit-content;
+    margin: 0 auto 36px;
+    padding-bottom: 14px;
+    color: #ffffff !important;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: center;
+    border-bottom: 1px solid #ff4438;
+  }
+
+  .acet-conference-tracks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .acet-conference-tracks-item {
+    position: relative;
+    overflow: hidden;
+    min-height: 115px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    border: none;
+  }
+
+  .acet-conference-tracks-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 40, 76, 0.72);
+    z-index: 1;
+  }
+
+  .acet-conference-tracks-header {
+    width: 100%;
+    min-height: 115px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 32px;
+    color: #ffffff !important;
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: justify-content 0.3s ease, min-height 0.3s ease;
+  }
+
+  .acet-conference-tracks-item-active .acet-conference-tracks-header {
+    justify-content: flex-start;
+    min-height: 96px;
+    text-align: left;
+  }
+
+  .acet-conference-tracks-content {
+    max-height: 0;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 32px;
+    transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease;
+  }
+
+  .acet-conference-tracks-item-active .acet-conference-tracks-content {
+    max-height: 800px;
+    opacity: 1;
+    padding: 0 32px 32px;
+  }
+
+  .acet-conference-tracks-description {
+    max-width: 900px;
+    margin: 0;
+    color: #ffffff !important;
+    font-size: 16px;
+    line-height: 1.7;
+    letter-spacing: 0;
+  }
+
+  @media (max-width: 760px) {
+    .acet-conference-tracks-title {
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
+    .acet-conference-tracks-list {
+      gap: 18px;
+    }
+
+    .acet-conference-tracks-item {
+      min-height: 96px;
+    }
+
+    .acet-conference-tracks-header {
+      min-height: 96px;
+      padding: 24px;
+      font-size: 24px;
+    }
+
+    .acet-conference-tracks-item-active .acet-conference-tracks-header {
+      min-height: 84px;
+    }
+
+    .acet-conference-tracks-content {
+      padding: 0 24px;
+    }
+
+    .acet-conference-tracks-item-active .acet-conference-tracks-content {
+      padding: 0 24px 24px;
+    }
+
+    .acet-conference-tracks-description {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .acet-conference-tracks-title {
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .acet-conference-tracks-list {
+      gap: 14px;
+    }
+
+    .acet-conference-tracks-item {
+      min-height: 82px;
+    }
+
+    .acet-conference-tracks-header {
+      min-height: 82px;
+      padding: 20px 16px;
+      font-size: 20px;
+    }
+
+    .acet-conference-tracks-item-active .acet-conference-tracks-header {
+      min-height: 74px;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .acet-conference-tracks-content {
+      padding: 0 16px;
+    }
+
+    .acet-conference-tracks-item-active .acet-conference-tracks-content {
+      padding: 0 16px 20px;
+    }
+
+    .acet-conference-tracks-description {
+      font-size: 14px;
+      line-height: 1.65;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  const acetConferenceTracksData = [
+    {
+      title: "Natural Language Processing",
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/NLP-Program-Tracks-ACET2025-scaled.webp",
+      description:
+        "This track invites cutting-edge work on the next generation of language systems, emphasizing ethical implementation, cross-cultural application, and real-world utility. We seek contributions that tackle the unique challenges of low-resource languages and multilingual contexts, alongside foundational advancements in large language models (LLMs). Key themes include fairness and bias detection, information extraction for diverse linguistic data, and NLP applications in public services and emerging markets."
+    },
+    {
+      title: "Artificial Intelligence",
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/AI-Program-Tracks-ACET2025-scaled.webp",
+      description:
+        "This track focuses on advancing the core methodologies and ethical frameworks that govern intelligent systems. We seek novel research in areas like Agentic AI (autonomous systems), Generative AI techniques, and the development of robust, secure, and Trustworthy AI (e.g., Explainable AI or XAI). Submissions should address the systemic influence of the AI revolution on the global workforce, economic growth, and the development of equitable, future-proof policies."
+    },
+    {
+      title: "Data Science",
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/DS-Program-Tracks-ACET2025-scaled.webp",
+      description:
+        "This track focuses on the processes, infrastructure, and application of data to derive meaningful and actionable insights from complex real-world datasets. We encourage research on novel methods for Big Data integration, predictive modeling, and data governance. Key themes include Augmented Analytics, the development of Automated Data Science (AutoML) pipelines, and data-driven solutions in domains like sustainability, climate modeling, and smart city operations. The emphasis is on scalable, ethical, and privacy-preserving data practices."
+    },
+    {
+      title: "IoT and Networking",
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/IoT-Program-Tracks-ACET2025-scaled.webp",
+      description:
+        "This track is dedicated to foundational and applied research in creating resilient, secure, and energy-efficient interconnected environments. We welcome work on developing the necessary architectures and protocols to support massive IoT scale. Key areas include securing IoT devices through novel protocols, advancing Edge and Fog Computing for real-time data processing, and deploying sustainable wireless technologies (e.g., 5G/6G) to bridge the digital divide and support critical infrastructure."
+    }
+  ];
+
+  const acetConferenceTracksList = document.getElementById(
+    "acet-conference-tracks-list"
+  );
+
+  function acetConferenceTracksRender(items) {
+    acetConferenceTracksList.innerHTML = "";
+
+    items.forEach((item, index) => {
+      const track = document.createElement("div");
+      track.className = index === 0
+        ? "acet-conference-tracks-item acet-conference-tracks-item-active"
+        : "acet-conference-tracks-item";
+
+      track.style.backgroundImage = `url("${item.image}")`;
+
+      track.innerHTML = `
+        <div class="acet-conference-tracks-header">${item.title}</div>
+        <div class="acet-conference-tracks-content">
+          <p class="acet-conference-tracks-description">${item.description}</p>
+        </div>
+      `;
+
+      acetConferenceTracksList.appendChild(track);
+    });
+
+    document.querySelectorAll(".acet-conference-tracks-header").forEach((header) => {
+      header.addEventListener("click", () => {
+        const item = header.parentElement;
+        const isActive = item.classList.contains(
+          "acet-conference-tracks-item-active"
+        );
+
+        document.querySelectorAll(".acet-conference-tracks-item").forEach((track) => {
+          track.classList.remove("acet-conference-tracks-item-active");
+        });
+
+        if (!isActive) {
+          item.classList.add("acet-conference-tracks-item-active");
+        }
+      });
+    });
+  }
+
+  acetConferenceTracksRender(acetConferenceTracksData);
+</script>

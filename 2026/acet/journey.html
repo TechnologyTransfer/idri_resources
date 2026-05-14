@@ -1,0 +1,326 @@
+<section class="acet-conference-journey-section">
+  <div class="acet-conference-journey-container">
+    <h2 class="acet-conference-journey-title">Conference Journey</h2>
+
+    <div class="acet-conference-journey-timeline" id="acet-conference-journey-timeline"></div>
+  </div>
+</section>
+
+<style>
+  .acet-conference-journey-section {
+    width: 100%;
+    color: #ffffff;
+  }
+
+  .acet-conference-journey-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .acet-conference-journey-title {
+    width: fit-content;
+    margin: 0 auto 32px;
+    padding-bottom: 14px;
+    color: #ffffff !important;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: center;
+    border-bottom: 1px solid #ff4438;
+  }
+
+  .acet-conference-journey-timeline {
+    position: relative;
+    width: min(100%, 960px);
+    margin: 0 auto;
+  }
+
+  .acet-conference-journey-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: #ff4438;
+    transform: translateX(-50%);
+  }
+
+  .acet-conference-journey-row {
+    position: relative;
+    min-height: 220px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .acet-conference-journey-marker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    border: 1px dashed #ff4438;
+    background: #12284c;
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+
+  .acet-conference-journey-marker::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    background: #ff4438;
+  }
+
+  .acet-conference-journey-card {
+    width: min(100%, 450px);
+    min-height: 220px;
+    position: relative;
+    color: #ffffff;
+  }
+
+  .acet-conference-journey-row-left .acet-conference-journey-card {
+    grid-column: 1;
+    justify-self: end;
+    margin-right: 30px;
+  }
+
+  .acet-conference-journey-row-right .acet-conference-journey-card {
+    grid-column: 2;
+    justify-self: start;
+    margin-left: 30px;
+  }
+
+  .acet-conference-journey-card-border {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .acet-conference-journey-card-border path {
+    fill: none;
+    stroke: #ff4438;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .acet-conference-journey-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 36px 32px 34px;
+  }
+
+  .acet-conference-journey-card-title {
+    margin: 0 0 16px;
+    color: #ff4438 !important;
+    font-size: 32px;
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .acet-conference-journey-date {
+    margin: 0 0 36px;
+    color: #ffffff !important;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .acet-conference-journey-divider {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  .acet-conference-journey-status {
+    margin: 0;
+    color: #ffffff !important;
+    font-size: 16px;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  .acet-conference-journey-status span {
+    color: #ff4438 !important;
+    font-weight: 600;
+  }
+
+  @media (max-width: 760px) {
+    .acet-conference-journey-title {
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
+    .acet-conference-journey-timeline {
+      width: 100%;
+    }
+
+    .acet-conference-journey-timeline::before {
+      left: 9px;
+    }
+
+    .acet-conference-journey-row {
+      min-height: auto;
+      display: block;
+      margin-bottom: 24px;
+      padding-left: 32px;
+    }
+
+    .acet-conference-journey-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .acet-conference-journey-marker {
+      left: 9px;
+    }
+
+    .acet-conference-journey-card,
+    .acet-conference-journey-row-left .acet-conference-journey-card,
+    .acet-conference-journey-row-right .acet-conference-journey-card {
+      width: 100%;
+      max-width: 450px;
+      min-height: 210px;
+      margin: 0;
+    }
+
+    .acet-conference-journey-card-content {
+      padding: 28px 24px;
+    }
+
+    .acet-conference-journey-card-title {
+      font-size: 24px;
+    }
+
+    .acet-conference-journey-date,
+    .acet-conference-journey-status {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .acet-conference-journey-title {
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .acet-conference-journey-row {
+      padding-left: 26px;
+      margin-bottom: 20px;
+    }
+
+    .acet-conference-journey-card {
+      min-height: 190px;
+    }
+
+    .acet-conference-journey-card-content {
+      padding: 24px 18px;
+    }
+
+    .acet-conference-journey-card-title {
+      margin-bottom: 12px;
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    .acet-conference-journey-date {
+      margin-bottom: 26px;
+      font-size: 14px;
+    }
+
+    .acet-conference-journey-status {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<script>
+  const acetConferenceJourneyData = [
+    {
+      title: "Call for Papers",
+      date: "May 11, 2026",
+      status: 'Current Progress <span>>>></span>'
+    },
+    {
+      title: "Paper Submission Deadline",
+      date: "Aug 31, 2026",
+      status: "Coming Soon"
+    },
+    {
+      title: "Notification for Accepted Papers",
+      date: "Sep 30, 2026",
+      status: "Coming Soon"
+    },
+    {
+      title: "Camera-Ready Paper Submission",
+      date: "Oct 11, 2026",
+      status: "Coming Soon"
+    },
+    {
+      title: "Open Conference Registration",
+      date: "Nov 1, 2026",
+      status: "Coming Soon"
+    },
+    {
+      title: "Conference Date",
+      date: "Nov 12-13, 2026",
+      status: "Coming Soon"
+    }
+  ];
+
+  const acetConferenceJourneyTimeline = document.getElementById(
+    "acet-conference-journey-timeline"
+  );
+
+  function acetConferenceJourneyGetBorder(side) {
+    if (side === "left") {
+      return `
+        <svg class="acet-conference-journey-card-border" viewBox="0 0 450 220" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0.5 0.5 H 449.5 V 180 L 410 219.5 H 0.5 Z"></path>
+        </svg>
+      `;
+    }
+
+    return `
+      <svg class="acet-conference-journey-card-border" viewBox="0 0 450 220" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 0.5 0.5 H 449.5 V 219.5 H 40 L 0.5 180 Z"></path>
+      </svg>
+    `;
+  }
+
+  function acetConferenceJourneyRender(items) {
+    acetConferenceJourneyTimeline.innerHTML = "";
+
+    items.forEach((item, index) => {
+      const row = document.createElement("div");
+      const side = index % 2 === 0 ? "left" : "right";
+
+      row.className = `acet-conference-journey-row acet-conference-journey-row-${side}`;
+
+      row.innerHTML = `
+        <span class="acet-conference-journey-marker" aria-hidden="true"></span>
+
+        <div class="acet-conference-journey-card">
+          ${acetConferenceJourneyGetBorder(side)}
+
+          <div class="acet-conference-journey-card-content">
+            <h3 class="acet-conference-journey-card-title">${item.title}</h3>
+            <p class="acet-conference-journey-date">Date: ${item.date}</p>
+            <div class="acet-conference-journey-divider"></div>
+            <p class="acet-conference-journey-status">${item.status}</p>
+          </div>
+        </div>
+      `;
+
+      acetConferenceJourneyTimeline.appendChild(row);
+    });
+  }
+
+  acetConferenceJourneyRender(acetConferenceJourneyData);
+</script>

@@ -1,0 +1,157 @@
+<style> 
+    .acet-2026-navbar-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .acet-2026-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 1440px;
+      max-width: 80%;
+      flex-wrap: wrap;
+      padding: 14px 0px;
+      position: relative;
+      background: #11284c;
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .acet-2026-logo img {
+      max-height: 32px;
+      height: auto;
+      width: auto;
+      transition: transform 0.35s ease;
+    }
+
+    .acet-2026-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .acet-2026-nav-items {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .acet-2026-nav-items a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 18px;
+      position: relative;
+      transition: all 0.3s ease;
+      letter-spacing: 0.3px;
+    }
+
+    .acet-2026-nav-items a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: #ff4438;
+      transition: width 0.3s ease;
+    }
+
+    .acet-2026-nav-items a:hover {
+      transform: translateY(-2px);
+    }
+
+    .acet-2026-nav-items a:hover::after {
+      width: 100%;
+    }
+
+    .acet-2026-hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .acet-2026-hamburger span {
+      width: 26px;
+      height: 3px;
+      background: #ffffff;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .acet-2026-navbar {
+            max-width: 95%;
+            padding: 14px 20px;
+        }
+
+        .acet-2026-hamburger {
+            display: flex;
+        }
+
+        .acet-2026-nav-items {
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+            width: 100%;
+            margin-top: 18px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 12px 18px;
+            backdrop-filter: blur(14px);
+        }
+
+        .acet-2026-nav-items.active {
+            display: flex;
+        }
+
+        .acet-2026-nav-items a {
+            width: 100%;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+            font-size: 17px;
+        }
+
+        .acet-2026-nav-items a:last-child {
+            border-bottom: none;
+        }
+
+        .acet-2026-nav-items a::after {
+            display: none;
+        }
+    }
+</style>
+
+<div class="acet-2026-navbar-wrapper">
+  <div class="acet-2026-navbar">
+    <div class="acet-2026-logo">
+      <a href="https://www.idri.edu.kh/events/acet/">
+        <img src="https://www.idri.edu.kh/wp-content/uploads/2026/05/Asset-4.png" alt="ACET 2026 Logo" />
+      </a>
+    </div>
+
+    <div class="acet-2026-hamburger" onclick="acet2026ToggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="acet-2026-nav-items" id="acet2026NavMenu">
+      <a href="#about">About</a>
+      <a href="#tracks">Tracks</a>
+      <a href="#journey">Journey</a>
+      <a href="#publications">Publications</a>
+      <a href="#committees">Committees</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function acet2026ToggleMenu() {
+    const nav = document.getElementById('acet2026NavMenu');
+    nav.classList.toggle('active');
+  }
+</script>

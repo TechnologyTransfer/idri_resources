@@ -1,0 +1,140 @@
+<style>
+/* Container */
+.researcher-profile-container {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px 0px;
+}
+
+/* Title */
+.researcher-profile-section-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #FD4640;
+  margin-bottom: 40px;
+}
+
+/* Grid Layout */
+.researcher-profile-research-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Card */
+.researcher-profile-research-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  transition: 0.3s ease;
+}
+
+.researcher-profile-research-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* Icon Image */
+.researcher-profile-research-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+/* Text */
+.researcher-profile-research-card h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #12284C; /* ✅ required color */
+  line-height: 1.5;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+/* Laptop */
+@media (max-width: 1080px) {
+  .researcher-profile-research-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .researcher-profile-research-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .researcher-profile-section-title {
+    text-align: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 425px) {
+  .researcher-profile-section-title {
+    font-size: 28px;
+  }
+
+  .researcher-profile-research-card {
+    padding: 30px 15px;
+  }
+
+  .researcher-profile-research-card img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .researcher-profile-research-card h3 {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="researcher-profile-section">
+  <div class="researcher-profile-container">
+    <h2 class="researcher-profile-section-title">Research Interest</h2>
+
+    <!-- Dynamic Content -->
+    <div class="researcher-profile-research-grid" id="researchContainer"></div>
+  </div>
+</section>
+
+<script>
+// 🔹 Dynamic Data (EDIT HERE ONLY)
+const researchData = [
+  {
+    title: "Artificial Intelligence & Machine Learning",
+    icon: "https://www.idri.edu.kh/wp-content/uploads/2026/04/ai-1.png"
+  },
+  {
+    title: "Computer Vision",
+    icon: "https://www.idri.edu.kh/wp-content/uploads/2026/04/ai-eye-1.png"
+  },
+  {
+    title: "AI for Local Language & Accessibility",
+    icon: "https://www.idri.edu.kh/wp-content/uploads/2026/04/language-1.png"
+  }
+];
+
+// 🔹 Render Function
+function renderResearch(data) {
+  const container = document.getElementById("researchContainer");
+
+  container.innerHTML = data.map(item => `
+    <div class="researcher-profile-research-card">
+      <img src="${item.icon}" alt="${item.title}">
+      <h3>${item.title}</h3>
+    </div>
+  `).join("");
+}
+
+// 🔹 Initialize
+renderResearch(researchData);
+</script>

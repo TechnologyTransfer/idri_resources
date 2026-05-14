@@ -1,0 +1,245 @@
+<section class="acet-conference-gallery-section">
+  <div class="acet-conference-gallery-container">
+    <h2 class="acet-conference-gallery-title">Gallery</h2>
+
+    <div class="acet-conference-gallery-slider">
+      <div class="acet-conference-gallery-track" id="acet-conference-gallery-track"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .acet-conference-gallery-section {
+    width: 100%;
+    color: #ffffff;
+  }
+
+  .acet-conference-gallery-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .acet-conference-gallery-title {
+    width: fit-content;
+    margin: 0 auto 32px;
+    padding-bottom: 14px;
+    color: #ffffff !important;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: center;
+    border-bottom: 1px solid #ff4438;
+  }
+
+  .acet-conference-gallery-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+
+  .acet-conference-gallery-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: acet-conference-gallery-scroll 50s linear infinite;
+  }
+
+  .acet-conference-gallery-slider:hover .acet-conference-gallery-track {
+    animation-play-state: paused;
+  }
+
+  .acet-conference-gallery-group {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .acet-conference-gallery-item {
+    width: 360px;
+    height: 200px;
+    margin: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .acet-conference-gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .acet-conference-gallery-item:hover .acet-conference-gallery-image {
+    transform: scale(1.06);
+  }
+
+  @keyframes acet-conference-gallery-scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-33.333%);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .acet-conference-gallery-title {
+      margin-bottom: 28px;
+      font-size: 32px;
+    }
+
+    .acet-conference-gallery-item {
+      width: 240px;
+      height: 160px;
+      margin: 0 34px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .acet-conference-gallery-title {
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .acet-conference-gallery-slider {
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 4%,
+        black 96%,
+        transparent
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 4%,
+        black 96%,
+        transparent
+      );
+    }
+
+    .acet-conference-gallery-item {
+      width: 210px;
+      height: 140px;
+      margin: 0 22px;
+    }
+  }
+</style>
+
+<script>
+  const acetConferenceGalleryData = [
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/582086205_1172651755056732_948537277893913181_n-copy-scaled.webp",
+      alt: "Gallery image 1"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/582061284_1172648581723716_3109975916526687577_n-copy.webp",
+      alt: "Gallery image 2"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2026/01/IMG_2607-scaled.jpeg",
+      alt: "Gallery image 3"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/IMG_2179.jpeg",
+      alt: "Gallery image 4"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/581951282_1172648341723740_921480341098004964_n-copy.webp",
+      alt: "Gallery image 5"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/581946565_1172649578390283_822557068662034127_n-copy.webp",
+      alt: "Gallery image 6"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/581943577_1172644505057457_7655715471995374333_n-copy.webp",
+      alt: "Gallery image 7"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/581226172_1172643605057547_3395473578587960752_n-copy.webp",
+      alt: "Gallery image 8"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/580574579_1172644478390793_1522483923276243453_n-copy.webp",
+      alt: "Gallery image 9"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/580482392_1172652821723292_5986984464717132904_n-copy.webp",
+      alt: "Gallery image 10"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/579986447_1172652318390009_1516989764455778723_n-copy.webp",
+      alt: "Gallery image 11"
+    },
+    {
+      image:
+        "https://www.idri.edu.kh/wp-content/uploads/2025/11/579503404_1172652568389984_4313696546455472465_n-copy.webp",
+      alt: "Gallery image 12"
+    }
+  ];
+
+  const acetConferenceGalleryTrack = document.getElementById(
+    "acet-conference-gallery-track"
+  );
+
+  function acetConferenceGalleryRender(items) {
+    acetConferenceGalleryTrack.innerHTML = "";
+
+    for (let groupIndex = 0; groupIndex < 3; groupIndex++) {
+      const group = document.createElement("div");
+      group.className = "acet-conference-gallery-group";
+
+      items.forEach((item) => {
+        const imageWrap = document.createElement("div");
+        imageWrap.className = "acet-conference-gallery-item";
+
+        imageWrap.innerHTML = `
+          <img
+            class="acet-conference-gallery-image"
+            src="${item.image}"
+            alt="${item.alt}"
+          >
+        `;
+
+        group.appendChild(imageWrap);
+      });
+
+      acetConferenceGalleryTrack.appendChild(group);
+    }
+  }
+
+  acetConferenceGalleryRender(acetConferenceGalleryData);
+</script>

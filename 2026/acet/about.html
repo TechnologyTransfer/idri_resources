@@ -1,0 +1,226 @@
+<section class="acet-conference-about-section">
+  <div class="acet-conference-about-container">
+    <h2 class="acet-conference-about-title">About Conference</h2>
+
+    <div class="acet-conference-about-layout">
+      <div class="acet-conference-about-image-wrap">
+        <img
+          class="acet-conference-about-image active"
+          src="https://www.idri.edu.kh/wp-content/uploads/2026/05/About-1.png"
+          alt=""
+        />
+
+        <img
+          class="acet-conference-about-image"
+          src="https://www.idri.edu.kh/wp-content/uploads/2026/05/About-2.png"
+          alt=""
+        />
+
+        <img
+          class="acet-conference-about-image"
+          src="https://www.idri.edu.kh/wp-content/uploads/2026/05/About-3.png"
+          alt=""
+        />
+
+        <img
+          class="acet-conference-about-image"
+          src="https://www.idri.edu.kh/wp-content/uploads/2026/05/About-4.png"
+          alt=""
+        />
+      </div>
+
+      <div class="acet-conference-about-content" id="acet-conference-about-content"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .acet-conference-about-section {
+    width: 100%;
+    color: #ffffff;
+  }
+
+  .acet-conference-about-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .acet-conference-about-title {
+    width: fit-content;
+    margin: 0 auto 32px;
+    padding-bottom: 14px;
+    color: #ffffff !important;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: center;
+    border-bottom: 1px solid #ff4438;
+  }
+
+  .acet-conference-about-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 432px) minmax(0, 1fr);
+    gap: 88px;
+    align-items: start;
+  }
+
+  .acet-conference-about-image-wrap {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    overflow: hidden;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 55px),
+      calc(100% - 55px) 100%,
+      0 100%
+    );
+  }
+
+  .acet-conference-about-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  .acet-conference-about-image.active {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .acet-conference-about-content {
+    max-width: 760px;
+    padding-top: 2px;
+  }
+
+  .acet-conference-about-description {
+    margin: 0 0 28px;
+    color: #ffffff !important;
+    font-size: 16px;
+    line-height: 1.72;
+    letter-spacing: 0;
+  }
+
+  .acet-conference-about-description:last-child {
+    margin-bottom: 0;
+  }
+
+  .acet-conference-about-description strong {
+    font-weight: 600;
+  }
+
+  @media (max-width: 760px) {
+    .acet-conference-about-title {
+      margin-bottom: 28px;
+      font-size: 32px;
+    }
+
+    .acet-conference-about-layout {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .acet-conference-about-image-wrap,
+    .acet-conference-about-image {
+      min-height: 320px;
+    }
+
+    .acet-conference-about-content {
+      max-width: 100%;
+    }
+
+    .acet-conference-about-description {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .acet-conference-about-title {
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .acet-conference-about-layout {
+      gap: 24px;
+    }
+
+    .acet-conference-about-image-wrap {
+      min-height: 240px;
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - 36px),
+        calc(100% - 36px) 100%,
+        0 100%
+      );
+    }
+
+    .acet-conference-about-image {
+      min-height: 240px;
+    }
+
+    .acet-conference-about-description {
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+  }
+</style>
+
+<script>
+  const acetConferenceAboutData = {
+    title: "About Conference",
+    paragraphs: [
+      "ACET is the ASEAN conference that focuses on the latest research and Development in digital technology but more specifically on Natural Language Processing (NLP), Data Science, Networking & IoT, Artificial Intelligence (AI). ACET conference aims to connect researchers’ knowledge and Building applications for smarter societies.",
+      "<strong>RESEARCH, SHARE, CONNECT:</strong> Bringing together researchers from local and international communities through a forum for academicians, professionals, and researchers to discuss and exchange research results, innovative ideas, and experiences, fostering advancements in the field."
+    ]
+  };
+
+  const acetConferenceAboutTitle = document.querySelector(
+    ".acet-conference-about-title"
+  );
+
+  const acetConferenceAboutContent = document.getElementById(
+    "acet-conference-about-content"
+  );
+
+  function acetConferenceAboutRender(data) {
+    acetConferenceAboutTitle.textContent = data.title;
+
+    acetConferenceAboutContent.innerHTML = "";
+
+    data.paragraphs.forEach((paragraph) => {
+      const text = document.createElement("p");
+      text.className = "acet-conference-about-description";
+      text.innerHTML = paragraph;
+      acetConferenceAboutContent.appendChild(text);
+    });
+  }
+
+  acetConferenceAboutRender(acetConferenceAboutData);
+
+  const acetConferenceAboutImages = document.querySelectorAll(
+    ".acet-conference-about-image"
+  );
+
+  let acetConferenceAboutCurrent = 0;
+
+  setInterval(() => {
+    acetConferenceAboutImages[acetConferenceAboutCurrent].classList.remove("active");
+
+    acetConferenceAboutCurrent =
+      (acetConferenceAboutCurrent + 1) %
+      acetConferenceAboutImages.length;
+
+    acetConferenceAboutImages[acetConferenceAboutCurrent].classList.add("active");
+  }, 3000);
+</script>

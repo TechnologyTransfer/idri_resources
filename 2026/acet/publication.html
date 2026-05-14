@@ -1,0 +1,267 @@
+<section class="acet-conference-publications-section">
+  <div class="acet-conference-publications-container">
+    <h2 class="acet-conference-publications-title">Publications</h2>
+
+    <div class="acet-conference-publications-list" id="acet-conference-publications-list"></div>
+  </div>
+</section>
+
+<style>
+  .acet-conference-publications-section {
+    width: 100%;
+    color: #ffffff;
+  }
+
+  .acet-conference-publications-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .acet-conference-publications-title {
+    width: fit-content;
+    margin: 0 auto 54px;
+    padding-bottom: 14px;
+    color: #ffffff !important;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: center;
+    border-bottom: 1px solid #ff4438;
+  }
+
+  .acet-conference-publications-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 64px;
+    align-items: end;
+  }
+
+  .acet-conference-publications-card {
+    display: block;
+    min-height: 390px;
+    color: #ffffff !important;
+    text-decoration: none;
+    overflow: hidden;
+  }
+
+  .acet-conference-publications-image-wrap {
+    width: 100%;
+    height: 340px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .acet-conference-publications-image {
+    width: auto;
+    max-width: 78%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    transform: translateY(0) scale(1);
+    transform-origin: center bottom;
+    transition: transform 360ms ease;
+  }
+
+  .acet-conference-publications-card-title {
+    margin: 0;
+    color: #ffffff !important;
+    font-size: 24px;
+    line-height: 1.45;
+    font-weight: 600;
+    letter-spacing: 0;
+    transform: translateY(0);
+    transition: transform 360ms ease;
+  }
+
+  .acet-conference-publications-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 18px;
+    color: #ff4438 !important;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0;
+    transform: translateX(-34px);
+    transition: opacity 260ms ease, transform 360ms ease;
+  }
+
+  .acet-conference-publications-link-text {
+    margin-right: 10px;
+  }
+
+  .acet-conference-publications-arrow {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  .acet-conference-publications-card:hover .acet-conference-publications-image,
+  .acet-conference-publications-card:focus-visible .acet-conference-publications-image {
+    transform: translateY(-34px) scale(0.78);
+  }
+
+  .acet-conference-publications-card:hover .acet-conference-publications-card-title,
+  .acet-conference-publications-card:focus-visible .acet-conference-publications-card-title {
+    transform: translateY(-20px);
+  }
+
+  .acet-conference-publications-card:hover .acet-conference-publications-link,
+  .acet-conference-publications-card:focus-visible .acet-conference-publications-link {
+    opacity: 1;
+    transform: translateX(0) translateY(-20px);
+  }
+
+  .acet-conference-publications-card:hover .acet-conference-publications-arrow,
+  .acet-conference-publications-card:focus-visible .acet-conference-publications-arrow {
+    animation: acet-conference-publications-arrow-in 420ms ease forwards;
+  }
+
+  .acet-conference-publications-card:hover .acet-conference-publications-arrow:nth-child(2),
+  .acet-conference-publications-card:focus-visible .acet-conference-publications-arrow:nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  .acet-conference-publications-card:hover .acet-conference-publications-arrow:nth-child(3),
+  .acet-conference-publications-card:focus-visible .acet-conference-publications-arrow:nth-child(3) {
+    animation-delay: 160ms;
+  }
+
+  @keyframes acet-conference-publications-arrow-in {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .acet-conference-publications-title {
+      margin-bottom: 42px;
+      font-size: 32px;
+    }
+
+    .acet-conference-publications-list {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+
+    .acet-conference-publications-card {
+      min-height: 370px;
+      text-align: center;
+    }
+
+    .acet-conference-publications-image-wrap {
+      height: 250px;
+      margin-bottom: 24px;
+    }
+
+    .acet-conference-publications-card-title {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .acet-conference-publications-title {
+      margin-bottom: 34px;
+      padding-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .acet-conference-publications-list {
+      gap: 38px;
+    }
+
+    .acet-conference-publications-card {
+      min-height: 330px;
+    }
+
+    .acet-conference-publications-image-wrap {
+      height: 220px;
+      margin-bottom: 20px;
+    }
+
+    .acet-conference-publications-card-title {
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    .acet-conference-publications-link {
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .acet-conference-publications-card:hover .acet-conference-publications-image,
+    .acet-conference-publications-card:focus-visible .acet-conference-publications-image {
+      transform: translateY(-24px) scale(0.78);
+    }
+  }
+</style>
+
+<script>
+  const acetConferencePublicationsData = [
+    {
+      title: "ASEAN Conference on Emerging Technologies 2025",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/05/ACET2025.png",
+      url: "https://www.idri.edu.kh/wp-content/uploads/2025/12/ACET-2025_Proceedings.pdf"
+    },
+    {
+      title: "ASEAN Conference on Emerging Technologies 2024",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/05/ACET2024-scaled.png",
+      url: "https://www.idri.edu.kh/wp-content/uploads/2025/04/ACET_2024_Publication.pdf"
+    },
+    {
+      title: "ASEAN Conference on Emerging Technologies 2023",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/05/ACET-2023-scaled.png",
+      url: "https://www.idri.edu.kh/wp-content/uploads/2025/01/ACET2023.pdf"
+    }
+  ];
+
+  const acetConferencePublicationsList = document.getElementById(
+    "acet-conference-publications-list"
+  );
+
+  function acetConferencePublicationsRender(items) {
+    acetConferencePublicationsList.innerHTML = "";
+
+    items.forEach((item) => {
+      const card = document.createElement("a");
+      card.className = "acet-conference-publications-card";
+      card.href = item.url;
+      card.target = "_blank";
+      card.rel = "noopener noreferrer";
+
+      card.innerHTML = `
+        <div class="acet-conference-publications-image-wrap">
+          <img
+            class="acet-conference-publications-image"
+            src="${item.image}"
+            alt="${item.title}"
+          >
+        </div>
+
+        <h3 class="acet-conference-publications-card-title">${item.title}</h3>
+
+        <span class="acet-conference-publications-link">
+          <span class="acet-conference-publications-link-text">Read More</span>
+          <span class="acet-conference-publications-arrow" aria-hidden="true">></span>
+          <span class="acet-conference-publications-arrow" aria-hidden="true">></span>
+          <span class="acet-conference-publications-arrow" aria-hidden="true">></span>
+        </span>
+      `;
+
+      acetConferencePublicationsList.appendChild(card);
+    });
+  }
+
+  acetConferencePublicationsRender(acetConferencePublicationsData);
+</script>

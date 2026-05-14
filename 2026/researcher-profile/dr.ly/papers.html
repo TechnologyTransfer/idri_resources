@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Papers</title>
+
+<style>
+.paper-accordion {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px 0px;
+}
+
+    .section-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #ef4444;
+    margin-bottom: 40px;
+}
+
+/* Cards */
+.paper-card {
+    background: #fff;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border: 1px solid #0000004D;
+}
+
+.paper-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.paper-card-header:hover {
+    background: #f1f1f1;
+}
+
+.paper-card-header h2 {
+    margin: 0;
+    padding-right: 16px;
+    font-size: 18px;
+    color: #11284C;
+    font-weight: bold;
+    line-height: 1.4em;
+}
+
+.paper-card-header h2 span {
+    color: #FF4438;
+}
+
+.paper-arrow {
+    width: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.paper-card-content {
+    color: #12284C;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 16px;
+}
+
+.paper-card.active .paper-card-content {
+    padding: 16px;
+}
+
+.paper-meta {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.paper-meta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.paper-abstract-title {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.paper-abstract {
+    font-size: 14px;
+    line-height: 1.5em;
+    margin-top: 4px;
+}
+
+.paper-read-more {
+    margin-top: 10px;
+    margin-bottom: 32px;
+    display: inline-flex;
+    align-items: center;
+    background: #FF4438;
+    color: #fff;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    gap: 4px;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 92% 100%, 0 100%, 0% 50%);
+}
+
+.paper-read-more svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #fff;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 1080px) {
+    .section-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .paper-card-header h2 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 425px) {
+    .section-title {
+        font-size: 26px;
+    }
+
+    .paper-card-header h2 {
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="paper-accordion">
+
+    <!-- ✅ TITLE -->
+    <h2 class="section-title">Research Papers</h2>
+
+    <!-- Dynamic Content -->
+    <div id="accordion"></div>
+
+</div>
+
+<script>
+const papers = [
+    {
+        title: "Khmer Polarity Classification",
+        highlight: "Towards Explainable",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Mary Kong, Rina Buoy",
+        abstract: "This paper proposes an explainable Khmer polarity classifier using AI models.",
+        date: "12 November 2025",
+        page: "2-10",
+        link: "#"
+    },
+    {
+        title: "Fabric Detection using YOLOv5",
+        highlight: "Real-World Manufacturing",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Makara Mao",
+        abstract: "This study improves detection accuracy using Transformer integration.",
+        date: "12 November 2025",
+        page: "11-17",
+        link: "#"
+    },
+    {
+        title: "PM2.5 Forecasting Models",
+        highlight: "Machine Learning Study",
+        publisher: "ASEAN Conference on Emerging Technology 2025",
+        author: "Makara Roeum",
+        abstract: "Study on air pollution prediction using ML models.",
+        date: "12 November 2025",
+        page: "18-23",
+        link: "#"
+    }
+];
+
+const accordion = document.getElementById('accordion');
+
+papers.forEach(paper => {
+    const card = document.createElement('div');
+    card.className = 'paper-card';
+
+    card.innerHTML = `
+        <div class="paper-card-header">
+            <h2><span>${paper.highlight}</span> ${paper.title}</h2>
+            <img class="paper-arrow" src="https://www.idri.edu.kh/wp-content/uploads/2025/12/→.png">
+        </div>
+
+        <div class="paper-card-content">
+            ${paper.author ? `<p class="paper-meta"><strong>Author:</strong> ${paper.author}</p>` : ''}
+            ${paper.publisher ? `<p class="paper-meta"><strong>Publisher:</strong> ${paper.publisher}</p>` : ''}
+            
+            <div class="paper-abstract-title">Abstract:</div>
+            <p class="paper-abstract">${paper.abstract}</p>
+
+            <div class="paper-meta-row">
+                ${paper.date ? `<p class="paper-meta"><strong>Date:</strong> ${paper.date}</p>` : ''}
+                ${paper.page ? `<p class="paper-meta"><strong>Page:</strong> ${paper.page}</p>` : ''}
+            </div>
+
+            ${paper.link ? `<a href="${paper.link}" class="paper-read-more" target="_blank">Read More</a>` : ''}
+        </div>
+    `;
+
+    accordion.appendChild(card);
+});
+
+// Accordion toggle
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.paper-card-header')) {
+        const card = e.target.closest('.paper-card');
+        const content = card.querySelector('.paper-card-content');
+        const arrow = card.querySelector('.paper-arrow');
+
+        if (card.classList.contains('active')) {
+            content.style.maxHeight = "0";
+            arrow.style.transform = "rotate(0deg)";
+            card.classList.remove('active');
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            arrow.style.transform = "rotate(180deg)";
+            card.classList.add('active');
+        }
+    }
+});
+</script>
+
+</body>
+</html>
