@@ -1,0 +1,233 @@
+  <style>
+    /* Accordion Styles */
+    .accordion-item {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: none;
+      margin-bottom: 20px;
+      color: white;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      font-size: 32px;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 32px;
+      text-align: center;
+      transition: background 0.3s, text-align 0.3s;
+    }
+
+    /* Align left when active */
+    .accordion-item.active .accordion-header {
+      text-align: left;
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      padding: 0 32px;
+      transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease;
+    }
+
+    .accordion-item.active .accordion-content {
+      max-height: 500px; /* Adjust as needed */
+      opacity: 1;
+      padding: 32px;
+    }
+
+    .feature {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .feature-text {
+      flex: 1 1 60%;
+      min-width: 250px;
+    }
+
+    .feature-text p {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
+    .feature-text a {
+      display: inline-block;
+      margin-top: 12px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Tablet styles */
+    @media (max-width: 1024px) {
+      .accordion-header {
+        font-size: 28px;
+        padding: 24px;
+      }
+
+      .accordion-item.active .accordion-content {
+        padding: 24px;
+      }
+
+      .accordion-content {
+        padding: 0 24px;
+      }
+
+      .feature-text p {
+        font-size: 18px;
+      }
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .feature {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .feature-text {
+        text-align: center;
+      }
+
+      .accordion-header {
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .accordion-item.active .accordion-header {
+        text-align: left;
+      }
+
+      .accordion-content {
+        text-align: center;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .accordion-item {
+        font-size: 16px;
+      }
+
+      .accordion-header {
+        font-size: 18px;
+        padding: 20px;
+      }
+
+      .accordion-item.active .accordion-content {
+        padding: 20px;
+      }
+
+      .accordion-content {
+        padding: 0 20px;
+      }
+
+      .feature-text p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="accordion-item active" style="background-image: url('https://www.idri.edu.kh/wp-content/uploads/2026/08/Frame-72-1-scaled.png');">
+    <div class="accordion-header">AGENTIC AI</div>
+    <div class="accordion-content">
+      <div class="feature">
+        <div class="feature-text">
+          <p>
+            Explore how autonomous AI agents are reshaping the way work gets done in Cambodia. From hands-on workshops led by developers and researchers to panel discussions on multi-agent systems and human-AI collaboration, this track dives into real-world applications like task automation, AI-driven decision making, and agentic workflows built on local and global models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item" style="background-image: url('https://www.idri.edu.kh/wp-content/uploads/2026/08/Frame-73-scaled.png');">
+    <div class="accordion-header">AI COMPUTING INFRASTRUCTURE</div>
+    <div class="accordion-content">
+      <div class="feature">
+        <div class="feature-text">
+          <p>
+            Go under the hood of the systems that make AI possible. From GPU clusters and data center design to cloud versus on-premise strategies, this track covers what it takes to build and scale the computing power behind modern AI with sessions on infrastructure planning for Cambodia's growing tech ecosystem.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item" style="background-image: url('https://www.idri.edu.kh/wp-content/uploads/2026/08/Frame-74-scaled.png');">
+    <div class="accordion-header">PHYSICAL AI</div>
+    <div class="accordion-content">
+      <div class="feature">
+        <div class="feature-text">
+          <p>
+            See where AI meets the physical world. This track covers robotics, autonomous systems, and embodied intelligence from sensor-driven machines to AI-powered manufacturing and smart devices featuring demos and discussions on how physical AI is moving from research labs into real industries.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item" style="background-image: url('https://www.idri.edu.kh/wp-content/uploads/2026/08/Frame-77-scaled.png');">
+    <div class="accordion-header">AI FOR DEVELOPMENT</div>
+    <div class="accordion-content">
+      <div class="feature">
+        <div class="feature-text">
+          <p>
+            Discover how AI is being applied to tackle development challenges across Cambodia and the region. This track brings together practitioners working on AI in agriculture, healthcare, education, and public services, exploring how emerging technology can drive inclusive growth and solve real community problems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item" style="background-image: url('https://www.idri.edu.kh/wp-content/uploads/2026/08/Frame-75-scaled.png');">
+    <div class="accordion-header">AI FOR SOFTWARE DEVELOPMENT</div>
+    <div class="accordion-content">
+      <div class="feature">
+        <div class="feature-text">
+          <p>
+            Learn how AI is changing the way software gets built. From AI-assisted coding and automated testing to AI-powered debugging and deployment tools, this track features developers and engineers sharing practical techniques for building faster, smarter, and with fewer bugs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item" style="background-image: url('https://www.idri.edu.kh/wp-content/uploads/2026/08/Frame-76-scaled.png');">
+    <div class="accordion-header">OPEN MODELS</div>
+    <div class="accordion-content">
+      <div class="feature">
+        <div class="feature-text">
+          <p>
+            Dive into the world of open-source AI. This track explores the growing ecosystem of open models — from fine-tuning and local deployment to community-driven research — with sessions on how open models are lowering barriers to AI adoption and enabling local innovation in Cambodia and beyond.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const isActive = item.classList.contains('active');
+
+        document.querySelectorAll('.accordion-item').forEach(i => {
+          i.classList.remove('active');
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>

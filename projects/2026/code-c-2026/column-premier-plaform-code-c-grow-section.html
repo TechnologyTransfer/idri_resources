@@ -1,0 +1,141 @@
+<style>
+  .code_c_grow,
+  .code_c_grow * {
+    box-sizing: border-box;
+  }
+
+  .code_c_grow {
+    width: 100%;
+    background: #ffffff;
+    padding: 24px;
+    height: 420px;
+  }
+
+  .code_c_grow-inner {
+    width: 100%;
+  }
+
+  .code_c_grow-text {
+    color: #12284c;
+    font-size: 18px;
+    line-height: 1.45;
+    letter-spacing: 0;
+    margin: 0 0 52px;
+    text-align: justify;
+  }
+
+  .code_c_grow-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .code_c_grow-btn {
+    width: 100%;
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    border: 0;
+    text-decoration: none;
+    color: #12284c;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 800;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .code_c_grow-btn:hover,
+  .code_c_grow-btn:focus-visible {
+    transform: translateY(-2px);
+    opacity: 0.92;
+  }
+
+  .code_c_grow-btn-agenda {
+    background: #9cccf1;
+  }
+
+  .code_c_grow-btn-register {
+    background: #685aff;
+    color: #ffffff;
+  }
+
+  .code_c_grow-arrow {
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  @media only screen and (max-width: 760px) {
+    section.code_c_grow {
+      padding: 24px;
+    }
+
+    section.code_c_grow .code_c_grow-text {
+      font-size: 18px;
+      margin-bottom: 52px;
+    }
+
+    section.code_c_grow .code_c_grow-actions {
+      gap: 18px;
+    }
+
+    section.code_c_grow .code_c_grow-btn {
+      min-height: 64px;
+      font-size: 18px;
+    }
+
+    section.code_c_grow .code_c_grow-arrow {
+      font-size: 18px;
+    }
+  }
+
+  @media only screen and (max-width: 425px) {
+    section.code_c_grow {
+      padding: 20px;
+    }
+
+    section.code_c_grow .code_c_grow-text {
+      font-size: 16px !important;
+      line-height: 1.45;
+      margin-bottom: 28px;
+      text-align: center !important;
+    }
+
+    section.code_c_grow .code_c_grow-actions {
+      gap: 12px;
+    }
+
+    section.code_c_grow .code_c_grow-btn {
+      min-height: 32px;
+      font-size: 16px !important;
+      gap: 12px;
+    }
+
+    section.code_c_grow .code_c_grow-arrow {
+      font-size: 16px !important;
+    }
+  }
+</style>
+
+<section class="code_c_grow">
+  <div class="code_c_grow-inner">
+    <p class="code_c_grow-text">
+      It has become a premier platform that brings together government leaders,
+      global tech executives, startup founders, researchers, and developers —
+      delivering actionable insights and practical frameworks that inspire
+      real-world applications and innovation.
+    </p>
+
+    <div class="code_c_grow-actions">
+      <a class="code_c_grow-btn code_c_grow-btn-agenda" href="#agenda">
+        View Agenda <span class="code_c_grow-arrow">→</span>
+      </a>
+
+      <a class="code_c_grow-btn code_c_grow-btn-register" href="#register">
+        Register Now <span class="code_c_grow-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>

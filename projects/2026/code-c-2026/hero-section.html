@@ -1,0 +1,266 @@
+<style>
+  .code_c_2026-hero-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .code_c_2026-hero {
+    width: 1440px;
+    max-width: 80%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #685AFF;
+    overflow: visible;
+  }
+
+  .code_c_2026-hero-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #685AFF;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+
+  .code_c_2026-hero-title {
+    color: #ffffff;
+    font-size: 72px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin: 0 0 24px;
+  }
+
+  .code_c_2026-hero-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
+
+  .code_c_2026-hero-info p {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.4em;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .code_c_2026-hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .code_c_2026-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 48px;
+    padding: 12px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 800;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .code_c_2026-hero-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .code_c_2026-hero-btn-primary {
+    background: #ffffff;
+    color: #685AFF;
+  }
+
+  .code_c_2026-hero-btn-secondary {
+    background: #11284c;
+    color: #ffffff;
+  }
+
+  .code_c_2026-hero-arrow {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    object-fit: contain;
+    transform: rotate(-45deg);
+  }
+
+  .code_c_2026-hero-image {
+    height: 760px;
+    width: calc(100% + 12vw);
+    background: #9cccf1;
+    overflow: hidden;
+  }
+
+  .code_c_2026-hero-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  @media (max-width: 760px) {
+    .code_c_2026-hero-wrapper {
+      width: 100%;
+      background-color: #685AFF;
+      background-image: url("https://www.idri.edu.kh/wp-content/uploads/2026/07/hero_section_background_style-scaled.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .code_c_2026-hero {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      grid-template-columns: 1fr;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .code_c_2026-hero-content {
+      height: auto;
+      min-height: 520px;
+      padding: 42px 28px;
+      align-items: center;
+      text-align: center;
+      background: rgba(104, 90, 255, 0.88);
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 44px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-info {
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-buttons {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .code_c_2026-hero-image {
+      display: none;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .code_c_2026-hero {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .code_c_2026-hero-content {
+      min-height: 460px;
+      padding: 32px 20px;
+      align-items: center;
+      text-align: center;
+      background: rgba(104, 90, 255, 0.88);
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 38px;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-info {
+      align-items: center;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 20px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .code_c_2026-hero-buttons {
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 100%;
+      max-width: 280px;
+      min-height: 60px;
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .code_c_2026-hero-arrow {
+      width: 14px;
+      height: 14px;
+    }
+
+    .code_c_2026-hero-image {
+      display: none;
+    }
+  }
+</style>
+
+<section class="code_c_2026-hero-wrapper">
+  <div class="code_c_2026-hero">
+    <div class="code_c_2026-hero-content">
+      <h1 class="code_c_2026-hero-title">
+        Developer<br />
+        Conference<br />
+        2026
+      </h1>
+
+      <div class="code_c_2026-hero-info">
+        <p>Date: 21-22 October 2026</p>
+        <p>Location: Innovation Center, CADT</p>
+      </div>
+
+      <div class="code_c_2026-hero-buttons">
+        <!-- <a class="code_c_2026-hero-btn code_c_2026-hero-btn-primary" href="#agenda">
+          View Agenda
+          <img
+            class="code_c_2026-hero-arrow"
+            src="https://www.idri.edu.kh/wp-content/uploads/2026/08/021c130e-73a2-4f24-97cc-c31a92b9d03e.png"
+            alt=""
+            aria-hidden="true"
+          />
+        </a> -->
+
+        <a class="code_c_2026-hero-btn code_c_2026-hero-btn-secondary" href="https://bookme.plus/t/events/code-c-developer-conference-2026" target="_blank">
+          Register Now
+          <img
+            class="code_c_2026-hero-arrow"
+            src="https://www.idri.edu.kh/wp-content/uploads/2026/08/021c130e-73a2-4f24-97cc-c31a92b9d03e.png"
+            alt=""
+            aria-hidden="true"
+          />
+        </a>
+      </div>
+    </div>
+
+    <div class="code_c_2026-hero-image">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2026/07/hero_section_background_style-scaled.png"
+        alt="Developer Conference 2026 visual"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
