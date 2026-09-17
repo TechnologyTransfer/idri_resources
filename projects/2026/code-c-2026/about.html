@@ -1,0 +1,1330 @@
+<style>
+  .about-section-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+  }
+
+  .about-section {
+    width: 100vw;
+    max-width: 92%;
+    color: #15284C;
+  }
+
+  .about-section-layout {
+    display: grid;
+    grid-template-columns: 480px minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+    padding: 60px 0;
+  }
+
+  .about-section-content {
+    width: 100%;
+  }
+
+  .about-section-label {
+    color: #15284C;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 400;
+    padding-bottom: 8px;
+  }
+
+  .about-section-title {
+    color: #685AFF;
+    font-size: 44px;
+    line-height: 1.32;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .about-section-description {
+    margin: 0;
+    max-width: 360px;
+    color: #15284C;
+    font-size: 18px;
+    line-height: 1.45;
+    font-weight: 400;
+  }
+
+  .about-section-actions {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: nowrap;
+  }
+
+  .about-section-button {
+    width: 340px;
+    height: 60px;
+    padding: 0;
+    border: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    font-family: inherit;
+    cursor: pointer;
+    background: transparent;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .about-section-button:hover {
+    animation: about-section-button-bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes about-section-button-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .about-section-button-filled {
+    background: #685AFF;
+    clip-path: polygon(
+      12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px
+    );
+  }
+
+  .about-section-button-text {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 6px;
+    white-space: nowrap;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+  }
+
+  .about-section-button-filled .about-section-button-text {
+    color: #ffffff;
+  }
+
+  .about-section-button-arrow-box {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    clip-path: polygon(
+      7px 0,
+      100% 0,
+      100% calc(100% - 7px),
+      calc(100% - 7px) 100%,
+      0 100%,
+      0 7px
+    );
+  }
+
+  .about-section-button-filled .about-section-button-arrow-box {
+    background: #ffffff;
+    color: #685AFF;
+  }
+
+  .about-section-button-arrow-box svg {
+    width: 28px;
+    height: 28px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  .about-section-social {
+    margin-top: 110px;
+  }
+
+  .about-section-social-title {
+    margin: 0;
+    color: #15284C;
+    font-size: 17px;
+    line-height: 1.45;
+    font-weight: 400;
+  }
+
+  .about-section-social-subtitle {
+    margin: 0 0 8px;
+    color: #15284C;
+    font-size: 17px;
+    line-height: 1.45;
+    font-weight: 400;
+  }
+
+  .about-section-social-links {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .about-section-social-link {
+    width: 30px;
+    height: 30px;
+    display: block;
+    background: #ACACAC;
+    transition: background 0.25s ease;
+  }
+
+  .about-section-social-link:hover {
+    background: #685AFF;
+  }
+
+  .about-section-carousel {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .about-section-carousel-viewport {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .about-section-carousel-track {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .about-section-slide {
+    width: calc(100% - 108px);
+    min-width: calc(100% - 108px);
+    flex-shrink: 0;
+  }
+
+  .about-section-main-image {
+    width: 100%;
+    height: 560px;
+    overflow: hidden;
+    background: #ACACAC;
+    clip-path: polygon(
+      8% 0,
+      100% 0,
+      100% 87%,
+      91% 100%,
+      0 100%,
+      0 11%
+    );
+  }
+
+  .about-section-main-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .about-section-carousel-controls {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .about-section-carousel-button {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #685AFF;
+    color: #ffffff;
+    cursor: pointer;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 8px) 0,
+      100% 8px,
+      100% 100%,
+      8px 100%,
+      0 calc(100% - 8px)
+    );
+  }
+
+  .about-section-carousel-button svg {
+    width: 32px;
+    height: 32px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  @media (max-width: 1439px) and (orientation: landscape) {
+    .about-section-layout {
+      grid-template-columns: 420px minmax(0, 1fr);
+      gap: 28px;
+    }
+
+    .about-section-title {
+      font-size: 42px;
+    }
+
+    .about-section-main-image {
+      height: 520px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 100px);
+      min-width: calc(100% - 100px);
+    }
+  }
+
+  @media (max-width: 1199px) and (orientation: landscape) {
+    .about-section {
+      max-width: 90%;
+    }
+
+    .about-section-layout {
+      grid-template-columns: 310px minmax(0, 1fr);
+      gap: 35px;
+    }
+
+    .about-section-title {
+      font-size: 38px;
+    }
+
+    .about-section-label {
+      font-size: 18px;
+    }
+
+    .about-section-description {
+      max-width: 300px;
+      font-size: 16px;
+    }
+
+    .about-section-button {
+      width: 260px;
+      height: 56px;
+    }
+
+    .about-section-button-text {
+      font-size: 13px;
+    }
+
+    .about-section-main-image {
+      height: 420px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 90px);
+      min-width: calc(100% - 90px);
+    }
+
+    .about-section-social {
+      margin-top: 70px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+    .about-section-layout {
+      padding: 50px 0;
+    }
+
+    .about-section-carousel-controls {
+      margin-top: 20px;
+      gap: 24px;
+    }
+
+    .about-section-carousel-button {
+      width: 48px;
+      height: 48px;
+    }
+
+    .about-section-carousel-button svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    .about-section {
+      max-width: 92%;
+    }
+
+    .about-section-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 50px 0;
+    }
+
+    .about-section-content {
+      width: 100%;
+    }
+
+    .about-section-title {
+      font-size: 38px;
+    }
+
+    .about-section-description {
+      max-width: 500px;
+    }
+
+    .about-section-actions {
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .about-section-social {
+      margin-top: 50px;
+    }
+
+    .about-section-main-image {
+      height: 450px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 73px);
+      min-width: calc(100% - 73px);
+    }
+
+    .about-section-carousel-track {
+      gap: 8px;
+    }
+
+    .about-section-carousel-viewport {
+      touch-action: pan-y;
+    }
+  }
+
+  @media (max-width: 599px) and (orientation: portrait) {
+    .about-section {
+      max-width: 100%;
+    }
+
+    .about-section-layout {
+      padding: 40px 20px;
+    }
+
+    .about-section-title {
+      font-size: 34px;
+    }
+
+    .about-section-description {
+      font-size: 16px;
+    }
+
+    .about-section-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .about-section-button {
+      width: 100%;
+      height: 52px;
+    }
+
+    .about-section-button-text {
+      padding-left: 8px;
+      font-size: 14px;
+      letter-spacing: 0.45px;
+    }
+
+    .about-section-button-arrow-box {
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+    }
+
+    .about-section-button-arrow-box svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .about-section-social {
+      margin-top: 40px;
+    }
+
+    .about-section-main-image {
+      height: 280px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 65px);
+      min-width: calc(100% - 65px);
+    }
+
+    .about-section-carousel-track {
+      gap: 8px;
+    }
+
+    .about-section-carousel-controls {
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 479px) and (orientation: portrait) {
+    .about-section-layout {
+      padding: 32px 12px;
+      gap: 32px;
+    }
+
+    .about-section-content {
+      text-align: center;
+    }
+
+    .about-section-label {
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .about-section-title {
+      font-size: 32px;
+      text-align: center;
+    }
+
+    .about-section-description {
+      max-width: 100%;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .about-section-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .about-section-button {
+      width: 100%;
+      height: 52px;
+    }
+
+    .about-section-button-text {
+      padding-left: 8px;
+      font-size: 14px;
+      letter-spacing: 0.45px;
+    }
+
+    .about-section-button-arrow-box {
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+    }
+
+    .about-section-button-arrow-box svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .about-section-main-image {
+      height: 220px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 53px);
+      min-width: calc(100% - 53px);
+    }
+
+    .about-section-carousel-track {
+      gap: 8px;
+    }
+
+    .about-section-carousel-controls {
+      width: 100%;
+      align-items: flex-end;
+      gap: 24px;
+    }
+
+    .about-section-carousel-button {
+      width: 72px;
+      height: 44px;
+    }
+
+    .about-section-carousel-button svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @media (max-width: 374px) and (orientation: portrait) {
+    .about-section-layout {
+      padding: 28px 10px;
+      gap: 28px;
+    }
+
+    .about-section-label {
+      font-size: 15px;
+    }
+
+    .about-section-title {
+      font-size: 30px;
+      line-height: 1.25;
+    }
+
+    .about-section-description {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .about-section-button {
+      height: 50px;
+    }
+
+    .about-section-button-text {
+      padding-left: 7px;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .about-section-button-arrow-box {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .about-section-button-arrow-box svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .about-section-main-image {
+      height: 190px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 45px);
+      min-width: calc(100% - 45px);
+    }
+
+    .about-section-carousel-button {
+      width: 64px;
+      height: 42px;
+    }
+
+    .about-section-carousel-button svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  @media (max-width: 767px) and (orientation: landscape) {
+    .about-section {
+      max-width: 92%;
+    }
+
+    .about-section-layout {
+      grid-template-columns: 1fr 1.15fr;
+      gap: 24px;
+      padding: 40px 0;
+      align-items: center;
+    }
+
+    .about-section-label {
+      font-size: 16px;
+      padding-bottom: 5px;
+    }
+
+    .about-section-title {
+      font-size: 32px;
+      line-height: 1.25;
+    }
+
+    .about-section-description {
+      max-width: 100%;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .about-section-actions {
+      margin-top: 12px;
+      gap: 8px;
+    }
+
+    .about-section-button {
+      width: 190px;
+      height: 46px;
+    }
+
+    .about-section-button-text {
+      padding-left: 8px;
+      font-size: 10px;
+      letter-spacing: 0.35px;
+    }
+
+    .about-section-button-arrow-box {
+      width: 30px;
+      height: 30px;
+      margin-right: 7px;
+    }
+
+    .about-section-button-arrow-box svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .about-section-social {
+      margin-top: 35px;
+    }
+
+    .about-section-social-title,
+    .about-section-social-subtitle {
+      font-size: 14px;
+    }
+
+    .about-section-main-image {
+      height: 360px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 55px);
+      min-width: calc(100% - 55px);
+    }
+
+    .about-section-carousel-track {
+      gap: 8px;
+    }
+
+    .about-section-carousel-controls {
+      margin-top: 16px;
+      gap: 18px;
+    }
+
+    .about-section-carousel-button {
+      width: 46px;
+      height: 42px;
+    }
+
+    .about-section-carousel-button svg {
+      width: 27px;
+      height: 27px;
+    }
+  }
+
+  @media (max-width: 599px) and (orientation: landscape) {
+    .about-section {
+      max-width: 94%;
+    }
+
+    .about-section-layout {
+      grid-template-columns: 1fr 1.1fr;
+      gap: 18px;
+      padding: 28px 0;
+    }
+
+    .about-section-label {
+      font-size: 14px;
+    }
+
+    .about-section-title {
+      font-size: 27px;
+      line-height: 1.2;
+    }
+
+    .about-section-description {
+      font-size: 13px;
+    }
+
+    .about-section-actions {
+      margin-top: 10px;
+    }
+
+    .about-section-button {
+      width: 170px;
+      height: 42px;
+    }
+
+    .about-section-button-text {
+      font-size: 9px;
+      padding-left: 7px;
+    }
+
+    .about-section-button-arrow-box {
+      width: 27px;
+      height: 27px;
+      margin-right: 6px;
+    }
+
+    .about-section-button-arrow-box svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .about-section-social {
+      margin-top: 24px;
+    }
+
+    .about-section-main-image {
+      height: 300px;
+    }
+
+    .about-section-slide {
+      width: calc(100% - 45px);
+      min-width: calc(100% - 45px);
+    }
+  }
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    .about-section-layout {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .about-section-main-image {
+      height: 260px;
+    }
+
+    .about-section-social {
+      margin-top: 20px;
+    }
+  }
+</style>
+
+<section class="about-section-wrapper">
+
+  <div class="about-section">
+
+    <div class="about-section-layout">
+
+      <div class="about-section-content">
+
+        <p class="about-section-label">
+          About Us
+        </p>
+
+        <h2 class="about-section-title">
+          We Been Here<br>
+          Since 2022
+        </h2>
+
+        <p
+          class="about-section-description"
+          id="about-section-description"
+        ></p>
+
+        <div class="about-section-actions">
+
+          <a
+            href="https://www.facebook.com/share/p/19Apxt9Zib/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="about-section-button about-section-button-filled"
+          >
+
+            <span class="about-section-button-text">
+              PREVIOUS YEAR ACTIVITES
+            </span>
+
+            <span class="about-section-button-arrow-box">
+
+              <svg viewBox="0 0 24 24">
+                <path d="M4 12h15"></path>
+                <path d="m13 5 7 7-7 7"></path>
+              </svg>
+
+            </span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="about-section-carousel">
+
+        <div
+          class="about-section-carousel-viewport"
+          id="about-section-carousel-viewport"
+        >
+
+          <div
+            class="about-section-carousel-track"
+            id="about-section-carousel-track"
+          ></div>
+
+        </div>
+
+        <div class="about-section-carousel-controls">
+
+          <button
+            type="button"
+            class="about-section-carousel-button"
+            id="about-section-prev"
+            aria-label="Previous Slide"
+          >
+
+            <svg viewBox="0 0 24 24">
+              <path d="M19 12H5"></path>
+              <path d="m11 6-6 6 6 6"></path>
+            </svg>
+
+          </button>
+
+          <button
+            type="button"
+            class="about-section-carousel-button"
+            id="about-section-next"
+            aria-label="Next Slide"
+          >
+
+            <svg viewBox="0 0 24 24">
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  const about_section_data = [
+    {
+      description:
+        "Since 2022, CODE-C has grown into one of the most influential developer conferences and tech expos.",
+      main_image:
+        "https://www.idri.edu.kh/wp-content/uploads/2026/09/about-us-1-scaled.webp"
+    },
+    {
+      description:
+        "Since 2022, CODE-C has grown into one of the most influential developer conferences and tech expos.",
+      main_image:
+        "https://www.idri.edu.kh/wp-content/uploads/2026/09/about-us-2-scaled.webp"
+    },
+    {
+      description:
+        "Since 2022, CODE-C has grown into one of the most influential developer conferences and tech expos.",
+      main_image:
+        "https://www.idri.edu.kh/wp-content/uploads/2026/09/about-us-3-scaled.webp"
+    },
+    {
+      description:
+        "Since 2022, CODE-C has grown into one of the most influential developer conferences and tech expos.",
+      main_image:
+        "https://www.idri.edu.kh/wp-content/uploads/2026/09/about-us-4-scaled.webp"
+    },
+    {
+      description:
+        "Since 2022, CODE-C has grown into one of the most influential developer conferences and tech expos.",
+      main_image:
+        "https://www.idri.edu.kh/wp-content/uploads/2026/09/about-us-5-scaled.webp"
+    },
+    {
+      description:
+        "Since 2022, CODE-C has grown into one of the most influential developer conferences and tech expos.",
+      main_image:
+        "https://www.idri.edu.kh/wp-content/uploads/2026/09/about-us-6-scaled.webp"
+    }
+  ];
+
+  const about_section_track =
+    document.getElementById(
+      "about-section-carousel-track"
+    );
+
+  const about_section_viewport =
+    document.getElementById(
+      "about-section-carousel-viewport"
+    );
+
+  const about_section_description =
+    document.getElementById(
+      "about-section-description"
+    );
+
+  const about_section_prev =
+    document.getElementById(
+      "about-section-prev"
+    );
+
+  const about_section_next =
+    document.getElementById(
+      "about-section-next"
+    );
+
+  let about_section_current_slide = 0;
+  let about_section_is_animating = false;
+  let about_section_move_queue = [];
+
+  let about_section_touch_start_x = 0;
+  let about_section_touch_start_y = 0;
+  let about_section_touch_end_x = 0;
+  let about_section_touch_end_y = 0;
+
+  function about_section_create_slide(slide) {
+    return `
+      <div class="about-section-slide">
+        <div class="about-section-main-image">
+          <img
+            src="${slide.main_image}"
+            alt="Code-C Event"
+          >
+        </div>
+      </div>
+    `;
+  }
+
+  function about_section_render() {
+    about_section_track.innerHTML =
+      about_section_data
+        .map(function(slide) {
+          return about_section_create_slide(slide);
+        })
+        .join("");
+
+    about_section_current_slide = 0;
+
+    about_section_track.style.transition =
+      "none";
+
+    about_section_track.style.transform =
+      "translate3d(0, 0, 0)";
+
+    about_section_update_description();
+  }
+
+  function about_section_get_step() {
+    const about_section_slide =
+      about_section_track.querySelector(
+        ".about-section-slide"
+      );
+
+    if (!about_section_slide) {
+      return 0;
+    }
+
+    const about_section_style =
+      window.getComputedStyle(
+        about_section_track
+      );
+
+    const about_section_gap =
+      parseFloat(
+        about_section_style.gap
+      ) || 0;
+
+    return (
+      about_section_slide.getBoundingClientRect().width +
+      about_section_gap
+    );
+  }
+
+  function about_section_update_description() {
+    about_section_description.textContent =
+      about_section_data[
+        about_section_current_slide
+      ].description;
+  }
+
+  function about_section_update_position(
+    position,
+    animate
+  ) {
+    about_section_track.style.transition =
+      animate
+        ? "transform 0.5s ease"
+        : "none";
+
+    about_section_track.style.transform =
+      `translate3d(${position}px, 0, 0)`;
+  }
+
+  function about_section_queue_move(direction) {
+    about_section_move_queue.push(direction);
+
+    about_section_process_queue();
+  }
+
+  function about_section_process_queue() {
+    if (about_section_is_animating) {
+      return;
+    }
+
+    if (
+      about_section_move_queue.length === 0
+    ) {
+      return;
+    }
+
+    const about_section_direction =
+      about_section_move_queue.shift();
+
+    if (about_section_direction === 1) {
+      about_section_move_next();
+    } else {
+      about_section_move_previous();
+    }
+  }
+
+  function about_section_move_next() {
+    const about_section_step =
+      about_section_get_step();
+
+    if (!about_section_step) {
+      return;
+    }
+
+    about_section_is_animating = true;
+
+    const about_section_first_slide =
+      about_section_track.firstElementChild;
+
+    about_section_update_position(
+      -about_section_step,
+      true
+    );
+
+    about_section_current_slide =
+      (
+        about_section_current_slide + 1
+      ) %
+      about_section_data.length;
+
+    about_section_update_description();
+
+    const about_section_finish =
+      function() {
+        about_section_track.removeEventListener(
+          "transitionend",
+          about_section_finish
+        );
+
+        about_section_track.style.transition =
+          "none";
+
+        about_section_track.appendChild(
+          about_section_first_slide
+        );
+
+        about_section_track.style.transform =
+          "translate3d(0, 0, 0)";
+
+        about_section_is_animating = false;
+
+        about_section_process_queue();
+      };
+
+    about_section_track.addEventListener(
+      "transitionend",
+      about_section_finish
+    );
+
+    setTimeout(
+      about_section_finish,
+      550
+    );
+  }
+
+  function about_section_move_previous() {
+    const about_section_step =
+      about_section_get_step();
+
+    if (!about_section_step) {
+      return;
+    }
+
+    about_section_is_animating = true;
+
+    const about_section_last_slide =
+      about_section_track.lastElementChild;
+
+    about_section_track.style.transition =
+      "none";
+
+    about_section_track.insertBefore(
+      about_section_last_slide,
+      about_section_track.firstElementChild
+    );
+
+    about_section_track.style.transform =
+      `translate3d(-${about_section_step}px, 0, 0)`;
+
+    about_section_current_slide =
+      (
+        about_section_current_slide -
+        1 +
+        about_section_data.length
+      ) %
+      about_section_data.length;
+
+    about_section_update_description();
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        about_section_update_position(
+          0,
+          true
+        );
+      });
+    });
+
+    const about_section_finish =
+      function() {
+        about_section_track.removeEventListener(
+          "transitionend",
+          about_section_finish
+        );
+
+        about_section_track.style.transition =
+          "none";
+
+        about_section_track.style.transform =
+          "translate3d(0, 0, 0)";
+
+        about_section_is_animating = false;
+
+        about_section_process_queue();
+      };
+
+    about_section_track.addEventListener(
+      "transitionend",
+      about_section_finish
+    );
+
+    setTimeout(
+      about_section_finish,
+      550
+    );
+  }
+
+  about_section_next.addEventListener(
+    "click",
+    function() {
+      about_section_queue_move(1);
+    }
+  );
+
+  about_section_prev.addEventListener(
+    "click",
+    function() {
+      about_section_queue_move(-1);
+    }
+  );
+
+  about_section_viewport.addEventListener(
+    "touchstart",
+    function(event) {
+      if (
+        window.innerWidth > 767 &&
+        window.matchMedia(
+          "(orientation: landscape)"
+        ).matches
+      ) {
+        return;
+      }
+
+      about_section_touch_start_x =
+        event.touches[0].clientX;
+
+      about_section_touch_start_y =
+        event.touches[0].clientY;
+    },
+    {
+      passive: true
+    }
+  );
+
+  about_section_viewport.addEventListener(
+    "touchend",
+    function(event) {
+      if (
+        window.innerWidth > 767 &&
+        window.matchMedia(
+          "(orientation: landscape)"
+        ).matches
+      ) {
+        return;
+      }
+
+      about_section_touch_end_x =
+        event.changedTouches[0].clientX;
+
+      about_section_touch_end_y =
+        event.changedTouches[0].clientY;
+
+      const about_section_swipe_x =
+        about_section_touch_end_x -
+        about_section_touch_start_x;
+
+      const about_section_swipe_y =
+        about_section_touch_end_y -
+        about_section_touch_start_y;
+
+      const about_section_swipe_threshold =
+        40;
+
+      if (
+        Math.abs(about_section_swipe_x) <=
+        Math.abs(about_section_swipe_y)
+      ) {
+        return;
+      }
+
+      if (
+        Math.abs(about_section_swipe_x) <
+        about_section_swipe_threshold
+      ) {
+        return;
+      }
+
+      if (
+        about_section_swipe_x < 0
+      ) {
+        about_section_queue_move(1);
+      }
+
+      if (
+        about_section_swipe_x > 0
+      ) {
+        about_section_queue_move(-1);
+      }
+    },
+    {
+      passive: true
+    }
+  );
+
+  window.addEventListener(
+    "resize",
+    function() {
+      if (about_section_is_animating) {
+        return;
+      }
+
+      about_section_track.style.transition =
+        "none";
+
+      about_section_track.style.transform =
+        "translate3d(0, 0, 0)";
+    }
+  );
+
+  about_section_render();
+</script>

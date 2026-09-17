@@ -1,0 +1,1032 @@
+<style>
+  .parts_of_code_c {
+    --parts-purple: #685AFF;
+    --parts-white: #FFFFFF;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: var(--parts-purple);
+    color: var(--parts-white);
+  }
+
+  .parts_of_code_c_inner {
+    width: 100vw;
+    max-width: 92%;
+    min-height: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    background: #685AFF;
+    overflow: hidden;
+  }
+
+  .parts_of_code_c_tabs {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #685AFF;
+    z-index: 5;
+  }
+
+  .parts_of_code_c_tab {
+    width: 100%;
+    flex: 1;
+    min-height: 180px;
+    padding: 24px;
+    border: 0;
+    outline: 0;
+    background: transparent !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .parts_of_code_c_tab:hover,
+  .parts_of_code_c_tab:focus,
+  .parts_of_code_c_tab:active {
+    background: transparent !important;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .parts_of_code_c_icon {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+
+  .parts_of_code_c_icon_filled {
+    display: none;
+  }
+
+  .parts_of_code_c_icon_outlined {
+    display: block;
+  }
+
+  .parts_of_code_c_tab.active .parts_of_code_c_icon_filled {
+    display: block;
+  }
+
+  .parts_of_code_c_tab.active .parts_of_code_c_icon_outlined {
+    display: none;
+  }
+
+  .parts_of_code_c_tab:hover .parts_of_code_c_icon {
+    transform: scale(1.06);
+  }
+
+  .parts_of_code_c_content {
+    width: 100%;
+    min-width: 0;
+    min-height: 720px;
+    position: relative;
+    overflow: hidden;
+    background: #685AFF;
+  }
+
+  .parts_of_code_c_panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+
+  .parts_of_code_c_panel.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 2;
+  }
+
+  .parts_of_code_c_background {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .parts_of_code_c_background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(104, 90, 255, 0) 0%,
+      rgba(104, 90, 255, 0.02) 35%,
+      rgba(104, 90, 255, 0.32) 55%,
+      rgba(104, 90, 255, 0.78) 75%,
+      rgba(104, 90, 255, 1) 100%
+    );
+  }
+
+  .parts_of_code_c_content_inner {
+    width: 100%;
+    height: 100%;
+    min-height: 720px;
+    padding: 80px 70px 65px 35px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .parts_of_code_c_title {
+    max-width: 880px;
+    margin: 0 0 22px;
+    color: #FFFFFF;
+    font-size: clamp(40px, 4.3vw, 52px);
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    text-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.65),
+      0 5px 14px rgba(0, 0, 0, 0.45);
+  }
+
+  .parts_of_code_c_description {
+    max-width: 880px;
+    margin: 0 0 32px;
+    color: #FFFFFF;
+    font-size: 17px;
+    line-height: 1.55;
+    font-weight: 400;
+    text-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.65),
+      0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  .parts_of_code_c_buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+
+  .parts_of_code_c_button {
+    width: 220px;
+    height: 52px;
+    padding: 0;
+    border: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    box-sizing: border-box;
+  }
+
+  .parts_of_code_c_button:hover {
+    animation: parts-of-code-c-button-bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes parts-of-code-c-button-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .parts_of_code_c_button_agenda {
+    background: #FFFFFF;
+    clip-path: polygon(
+      12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px
+    );
+  }
+
+  .parts_of_code_c_button_agenda_inner {
+    position: absolute;
+    inset: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #685AFF;
+    clip-path: polygon(
+      11px 0,
+      100% 0,
+      100% calc(100% - 11px),
+      calc(100% - 11px) 100%,
+      0 100%,
+      0 11px
+    );
+  }
+
+  .parts_of_code_c_button_register {
+    background: #685AFF;
+    clip-path: polygon(
+      12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px
+    );
+  }
+
+  .parts_of_code_c_button_register_inner {
+    position: absolute;
+    inset: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    clip-path: polygon(
+      11px 0,
+      100% 0,
+      100% calc(100% - 11px),
+      calc(100% - 11px) 100%,
+      0 100%,
+      0 11px
+    );
+  }
+
+  .parts_of_code_c_button_text {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 6px;
+    white-space: nowrap;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  .parts_of_code_c_button_agenda .parts_of_code_c_button_text {
+    color: #FFFFFF;
+  }
+
+  .parts_of_code_c_button_register .parts_of_code_c_button_text {
+    color: #685AFF;
+  }
+
+  .parts_of_code_c_button_arrow_box {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    clip-path: polygon(
+      7px 0,
+      100% 0,
+      100% calc(100% - 7px),
+      calc(100% - 7px) 100%,
+      0 100%,
+      0 7px
+    );
+  }
+
+  .parts_of_code_c_button_agenda .parts_of_code_c_button_arrow_box {
+    background: #FFFFFF;
+    color: #685AFF;
+  }
+
+  .parts_of_code_c_button_register .parts_of_code_c_button_arrow_box {
+    background: #685AFF;
+    color: #FFFFFF;
+  }
+
+  .parts_of_code_c_button_arrow_box svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  @media (max-width: 1439px) and (orientation: landscape) {
+    .parts_of_code_c_inner {
+      grid-template-columns: 165px 1fr;
+    }
+
+    .parts_of_code_c_icon {
+      width: 105px;
+      height: 105px;
+    }
+
+    .parts_of_code_c_tab {
+      min-height: 165px;
+    }
+
+    .parts_of_code_c_content_inner {
+      padding: 70px 55px 60px 32px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 48px;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 1199px) and (orientation: landscape) {
+    .parts_of_code_c_inner {
+      max-width: 90%;
+      grid-template-columns: 145px 1fr;
+      min-height: 680px;
+    }
+
+    .parts_of_code_c_tab {
+      min-height: 150px;
+      padding: 18px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 82px;
+      height: 82px;
+    }
+
+    .parts_of_code_c_content {
+      min-height: 620px;
+    }
+
+    .parts_of_code_c_content_inner {
+      min-height: 620px;
+      padding: 60px 40px 48px 28px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 43px;
+      line-height: 1.12;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 15px;
+      margin-bottom: 26px;
+    }
+
+    .parts_of_code_c_button {
+      width: 180px;
+      height: 48px;
+    }
+
+    .parts_of_code_c_button_text {
+      font-size: 10px;
+      padding-left: 12px;
+    }
+
+    .parts_of_code_c_button_arrow_box {
+      width: 29px;
+      height: 29px;
+      margin-right: 7px;
+    }
+
+    .parts_of_code_c_button_arrow_box svg {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
+    .parts_of_code_c_inner {
+      max-width: 92%;
+      grid-template-columns: 125px 1fr;
+      min-height: 720px;
+    }
+
+    .parts_of_code_c_tab {
+      min-height: 150px;
+      padding: 18px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 68px;
+      height: 68px;
+    }
+
+    .parts_of_code_c_content {
+      min-height: 650px;
+    }
+
+    .parts_of_code_c_content_inner {
+      min-height: 650px;
+      padding: 60px 30px 45px 24px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 40px;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 15px;
+    }
+
+    .parts_of_code_c_button {
+      width: 170px;
+      height: 48px;
+    }
+
+    .parts_of_code_c_button_text {
+      font-size: 10px;
+      padding-left: 11px;
+    }
+  }
+
+  @media (max-width: 767px) and (orientation: landscape) {
+    .parts_of_code_c_inner {
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .parts_of_code_c_tabs {
+      width: 100%;
+      height: 82px;
+      flex-direction: row;
+    }
+
+    .parts_of_code_c_tab {
+      width: 33.3333%;
+      height: 82px;
+      min-height: 0;
+      padding: 10px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .parts_of_code_c_content {
+      min-height: 500px;
+    }
+
+    .parts_of_code_c_panel {
+      min-height: 500px;
+    }
+
+    .parts_of_code_c_content_inner {
+      min-height: 500px;
+      padding: 120px 28px 38px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 32px;
+      line-height: 1.12;
+      letter-spacing: -0.8px;
+    }
+
+    .parts_of_code_c_description {
+      max-width: 760px;
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 22px;
+    }
+
+    .parts_of_code_c_buttons {
+      gap: 8px;
+    }
+
+    .parts_of_code_c_button {
+      width: 175px;
+      height: 44px;
+    }
+
+    .parts_of_code_c_button_text {
+      padding-left: 10px;
+      font-size: 9px;
+      letter-spacing: 0.4px;
+    }
+
+    .parts_of_code_c_button_arrow_box {
+      width: 28px;
+      height: 28px;
+      margin-right: 6px;
+    }
+
+    .parts_of_code_c_button_arrow_box svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media (max-width: 599px) and (orientation: landscape) {
+    .parts_of_code_c_tabs {
+      height: 70px;
+    }
+
+    .parts_of_code_c_tab {
+      height: 70px;
+      padding: 7px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 42px;
+      height: 42px;
+    }
+
+    .parts_of_code_c_content,
+    .parts_of_code_c_panel,
+    .parts_of_code_c_content_inner {
+      min-height: 440px;
+    }
+
+    .parts_of_code_c_content_inner {
+      padding: 95px 20px 30px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 28px;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .parts_of_code_c_button {
+      width: 155px;
+      height: 40px;
+    }
+
+    .parts_of_code_c_button_text {
+      padding-left: 8px;
+      font-size: 8px;
+    }
+
+    .parts_of_code_c_button_arrow_box {
+      width: 25px;
+      height: 25px;
+      margin-right: 5px;
+    }
+
+    .parts_of_code_c_button_arrow_box svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    .parts_of_code_c_inner {
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .parts_of_code_c_tabs {
+      width: 100%;
+      height: 105px;
+      flex-direction: row;
+    }
+
+    .parts_of_code_c_tab {
+      width: 33.3333%;
+      height: 105px;
+      min-height: 0;
+      padding: 15px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 58px;
+      height: 58px;
+    }
+
+    .parts_of_code_c_content {
+      min-height: 620px;
+    }
+
+    .parts_of_code_c_panel {
+      min-height: 620px;
+    }
+
+    .parts_of_code_c_content_inner {
+      min-height: 620px;
+      padding: 210px 30px 50px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 40px;
+      line-height: 1.14;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 16px;
+    }
+
+    .parts_of_code_c_button {
+      width: 190px;
+      height: 44px;
+    }
+  }
+
+  @media (max-width: 599px) and (orientation: portrait) {
+    .parts_of_code_c_tabs {
+      height: 90px;
+    }
+
+    .parts_of_code_c_tab {
+      height: 90px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 52px;
+      height: 52px;
+    }
+
+    .parts_of_code_c_content,
+    .parts_of_code_c_panel,
+    .parts_of_code_c_content_inner {
+      min-height: 650px;
+    }
+
+    .parts_of_code_c_content_inner {
+      padding: 180px 24px 42px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 34px;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 15px;
+    }
+
+    .parts_of_code_c_buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .parts_of_code_c_button {
+      width: 220px;
+      height: 52px;
+    }
+
+    .parts_of_code_c_button_text {
+      padding-left: 18px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 479px) and (orientation: portrait) {
+    .parts_of_code_c_tabs {
+      height: 82px;
+    }
+
+    .parts_of_code_c_tab {
+      height: 82px;
+      padding: 10px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 46px;
+      height: 46px;
+    }
+
+    .parts_of_code_c_content,
+    .parts_of_code_c_panel,
+    .parts_of_code_c_content_inner {
+      min-height: 640px;
+    }
+
+    .parts_of_code_c_content_inner {
+      padding: 160px 20px 32px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 28px;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 14px;
+    }
+
+    .parts_of_code_c_button {
+      width: 100%;
+      max-width: 240px;
+    }
+  }
+
+  @media (max-width: 374px) and (orientation: portrait) {
+    .parts_of_code_c_tabs {
+      height: 76px;
+    }
+
+    .parts_of_code_c_tab {
+      height: 76px;
+      padding: 8px;
+    }
+
+    .parts_of_code_c_icon {
+      width: 42px;
+      height: 42px;
+    }
+
+    .parts_of_code_c_content,
+    .parts_of_code_c_panel,
+    .parts_of_code_c_content_inner {
+      min-height: 620px;
+    }
+
+    .parts_of_code_c_content_inner {
+      padding: 145px 16px 28px;
+    }
+
+    .parts_of_code_c_title {
+      font-size: 25px;
+      line-height: 1.12;
+    }
+
+    .parts_of_code_c_description {
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .parts_of_code_c_button {
+      max-width: 220px;
+      height: 50px;
+    }
+
+    .parts_of_code_c_button_text {
+      padding-left: 14px;
+      font-size: 12px;
+      letter-spacing: 0.35px;
+    }
+
+    .parts_of_code_c_button_arrow_box {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .parts_of_code_c_button_arrow_box svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+</style>
+
+<section class="parts_of_code_c">
+  <div class="parts_of_code_c_inner">
+    <div class="parts_of_code_c_tabs" role="tablist"></div>
+    <div class="parts_of_code_c_content"></div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const section = document.querySelector(".parts_of_code_c");
+
+    if (!section) return;
+
+    const tabsContainer = section.querySelector(".parts_of_code_c_tabs");
+    const contentContainer = section.querySelector(".parts_of_code_c_content");
+
+    const partsData = [
+      {
+        title: "Learn Directly from the Experts<br>Across Many Industries",
+        description: "Go beyond high-level talks. CODE-C Masterclasses deliver hands-on, expert-led technical deep dives into AI engineering, cloud architecture, cybersecurity, and advanced software design. Designed for active builders looking to level up.",
+        filledIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/speaker_filled_icon.png",
+        outlinedIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/speaker_outlined_icon.png",
+        background: "https://www.idri.edu.kh/wp-content/uploads/2026/09/speakers_ref_image-1-scaled.webp",
+        button1: "Contact Us",
+        button2: "Become Speaker",
+        button1Url: "https://t.me/PanharithIn",
+        button2Url: "https://forms.cloud.microsoft/r/6VDp1kctze"
+      },
+      {
+        title: "Powering Cambodia's Tech Ecosystem Under One Roof",
+        description: "CODE-C brings together global tech giants, high-growth startups, policymakers, and thousands of rising developers under one roof. From national infastructure disscussions to grassroots developer tools, this is where Cambodia's digital movement happens. Become part of an ecosystem driving real technological adoption and talent growth.",
+        filledIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/sponsor_filled_icon.png",
+        outlinedIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/sponsor_outlined_icon.png",
+        background: "https://www.idri.edu.kh/wp-content/uploads/2026/09/become_sponsor-scaled.webp",
+        button1: "Contact Us",
+        button2: "Become Sponsor",
+        button1Url: "https://t.me/ChantraBE",
+        button2Url: "#sponsor"
+      },
+      {
+        title: "Cambodia's Largest Tech Gathering",
+        description: "Join 3,000+ tech professionals, explore 50+ interactive brand exhibition, and connect with industry leaders, fast-growth startups, and top-tier talent all on one massive floor.",
+        filledIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/exhibitor_fill_icon.png",
+        outlinedIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/exhibitor_outlined_icon.png",
+        background: "https://www.idri.edu.kh/wp-content/uploads/2026/09/request_booth-scaled.webp",
+        button1: "Contact Us",
+        button2: "Request Booth",
+        button1Url: "https://t.me/ChantraBE",
+        button2Url: "https://forms.cloud.microsoft/r/KBLKatXmxv"
+      }
+    ];
+
+    function createArrow() {
+      return `
+        <span class="parts_of_code_c_button_arrow_box">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 12h15"></path>
+            <path d="m13 5 7 7-7 7"></path>
+          </svg>
+        </span>
+      `;
+    }
+
+    partsData.forEach(function (item, index) {
+      const tab = document.createElement("button");
+
+      tab.className =
+        "parts_of_code_c_tab" +
+        (index === 0 ? " active" : "");
+
+      tab.type = "button";
+      tab.role = "tab";
+      tab.setAttribute(
+        "aria-selected",
+        index === 0 ? "true" : "false"
+      );
+      tab.setAttribute(
+        "data-tab",
+        index
+      );
+
+      tab.innerHTML = `
+        <img
+          class="parts_of_code_c_icon parts_of_code_c_icon_filled"
+          src="${item.filledIcon}"
+          alt=""
+        >
+
+        <img
+          class="parts_of_code_c_icon parts_of_code_c_icon_outlined"
+          src="${item.outlinedIcon}"
+          alt=""
+        >
+      `;
+
+      tabsContainer.appendChild(tab);
+
+      const panel = document.createElement("div");
+
+      panel.className =
+        "parts_of_code_c_panel" +
+        (index === 0 ? " active" : "");
+
+      panel.setAttribute(
+        "data-panel",
+        index
+      );
+
+      panel.setAttribute(
+        "role",
+        "tabpanel"
+      );
+
+      panel.innerHTML = `
+        <div
+          class="parts_of_code_c_background"
+          style="background-image: url('${item.background}');"
+        ></div>
+
+        <div class="parts_of_code_c_content_inner">
+
+          <h2 class="parts_of_code_c_title">
+            ${item.title}
+          </h2>
+
+          <p class="parts_of_code_c_description">
+            ${item.description}
+          </p>
+
+          <div class="parts_of_code_c_buttons">
+
+            <a
+              target="_blank"
+              href="${item.button1Url}"
+              class="parts_of_code_c_button parts_of_code_c_button_agenda"
+            >
+
+              <span class="parts_of_code_c_button_agenda_inner">
+
+                <span class="parts_of_code_c_button_text">
+                  ${item.button1}
+                </span>
+
+                ${createArrow()}
+
+              </span>
+
+            </a>
+
+            <a
+              target="_blank"
+              href="${item.button2Url}"
+              class="parts_of_code_c_button parts_of_code_c_button_register"
+            >
+
+              <span class="parts_of_code_c_button_register_inner">
+
+                <span class="parts_of_code_c_button_text">
+                  ${item.button2}
+                </span>
+
+                ${createArrow()}
+
+              </span>
+
+            </a>
+
+          </div>
+
+        </div>
+      `;
+
+      contentContainer.appendChild(panel);
+    });
+
+    const tabs =
+      section.querySelectorAll(
+        ".parts_of_code_c_tab"
+      );
+
+    const panels =
+      section.querySelectorAll(
+        ".parts_of_code_c_panel"
+      );
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener(
+        "click",
+        function () {
+          const target =
+            this.getAttribute(
+              "data-tab"
+            );
+
+          tabs.forEach(function (item) {
+            item.classList.remove(
+              "active"
+            );
+
+            item.setAttribute(
+              "aria-selected",
+              "false"
+            );
+          });
+
+          panels.forEach(function (panel) {
+            panel.classList.remove(
+              "active"
+            );
+          });
+
+          this.classList.add(
+            "active"
+          );
+
+          this.setAttribute(
+            "aria-selected",
+            "true"
+          );
+
+          const targetPanel =
+            section.querySelector(
+              '.parts_of_code_c_panel[data-panel="' +
+              target +
+              '"]'
+            );
+
+          if (targetPanel) {
+            targetPanel.classList.add(
+              "active"
+            );
+          }
+        }
+      );
+    });
+  });
+</script>

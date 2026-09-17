@@ -1,0 +1,178 @@
+<style>
+  .code-c-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 14px 0;
+    position: relative;
+    z-index: 100;
+  }
+
+  .code-c-navbar {
+    width: min(100vw, 92%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .code-c-logo {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .code-c-logo img {
+    display: block;
+    max-height: 40px;
+    width: auto;
+    height: auto;
+  }
+
+  .code-c-nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+  }
+
+  .code-c-nav a {
+    position: relative;
+    color: #15284c;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .code-c-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #685aff;
+    transition: width 0.25s ease;
+  }
+
+  .code-c-nav a:hover,
+  .code-c-nav a:focus-visible {
+    color: #685aff;
+  }
+
+  .code-c-nav a:hover::after,
+  .code-c-nav a:focus-visible::after {
+    width: 100%;
+  }
+
+  .code-c-menu-button {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .code-c-menu-button span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    margin: 5px auto;
+    border-radius: 999px;
+    background: #15284c;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .code-c-menu-button.is-active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .code-c-menu-button.is-active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .code-c-menu-button.is-active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    .code-c-navbar {
+      width: 92%;
+      flex-wrap: wrap;
+    }
+
+    .code-c-menu-button {
+      display: block;
+    }
+
+    .code-c-nav {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 10px 0;
+      border-top: 1px solid rgba(21, 40, 76, 0.12);
+    }
+
+    .code-c-nav.is-open {
+      display: flex;
+    }
+
+    .code-c-nav a {
+      width: 100%;
+      padding: 14px 0;
+      font-size: 17px;
+    }
+
+    .code-c-nav a::after {
+      display: none;
+    }
+  }
+</style>
+
+<header class="code-c-header">
+  <nav class="code-c-navbar" aria-label="CODE-C 2026 main navigation">
+    <a class="code-c-logo" href="https://www.idri.edu.kh/events/code-c-2026/" aria-label="CODE-C 2026 homepage">
+      <img
+        loading="lazy"
+        src="https://www.idri.edu.kh/wp-content/uploads/2026/07/CODE_C_2026.png"
+        alt="CODE-C 2026"
+      />
+    </a>
+
+    <button
+      class="code-c-menu-button"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="code-c-nav"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="code-c-nav" id="code-c-nav">
+      <a href="#about">About</a>
+      <a href="#tracks">Program Tracks</a>
+      <!-- <a href="#agenda">Agenda</a> -->
+      <!-- <a href="#speakers">Speakers</a> -->
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuButton = document.querySelector(".code-c-menu-button");
+    const navMenu = document.getElementById("code-c-nav");
+
+    menuButton.addEventListener("click", function () {
+      const isOpen = navMenu.classList.toggle("is-open");
+
+      menuButton.classList.toggle("is-active", isOpen);
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
+</script>

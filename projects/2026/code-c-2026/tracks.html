@@ -1,0 +1,1357 @@
+<style>
+  .program-tracks-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .program-tracks {
+    width: 100vw;
+    max-width: 92%;
+    color: #fff;
+    padding: 80px 0;
+    box-sizing: border-box;
+  }
+
+  .program-tracks-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .program-tracks-title {
+    margin: 0 0 16px;
+    color: #fff;
+    font-size: 52px;
+    line-height: 1.1;
+    font-weight: 700;
+    text-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.2),
+      0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: opacity 0.22s ease;
+  }
+
+  .program-tracks-description {
+    max-width: 900px;
+    height: 180px;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1.7;
+    font-weight: 400;
+    overflow: hidden;
+    text-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.2),
+      0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: opacity 0.22s ease;
+  }
+
+  .program-tracks-stage {
+    position: relative;
+    width: 100%;
+    height: 440px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    margin-top: -28px;
+  }
+
+  .program-tracks-image-area {
+    position: relative;
+    width: 620px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .program-tracks-image {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    object-fit: contain;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    will-change: transform, opacity;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .program-tracks-image-current {
+    z-index: 2;
+  }
+
+  .program-tracks-image-next {
+    z-index: 1;
+    opacity: 0;
+  }
+
+  .program-tracks-navigation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80vw;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .program-tracks-button {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border: 0;
+    background: #fff !important;
+    color: #685AFF !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    pointer-events: auto;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 10px) 0,
+      100% 10px,
+      100% 100%,
+      10px 100%,
+      0 calc(100% - 10px)
+    );
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
+  }
+
+  .program-tracks-button:hover,
+  .program-tracks-button:focus,
+  .program-tracks-button:active {
+    background: #fff !important;
+    color: #685AFF !important;
+  }
+
+  .program-tracks-button:hover {
+    opacity: 0.82;
+  }
+
+  .program-tracks-button svg {
+    width: 32px;
+    height: 32px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+
+  @media (min-width: 1200px) {
+    .program-tracks {
+      max-width: 92%;
+      padding: 80px 0;
+    }
+
+    .program-tracks-title {
+      font-size: 52px;
+    }
+
+    .program-tracks-description {
+      max-width: 900px;
+      height: 180px;
+      font-size: 20px;
+      line-height: 1.7;
+    }
+
+    .program-tracks-stage {
+      height: 440px;
+    }
+
+    .program-tracks-image-area {
+      width: 620px;
+      height: 400px;
+    }
+
+    .program-tracks-image {
+      width: 430px;
+      height: 430px;
+    }
+
+    .program-tracks-navigation {
+      width: 80vw;
+    }
+
+    .program-tracks-button {
+      width: 56px;
+      height: 56px;
+    }
+
+    .program-tracks-button svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+
+  @media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+    .program-tracks {
+      max-width: 90%;
+      padding: 65px 0;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 24px;
+    }
+
+    .program-tracks-title {
+      font-size: 42px;
+      margin-bottom: 14px;
+    }
+
+    .program-tracks-description {
+      max-width: 780px;
+      height: 145px;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .program-tracks-stage {
+      height: 390px;
+      margin-top: -18px;
+    }
+
+    .program-tracks-image-area {
+      width: 520px;
+      height: 350px;
+    }
+
+    .program-tracks-image {
+      width: 370px;
+      height: 370px;
+    }
+
+    .program-tracks-navigation {
+      width: 82vw;
+    }
+
+    .program-tracks-button {
+      width: 54px;
+      height: 54px;
+    }
+
+    .program-tracks-button svg {
+      width: 31px;
+      height: 31px;
+    }
+  }
+
+
+  @media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
+    .program-tracks {
+      max-width: 90%;
+      padding: 70px 0;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 25px;
+    }
+
+    .program-tracks-title {
+      font-size: 40px;
+      margin-bottom: 14px;
+    }
+
+    .program-tracks-description {
+      max-width: 760px;
+      height: 160px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .program-tracks-stage {
+      height: 430px;
+      margin-top: -15px;
+    }
+
+    .program-tracks-image-area {
+      width: 560px;
+      height: 390px;
+    }
+
+    .program-tracks-image {
+      width: 400px;
+      height: 400px;
+    }
+
+    .program-tracks-navigation {
+      width: 84vw;
+    }
+
+    .program-tracks-button {
+      width: 56px;
+      height: 56px;
+    }
+
+    .program-tracks-button svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+
+  @media (max-width: 767px) and (orientation: landscape) {
+    .program-tracks {
+      max-width: 94%;
+      padding: 45px 0;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 18px;
+    }
+
+    .program-tracks-title {
+      font-size: 31px;
+      margin-bottom: 10px;
+    }
+
+    .program-tracks-description {
+      max-width: 720px;
+      height: 105px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .program-tracks-stage {
+      height: 300px;
+      margin-top: -12px;
+    }
+
+    .program-tracks-image-area {
+      width: 390px;
+      height: 280px;
+    }
+
+    .program-tracks-image {
+      width: 280px;
+      height: 280px;
+    }
+
+    .program-tracks-navigation {
+      width: 88vw;
+    }
+
+    .program-tracks-button {
+      width: 46px;
+      height: 46px;
+    }
+
+    .program-tracks-button svg {
+      width: 27px;
+      height: 27px;
+    }
+  }
+
+
+  @media (max-width: 599px) and (orientation: landscape) {
+    .program-tracks {
+      max-width: 96%;
+      padding: 35px 0;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 12px;
+    }
+
+    .program-tracks-title {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .program-tracks-description {
+      height: 85px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .program-tracks-stage {
+      height: 245px;
+      margin-top: -8px;
+    }
+
+    .program-tracks-image-area {
+      width: 320px;
+      height: 230px;
+    }
+
+    .program-tracks-image {
+      width: 220px;
+      height: 220px;
+    }
+
+    .program-tracks-navigation {
+      width: 90vw;
+    }
+
+    .program-tracks-button {
+      width: 40px;
+      height: 40px;
+    }
+
+    .program-tracks-button svg {
+      width: 23px;
+      height: 23px;
+    }
+  }
+
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    .program-tracks {
+      max-width: 92%;
+      padding: 60px 0;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 25px;
+    }
+
+    .program-tracks-title {
+      font-size: 32px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .program-tracks-description {
+      width: 100%;
+      max-width: 100%;
+      height: 150px;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .program-tracks-stage {
+      height: 390px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: visible;
+      margin-top: -8px;
+    }
+
+    .program-tracks-image-area {
+      width: 100%;
+      height: 350px;
+      flex-shrink: 0;
+    }
+
+    .program-tracks-image {
+      width: 320px;
+      height: 320px;
+    }
+
+    .program-tracks-navigation {
+      position: absolute;
+      top: auto;
+      bottom: 0;
+      left: auto;
+      right: 0;
+      width: auto;
+      transform: none;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 18px;
+      pointer-events: none;
+    }
+
+    .program-tracks-button {
+      width: 66px;
+      height: 44px;
+    }
+
+    .program-tracks-button svg {
+      width: 27px;
+      height: 27px;
+    }
+  }
+
+
+  @media (max-width: 599px) and (orientation: portrait) {
+    .program-tracks {
+      max-width: 92%;
+      padding: 52px 0;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 20px;
+    }
+
+    .program-tracks-title {
+      font-size: 29px;
+      margin-bottom: 10px;
+    }
+
+    .program-tracks-description {
+      height: 155px;
+      font-size: 15px;
+      line-height: 1.52;
+    }
+
+    .program-tracks-stage {
+      height: 370px;
+    }
+
+    .program-tracks-image-area {
+      height: 330px;
+    }
+
+    .program-tracks-image {
+      width: 290px;
+      height: 290px;
+    }
+
+    .program-tracks-navigation {
+      gap: 15px;
+    }
+
+    .program-tracks-button {
+      width: 62px;
+      height: 42px;
+    }
+
+    .program-tracks-button svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+
+  @media (max-width: 479px) and (orientation: portrait) {
+    .program-tracks {
+      max-width: 92%;
+      padding: 48px 0;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 18px;
+    }
+
+    .program-tracks-title {
+      height: auto;
+      min-height: 34px;
+      font-size: 27px;
+      line-height: 1.15;
+    }
+
+    .program-tracks-description {
+      height: 195px;
+      min-height: 195px;
+      max-height: 195px;
+      box-sizing: border-box;
+      font-size: 15px;
+      line-height: 1.5;
+      overflow: hidden;
+    }
+
+    .program-tracks-stage {
+      height: 375px;
+    }
+
+    .program-tracks-image-area {
+      width: 100%;
+      height: 350px;
+    }
+
+    .program-tracks-image {
+      width: 260px;
+      height: 260px;
+      margin-top: -18px;
+    }
+
+    .program-tracks-navigation {
+      right: 0;
+      bottom: 0;
+      gap: 14px;
+    }
+
+    .program-tracks-button {
+      width: 58px;
+      height: 40px;
+    }
+
+    .program-tracks-button svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+
+  @media (max-width: 373px) and (orientation: portrait) {
+    .program-tracks {
+      max-width: 94%;
+      padding: 42px 0;
+    }
+
+    .program-tracks-title {
+      font-size: 25px;
+    }
+
+    .program-tracks-description {
+      height: 205px;
+      min-height: 205px;
+      max-height: 205px;
+      font-size: 14px;
+      line-height: 1.48;
+    }
+
+    .program-tracks-stage {
+      height: 350px;
+    }
+
+    .program-tracks-image-area {
+      height: 325px;
+    }
+
+    .program-tracks-image {
+      width: 235px;
+      height: 235px;
+      margin-top: -15px;
+    }
+
+    .program-tracks-navigation {
+      gap: 10px;
+    }
+
+    .program-tracks-button {
+      width: 52px;
+      height: 36px;
+    }
+
+    .program-tracks-button svg {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    .program-tracks {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    .program-tracks-header {
+      margin-bottom: 10px;
+    }
+
+    .program-tracks-title {
+      font-size: 27px;
+      margin-bottom: 6px;
+    }
+
+    .program-tracks-description {
+      height: 78px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .program-tracks-stage {
+      height: 220px;
+      margin-top: -5px;
+    }
+
+    .program-tracks-image-area {
+      width: 300px;
+      height: 210px;
+    }
+
+    .program-tracks-image {
+      width: 205px;
+      height: 205px;
+    }
+
+    .program-tracks-navigation {
+      width: 90vw;
+    }
+
+    .program-tracks-button {
+      width: 38px;
+      height: 38px;
+    }
+
+    .program-tracks-button svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+</style>
+
+<section class="program-tracks-wrapper">
+  <div class="program-tracks">
+
+    <div class="program-tracks-header">
+      <h2 class="program-tracks-title">OPEN MODELS</h2>
+
+      <p class="program-tracks-description">
+        Discover the evolving world of open-source AI. This track explores how open models are built, adapted, and deployed, from fine-tuning and local deployment to community-driven research. Learn how open AI is making advanced technology more accessible and creating new opportunities for innovation in Cambodia and beyond.
+      </p>
+    </div>
+
+    <div class="program-tracks-stage">
+
+      <div class="program-tracks-image-area">
+
+        <img
+          class="program-tracks-image program-tracks-image-current"
+          src="https://www.idri.edu.kh/wp-content/uploads/2026/09/open_model_track.png"
+          alt="Open Models"
+          draggable="false"
+        >
+
+        <img
+          class="program-tracks-image program-tracks-image-next"
+          src=""
+          alt=""
+          draggable="false"
+        >
+
+        <div class="program-tracks-navigation">
+
+          <button
+            class="program-tracks-button program-tracks-prev"
+            type="button"
+            aria-label="Previous track"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M19 12H5"></path>
+              <path d="m11 6-6 6 6 6"></path>
+            </svg>
+          </button>
+
+          <button
+            class="program-tracks-button program-tracks-next"
+            type="button"
+            aria-label="Next track"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  const program_tracks_data = [
+    {
+      title: "OPEN MODELS",
+      description: "Discover the evolving world of open-source AI. This track explores how open models are built, adapted, and deployed, from fine-tuning and local deployment to community-driven research. Learn how open AI is making advanced technology more accessible and creating new opportunities for innovation in Cambodia and beyond.",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/open_model_track.png"
+    },
+    {
+      title: "AGENTIC AI",
+      description: "Discover how autonomous AI agents are transforming the way work gets done in Cambodia. From hands-on workshops with developers and researchers to discussions on multi-agent systems and human-AI collaboration, this track explores practical applications such as task automation, AI-powered decision making, and agentic workflows using both local and global models.",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/agentic_ai_track.png"
+    },
+    {
+      title: "AI COMPUTING INFRASTRUCTURE",
+      description: "Explore the technology and systems powering modern AI. This track covers GPU infrastructure, data centers, cloud computing, and on-premise deployment, while examining how organizations can build and scale the computing capabilities needed for AI. Discover the infrastructure strategies shaping Cambodia’s growing technology ecosystem.",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/ai_computing_track.png"
+    },
+    {
+      title: "AI FOR SOFTWARE DEVELOPMENT",
+      description: "Explore how AI is transforming the way software is built. This track covers AI-assisted coding, automated testing, intelligent debugging, and AI-powered development tools. Learn practical techniques from developers and engineers to build software faster, improve quality, and reduce bugs.",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/ai_software_development_track.png"
+    },
+    {
+      title: "AI FOR DEVELOPMENT",
+      description: "Discover how AI is being applied to address development challenges across Cambodia and the region. This track brings together practitioners using AI in agriculture, healthcare, education, and public services. Explore how emerging technologies can support inclusive growth, improve communities, and create practical solutions to real-world challenges.",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/ai_for_development_track.png"
+    },
+    {
+      title: "PHYSICAL AI",
+      description: "Explore how AI is moving beyond screens and into the physical world. This track covers robotics, autonomous systems, embedded intelligence, smart devices, and AI-powered manufacturing. Discover how sensors, intelligent machines, and emerging technologies are transforming research into practical applications across real-world industries.",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/physical_ai_track.png"
+    }
+  ];
+
+  const program_tracks =
+    document.querySelector(".program-tracks");
+
+  if (!program_tracks) {
+    return;
+  }
+
+  const program_tracks_title =
+    program_tracks.querySelector(".program-tracks-title");
+
+  const program_tracks_description =
+    program_tracks.querySelector(".program-tracks-description");
+
+  const program_tracks_image_area =
+    program_tracks.querySelector(".program-tracks-image-area");
+
+  const program_tracks_image_current =
+    program_tracks.querySelector(
+      ".program-tracks-image-current"
+    );
+
+  const program_tracks_image_next =
+    program_tracks.querySelector(
+      ".program-tracks-image-next"
+    );
+
+  const program_tracks_prev =
+    program_tracks.querySelector(
+      ".program-tracks-prev"
+    );
+
+  const program_tracks_next =
+    program_tracks.querySelector(
+      ".program-tracks-next"
+    );
+
+  const program_tracks_stage =
+    program_tracks.querySelector(
+      ".program-tracks-stage"
+    );
+
+  let program_tracks_index = 0;
+  let program_tracks_animating = false;
+  let program_tracks_ready = false;
+
+  let program_tracks_touch_start_x = 0;
+  let program_tracks_touch_start_y = 0;
+
+  const program_tracks_loaded_images = [];
+
+  function program_tracks_preload_images() {
+    const promises =
+      program_tracks_data.map(function (
+        item,
+        index
+      ) {
+        return new Promise(function (resolve) {
+          const image =
+            new Image();
+
+          image.decoding = "async";
+          image.loading = "eager";
+
+          image.onload = function () {
+            if (image.decode) {
+              image.decode()
+                .catch(function () {})
+                .finally(function () {
+                  program_tracks_loaded_images[index] =
+                    image;
+
+                  resolve();
+                });
+            } else {
+              program_tracks_loaded_images[index] =
+                image;
+
+              resolve();
+            }
+          };
+
+          image.onerror = function () {
+            program_tracks_loaded_images[index] =
+              image;
+
+            resolve();
+          };
+
+          image.src = item.image;
+        });
+      });
+
+    Promise.all(promises).then(function () {
+      program_tracks_ready = true;
+
+      program_tracks_image_current.src =
+        program_tracks_data[
+          program_tracks_index
+        ].image;
+
+      program_tracks_image_current.alt =
+        program_tracks_data[
+          program_tracks_index
+        ].title;
+    });
+  }
+
+  function program_tracks_get_dimensions() {
+    const area =
+      program_tracks_image_area;
+
+    const image =
+      program_tracks_image_current;
+
+    const area_width =
+      area.getBoundingClientRect().width;
+
+    const area_height =
+      area.getBoundingClientRect().height;
+
+    const image_width =
+      image.getBoundingClientRect().width;
+
+    const image_height =
+      image.getBoundingClientRect().height;
+
+    const radius =
+      Math.max(
+        Math.min(
+          area_width * 0.52,
+          area_height * 0.62
+        ),
+        image_width * 0.65
+      );
+
+    const vertical =
+      Math.max(
+        Math.min(
+          area_height * 0.34,
+          image_height * 0.42
+        ),
+        55
+      );
+
+    return {
+      radius: radius,
+      vertical: vertical
+    };
+  }
+
+  function program_tracks_update_text(index) {
+    program_tracks_title.style.opacity = "0";
+    program_tracks_description.style.opacity = "0";
+
+    window.setTimeout(function () {
+      program_tracks_title.textContent =
+        program_tracks_data[index].title;
+
+      program_tracks_description.textContent =
+        program_tracks_data[index].description;
+
+      requestAnimationFrame(function () {
+        program_tracks_title.style.opacity = "1";
+        program_tracks_description.style.opacity = "1";
+      });
+    }, 220);
+  }
+
+  function program_tracks_swap_images() {
+    const temp_src =
+      program_tracks_image_current.src;
+
+    const temp_alt =
+      program_tracks_image_current.alt;
+
+    program_tracks_image_current.src =
+      program_tracks_image_next.src;
+
+    program_tracks_image_current.alt =
+      program_tracks_image_next.alt;
+
+    program_tracks_image_next.src =
+      temp_src;
+
+    program_tracks_image_next.alt =
+      temp_alt;
+  }
+
+  function program_tracks_finish_animation(
+    next_index
+  ) {
+    program_tracks_image_current.style.opacity =
+      "0";
+
+    program_tracks_image_current.style.transform =
+      "translate(-50%, -50%) rotate(0deg)";
+
+    program_tracks_image_next.style.opacity =
+      "1";
+
+    program_tracks_image_next.style.transform =
+      "translate(-50%, -50%) rotate(0deg)";
+
+    program_tracks_swap_images();
+
+    program_tracks_image_current.style.opacity =
+      "1";
+
+    program_tracks_image_next.style.opacity =
+      "0";
+
+    program_tracks_index =
+      next_index;
+
+    program_tracks_update_text(
+      program_tracks_index
+    );
+
+    program_tracks_animating = false;
+  }
+
+  function program_tracks_animate(direction) {
+    if (
+      program_tracks_animating ||
+      !program_tracks_ready
+    ) {
+      return;
+    }
+
+    program_tracks_animating = true;
+
+    const next_index =
+      direction === "next"
+        ? (
+            program_tracks_index + 1
+          ) % program_tracks_data.length
+        : (
+            program_tracks_index -
+            1 +
+            program_tracks_data.length
+          ) % program_tracks_data.length;
+
+    const dimensions =
+      program_tracks_get_dimensions();
+
+    const radius =
+      dimensions.radius;
+
+    const vertical =
+      dimensions.vertical;
+
+    const preloaded =
+      program_tracks_loaded_images[
+        next_index
+      ];
+
+    if (
+      preloaded &&
+      preloaded.complete
+    ) {
+      program_tracks_image_next.src =
+        preloaded.src;
+    } else {
+      program_tracks_image_next.src =
+        program_tracks_data[
+          next_index
+        ].image;
+    }
+
+    program_tracks_image_next.alt =
+      program_tracks_data[
+        next_index
+      ].title;
+
+    program_tracks_image_next.style.transition =
+      "none";
+
+    program_tracks_image_current.style.transition =
+      "none";
+
+    if (direction === "next") {
+      program_tracks_image_next.style.opacity =
+        "0";
+
+      program_tracks_image_next.style.transform =
+        "translate(calc(-50% + " +
+        radius +
+        "px), calc(-50% + " +
+        vertical +
+        "px)) rotate(22deg)";
+
+      program_tracks_image_current.style.opacity =
+        "1";
+
+      program_tracks_image_current.style.transform =
+        "translate(-50%, -50%) rotate(0deg)";
+
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          const start_time =
+            performance.now();
+
+          const duration = 650;
+
+          function animate(now) {
+            const progress =
+              Math.min(
+                (now - start_time) /
+                  duration,
+                1
+              );
+
+            const eased =
+              1 -
+              Math.pow(
+                1 - progress,
+                3
+              );
+
+            const current_x =
+              -radius * eased;
+
+            const current_y =
+              vertical * eased;
+
+            const current_rotation =
+              -22 * eased;
+
+            const next_x =
+              radius * (1 - eased);
+
+            const next_y =
+              vertical * (1 - eased);
+
+            const next_rotation =
+              22 * (1 - eased);
+
+            program_tracks_image_current.style.transform =
+              "translate(calc(-50% + " +
+              current_x +
+              "px), calc(-50% + " +
+              current_y +
+              "px)) rotate(" +
+              current_rotation +
+              "deg)";
+
+            program_tracks_image_current.style.opacity =
+              String(1 - eased);
+
+            program_tracks_image_next.style.transform =
+              "translate(calc(-50% + " +
+              next_x +
+              "px), calc(-50% + " +
+              next_y +
+              "px)) rotate(" +
+              next_rotation +
+              "deg)";
+
+            program_tracks_image_next.style.opacity =
+              String(eased);
+
+            if (progress < 1) {
+              requestAnimationFrame(
+                animate
+              );
+            } else {
+              program_tracks_finish_animation(
+                next_index
+              );
+            }
+          }
+
+          requestAnimationFrame(
+            animate
+          );
+        });
+      });
+    } else {
+      program_tracks_image_next.style.opacity =
+        "0";
+
+      program_tracks_image_next.style.transform =
+        "translate(calc(-50% - " +
+        radius +
+        "px), calc(-50% + " +
+        vertical +
+        "px)) rotate(-22deg)";
+
+      program_tracks_image_current.style.opacity =
+        "1";
+
+      program_tracks_image_current.style.transform =
+        "translate(-50%, -50%) rotate(0deg)";
+
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          const start_time =
+            performance.now();
+
+          const duration = 650;
+
+          function animate(now) {
+            const progress =
+              Math.min(
+                (now - start_time) /
+                  duration,
+                1
+              );
+
+            const eased =
+              1 -
+              Math.pow(
+                1 - progress,
+                3
+              );
+
+            const current_x =
+              radius * eased;
+
+            const current_y =
+              vertical * eased;
+
+            const current_rotation =
+              22 * eased;
+
+            const next_x =
+              -radius * (1 - eased);
+
+            const next_y =
+              vertical * (1 - eased);
+
+            const next_rotation =
+              -22 * (1 - eased);
+
+            program_tracks_image_current.style.transform =
+              "translate(calc(-50% + " +
+              current_x +
+              "px), calc(-50% + " +
+              current_y +
+              "px)) rotate(" +
+              current_rotation +
+              "deg)";
+
+            program_tracks_image_current.style.opacity =
+              String(1 - eased);
+
+            program_tracks_image_next.style.transform =
+              "translate(calc(-50% + " +
+              next_x +
+              "px), calc(-50% + " +
+              next_y +
+              "px)) rotate(" +
+              next_rotation +
+              "deg)";
+
+            program_tracks_image_next.style.opacity =
+              String(eased);
+
+            if (progress < 1) {
+              requestAnimationFrame(
+                animate
+              );
+            } else {
+              program_tracks_finish_animation(
+                next_index
+              );
+            }
+          }
+
+          requestAnimationFrame(
+            animate
+          );
+        });
+      });
+    }
+  }
+
+  program_tracks_next.addEventListener(
+    "click",
+    function () {
+      program_tracks_animate("next");
+    }
+  );
+
+  program_tracks_prev.addEventListener(
+    "click",
+    function () {
+      program_tracks_animate("prev");
+    }
+  );
+
+  program_tracks_stage.addEventListener(
+    "touchstart",
+    function (event) {
+      const touch =
+        event.changedTouches[0];
+
+      program_tracks_touch_start_x =
+        touch.clientX;
+
+      program_tracks_touch_start_y =
+        touch.clientY;
+    },
+    {
+      passive: true
+    }
+  );
+
+  program_tracks_stage.addEventListener(
+    "touchend",
+    function (event) {
+      const touch =
+        event.changedTouches[0];
+
+      const delta_x =
+        touch.clientX -
+        program_tracks_touch_start_x;
+
+      const delta_y =
+        touch.clientY -
+        program_tracks_touch_start_y;
+
+      if (Math.abs(delta_x) < 50) {
+        return;
+      }
+
+      if (
+        Math.abs(delta_x) <=
+        Math.abs(delta_y)
+      ) {
+        return;
+      }
+
+      if (delta_x < 0) {
+        program_tracks_animate("next");
+      } else {
+        program_tracks_animate("prev");
+      }
+    },
+    {
+      passive: true
+    }
+  );
+
+  window.addEventListener(
+    "resize",
+    function () {
+      if (program_tracks_animating) {
+        return;
+      }
+
+      program_tracks_image_current.style.transform =
+        "translate(-50%, -50%) rotate(0deg)";
+
+      program_tracks_image_next.style.transform =
+        "translate(-50%, -50%) rotate(0deg)";
+    }
+  );
+
+  program_tracks_preload_images();
+})();
+</script>

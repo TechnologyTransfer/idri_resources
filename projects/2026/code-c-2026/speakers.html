@@ -1,0 +1,1064 @@
+<style>
+  .speakers-section {
+    width: 100%;
+    overflow: hidden;
+    padding: 0 0 20px;
+    box-sizing: border-box;
+  }
+
+  .speakers-section-title {
+    margin: 32px 0 32px;
+    text-align: center;
+    font-size: 52px;
+    line-height: 1;
+    font-weight: 700;
+    color: #685AFF;
+  }
+
+  .speakers-carousel-viewport {
+    width: 92%;
+    margin: 0 auto;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .speakers-carousel-viewport.is-dragging {
+    cursor: grabbing;
+  }
+
+  .speakers-carousel-track {
+    --columns: 3.6;
+    --gap: 32px;
+    --card-width: 320px;
+
+    display: flex;
+    gap: var(--gap);
+    width: max-content;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .speakers-carousel-track.hint-animation {
+    animation: speakers-swipe-hint 1.2s ease-in-out;
+  }
+
+  @keyframes speakers-swipe-hint {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    30% {
+      transform: translate3d(42px, 0, 0);
+    }
+
+    55% {
+      transform: translate3d(42px, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .speaker-card {
+    flex: 0 0 var(--card-width);
+    width: var(--card-width);
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #685AFF;
+  }
+
+  .speaker-card-image-wrapper {
+    width: 100%;
+    aspect-ratio: 260 / 260;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px 20px 0;
+    box-sizing: border-box;
+    background-image: url("https://www.idri.edu.kh/wp-content/uploads/2026/09/speaker_sunny_background.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .speaker-card-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center bottom;
+    pointer-events: none;
+    align-self: flex-end;
+  }
+
+  .speaker-card-info {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 0 14px !important;
+    margin: 0 !important;
+    background: #685AFF;
+  }
+
+  .speaker-card-name {
+    margin: 8px 0 4px !important;
+    padding: 0 !important;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1.1 !important;
+    font-weight: 700;
+  }
+
+  .speaker-card-role {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.4 !important;
+    font-weight: 400;
+    height: calc(14px * 1.4 * 2);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  @media (min-width: 1200px) {
+    .speakers-section {
+      padding-bottom: 20px;
+    }
+
+    .speakers-section-title {
+      font-size: 52px;
+      margin: 32px 0 32px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 92%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 3.6;
+      --gap: 32px;
+    }
+
+    .speaker-card {
+      padding: 20px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 20px 20px 0;
+    }
+
+    .speaker-card-info {
+      padding: 8px 0 14px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 20px;
+      line-height: 1.1 !important;
+      margin: 8px 0 4px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 14px;
+      line-height: 1.4 !important;
+      height: calc(14px * 1.4 * 2);
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+    .speakers-section {
+      padding-bottom: 20px;
+    }
+
+    .speakers-section-title {
+      font-size: 46px;
+      margin: 28px 0 28px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 92%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 3.2;
+      --gap: 28px;
+    }
+
+    .speaker-card {
+      padding: 17px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 17px 17px 0;
+    }
+
+    .speaker-card-info {
+      padding: 7px 0 12px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 20px;
+      line-height: 1.1 !important;
+      margin: 7px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 13px;
+      line-height: 1.25 !important;
+      height: calc(13px * 1.25 * 2);
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
+    .speakers-section {
+      padding-bottom: 20px;
+    }
+
+    .speakers-section-title {
+      font-size: 44px;
+      margin: 30px 0 30px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 92%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 2.4;
+      --gap: 26px;
+    }
+
+    .speaker-card {
+      padding: 16px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 16px 16px 0;
+    }
+
+    .speaker-card-info {
+      padding: 7px 0 12px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 20px;
+      line-height: 1.1 !important;
+      margin: 7px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 13px;
+      line-height: 1.25 !important;
+      height: calc(13px * 1.25 * 2);
+    }
+  }
+
+  @media (max-width: 767px) and (orientation: landscape) {
+    .speakers-section {
+      padding-bottom: 18px;
+    }
+
+    .speakers-section-title {
+      font-size: 34px;
+      margin: 22px 0 22px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 94%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 2.4;
+      --gap: 20px;
+    }
+
+    .speaker-card {
+      padding: 13px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 13px 13px 0;
+    }
+
+    .speaker-card-info {
+      padding: 6px 0 9px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 18px;
+      line-height: 1.1 !important;
+      margin: 6px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 12px;
+      line-height: 1.25 !important;
+      height: calc(12px * 1.25 * 2);
+    }
+  }
+
+  @media (max-width: 599px) and (orientation: landscape) {
+    .speakers-section {
+      padding-bottom: 15px;
+    }
+
+    .speakers-section-title {
+      font-size: 29px;
+      margin: 18px 0 18px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 95%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 2.2;
+      --gap: 16px;
+    }
+
+    .speaker-card {
+      padding: 11px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 11px 11px 0;
+    }
+
+    .speaker-card-info {
+      padding: 5px 0 8px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 16px;
+      line-height: 1.1 !important;
+      margin: 5px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 11px;
+      line-height: 1.25 !important;
+      height: calc(11px * 1.25 * 2);
+    }
+  }
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    .speakers-section {
+      padding-bottom: 20px;
+    }
+
+    .speakers-section-title {
+      font-size: 40px;
+      margin: 28px 0 24px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 94%;
+      cursor: grab;
+      touch-action: pan-y;
+      overscroll-behavior-x: contain;
+    }
+
+    .speakers-carousel-track {
+      --columns: 1.15;
+      --gap: 18px;
+    }
+
+    .speaker-card {
+      padding: 12px;
+      background: #685AFF;
+    }
+
+    .speaker-card-image-wrapper {
+      aspect-ratio: 314 / 342;
+      margin: 0;
+      padding: 16px 16px 0;
+      background-image: url("https://www.idri.edu.kh/wp-content/uploads/2026/09/speaker_sunny_background.webp");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .speaker-card-info {
+      padding: 6px 0 10px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 20px;
+      line-height: 1.1 !important;
+      margin: 7px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 13px;
+      line-height: 1.25 !important;
+      height: calc(13px * 1.25 * 2);
+    }
+  }
+
+  @media (max-width: 599px) and (orientation: portrait) {
+    .speakers-section {
+      padding-bottom: 18px;
+    }
+
+    .speakers-section-title {
+      font-size: 36px;
+      margin: 25px 0 22px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 94%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 1.12;
+      --gap: 16px;
+    }
+
+    .speaker-card {
+      padding: 11px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 14px 14px 0;
+    }
+
+    .speaker-card-info {
+      padding: 5px 0 9px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 18px;
+      line-height: 1.1 !important;
+      margin: 6px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 13px;
+      line-height: 1.25 !important;
+      height: calc(13px * 1.25 * 2);
+    }
+  }
+
+  @media (max-width: 479px) and (orientation: portrait) {
+    .speakers-section {
+      padding-bottom: 16px;
+    }
+
+    .speakers-section-title {
+      font-size: 32px;
+      margin: 22px 0 20px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 94%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 1;
+      --gap: 18px;
+    }
+
+    .speaker-card {
+      padding: 11px;
+    }
+
+    .speaker-card-image-wrapper {
+      aspect-ratio: 314 / 342;
+      padding: 14px 14px 0;
+      background-image: url("https://www.idri.edu.kh/wp-content/uploads/2026/09/speaker_sunny_background.webp");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .speaker-card-info {
+      padding: 5px 0 9px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 18px;
+      line-height: 1.1 !important;
+      margin: 6px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 13px;
+      line-height: 1.25 !important;
+      height: calc(13px * 1.25 * 2);
+    }
+  }
+
+  @media (max-width: 373px) and (orientation: portrait) {
+    .speakers-section {
+      padding-bottom: 14px;
+    }
+
+    .speakers-section-title {
+      font-size: 29px;
+      margin: 20px 0 18px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 94%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 1;
+      --gap: 16px;
+    }
+
+    .speaker-card {
+      padding: 10px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 12px 12px 0;
+    }
+
+    .speaker-card-info {
+      padding: 5px 0 8px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 18px;
+      line-height: 1.1 !important;
+      margin: 5px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 12px;
+      line-height: 1.25 !important;
+      height: calc(12px * 1.25 * 2);
+    }
+  }
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    .speakers-section {
+      padding-bottom: 12px;
+    }
+
+    .speakers-section-title {
+      font-size: 28px;
+      margin: 15px 0 15px;
+    }
+
+    .speakers-carousel-viewport {
+      width: 95%;
+    }
+
+    .speakers-carousel-track {
+      --columns: 2.2;
+      --gap: 16px;
+    }
+
+    .speaker-card {
+      padding: 10px;
+    }
+
+    .speaker-card-image-wrapper {
+      padding: 10px 10px 0;
+    }
+
+    .speaker-card-info {
+      padding: 5px 0 8px !important;
+    }
+
+    .speaker-card-name {
+      font-size: 16px;
+      line-height: 1.1 !important;
+      margin: 5px 0 1px !important;
+    }
+
+    .speaker-card-role {
+      font-size: 12px;
+      line-height: 1.25 !important;
+      height: calc(12px * 1.25 * 2);
+    }
+  }
+</style>
+
+<section class="speakers-section">
+
+  <h2 class="speakers-section-title">
+    Speakers
+  </h2>
+
+  <div
+    class="speakers-carousel-viewport"
+    id="speakersCarousel"
+  >
+
+    <div
+      class="speakers-carousel-track"
+      id="speakersTrack"
+    ></div>
+
+  </div>
+
+</section>
+
+<script>
+(function() {
+
+  const speakers = [
+    {
+      name: "H.E Dr. Khov Makara",
+      role: "Secretary of State, Ministry of Post and Telecommunications",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/H.E-Dr.-Khov-Makara.png"
+    },
+
+    {
+      name: "H.E Dr. Seng Sopheap",
+      role: "President, Cambodia Academy of Digital Technology",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/H.E-Dr.-Seng-Sopheap-3.png"
+    },
+
+    {
+      name: "Dr. Ly Rottana",
+      role: "Director of Research & Innovation Center, Cambodia Academy of Digital Technology",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Dr.-Ly-Rottana.png"
+    },
+
+    {
+      name: "Dr. Kann Bonpagna",
+      role: "Senior Researcher & Lecturer, Cambodia Academy of Digital Technology",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Dr.-Kann-Bonpagna.png"
+    },
+
+    {
+      name: "Dr. Va Hongly",
+      role: "Senior Researcher & Lecturer, Cambodia Academy of Digital Technology",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Dr.-Va-Hongly.png"
+    },
+
+    {
+      name: "Mr. Lay Vathna",
+      role: "Senior Researcher & Lecturer, Cambodia Academy of Digital Technology",
+      image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Mr.-Lay-Vathna.png"
+    }
+  ];
+
+
+  const viewport =
+    document.getElementById("speakersCarousel");
+
+  const track =
+    document.getElementById("speakersTrack");
+
+  let isDragging = false;
+  let startX = 0;
+  let startTranslate = 0;
+  let currentTranslate = 0;
+  let maxTranslate = 0;
+  let hintActive = false;
+
+
+  function createSpeakerCard(speaker) {
+
+    const card =
+      document.createElement("article");
+
+    card.className =
+      "speaker-card";
+
+    card.innerHTML = `
+
+      <div class="speaker-card-image-wrapper">
+
+        <img
+          class="speaker-card-image"
+          src="${speaker.image}"
+          alt="${speaker.name}"
+          draggable="false"
+        >
+
+      </div>
+
+      <div class="speaker-card-info">
+
+        <h3 class="speaker-card-name">
+          ${speaker.name}
+        </h3>
+
+        <p class="speaker-card-role">
+          ${speaker.role}
+        </p>
+
+      </div>
+
+    `;
+
+    return card;
+  }
+
+
+  function createSpeakerCards() {
+
+    track.innerHTML = "";
+
+    speakers.forEach(function(speaker) {
+
+      track.appendChild(
+        createSpeakerCard(speaker)
+      );
+
+    });
+
+  }
+
+
+  function calculateDimensions() {
+
+    const styles =
+      getComputedStyle(track);
+
+    const columns =
+      parseFloat(
+        styles.getPropertyValue("--columns")
+      );
+
+    const gap =
+      parseFloat(
+        styles.getPropertyValue("--gap")
+      );
+
+    const viewportWidth =
+      viewport.clientWidth;
+
+    const cardWidth =
+      (
+        viewportWidth -
+        (
+          Math.max(
+            0,
+            Math.floor(columns) - 1
+          ) * gap
+        )
+      ) / columns;
+
+    track.style.setProperty(
+      "--card-width",
+      cardWidth + "px"
+    );
+
+    const totalTrackWidth =
+      (
+        speakers.length *
+        cardWidth
+      ) +
+      (
+        (speakers.length - 1) *
+        gap
+      );
+
+    maxTranslate =
+      Math.max(
+        0,
+        totalTrackWidth -
+        viewportWidth
+      );
+
+    currentTranslate =
+      Math.max(
+        -maxTranslate,
+        Math.min(
+          0,
+          currentTranslate
+        )
+      );
+
+    setTranslate(
+      currentTranslate,
+      false
+    );
+
+  }
+
+
+  function setTranslate(
+    value,
+    animate
+  ) {
+
+    const boundedValue =
+      Math.max(
+        -maxTranslate,
+        Math.min(
+          0,
+          value
+        )
+      );
+
+    currentTranslate =
+      boundedValue;
+
+    track.style.transition =
+      animate
+        ? "transform 0.35s ease-out"
+        : "none";
+
+    track.style.transform =
+      "translate3d(" +
+      currentTranslate +
+      "px, 0, 0)";
+
+  }
+
+
+  function stopHint() {
+
+    if (!hintActive) {
+      return;
+    }
+
+    hintActive = false;
+
+    track.classList.remove(
+      "hint-animation"
+    );
+
+    setTranslate(
+      currentTranslate,
+      false
+    );
+
+  }
+
+
+  function pointerDown(event) {
+
+    if (
+      event.pointerType === "mouse" &&
+      event.button !== 0
+    ) {
+      return;
+    }
+
+    stopHint();
+
+    isDragging = true;
+
+    startX =
+      event.clientX;
+
+    startTranslate =
+      currentTranslate;
+
+    viewport.classList.add(
+      "is-dragging"
+    );
+
+    track.style.transition =
+      "none";
+
+    if (
+      viewport.setPointerCapture
+    ) {
+      viewport.setPointerCapture(
+        event.pointerId
+      );
+    }
+
+  }
+
+
+  function pointerMove(event) {
+
+    if (!isDragging) {
+      return;
+    }
+
+    const styles =
+      getComputedStyle(track);
+
+    const columns =
+      parseFloat(
+        styles.getPropertyValue("--columns")
+      );
+
+    const gap =
+      parseFloat(
+        styles.getPropertyValue("--gap")
+      );
+
+    const viewportWidth =
+      viewport.clientWidth;
+
+    const cardWidth =
+      (
+        viewportWidth -
+        (
+          Math.max(
+            0,
+            Math.floor(columns) - 1
+          ) * gap
+        )
+      ) / columns;
+
+    const totalTrackWidth =
+      (
+        speakers.length *
+        cardWidth
+      ) +
+      (
+        (speakers.length - 1) *
+        gap
+      );
+
+    const liveMaxTranslate =
+      Math.max(
+        0,
+        totalTrackWidth -
+        viewportWidth
+      );
+
+    maxTranslate =
+      liveMaxTranslate;
+
+    const delta =
+      event.clientX -
+      startX;
+
+    const nextTranslate =
+      startTranslate +
+      delta;
+
+    setTranslate(
+      nextTranslate,
+      false
+    );
+
+  }
+
+
+  function pointerUp(event) {
+
+    if (!isDragging) {
+      return;
+    }
+
+    isDragging = false;
+
+    viewport.classList.remove(
+      "is-dragging"
+    );
+
+    if (
+      viewport.releasePointerCapture
+    ) {
+
+      try {
+
+        viewport.releasePointerCapture(
+          event.pointerId
+        );
+
+      } catch (error) {}
+
+    }
+
+    setTranslate(
+      currentTranslate,
+      false
+    );
+
+  }
+
+
+  createSpeakerCards();
+
+  calculateDimensions();
+
+
+  viewport.addEventListener(
+    "pointerdown",
+    pointerDown
+  );
+
+  viewport.addEventListener(
+    "pointermove",
+    pointerMove
+  );
+
+  viewport.addEventListener(
+    "pointerup",
+    pointerUp
+  );
+
+  viewport.addEventListener(
+    "pointercancel",
+    pointerUp
+  );
+
+
+  window.addEventListener(
+    "resize",
+    calculateDimensions
+  );
+
+
+  if (
+    "ResizeObserver" in window
+  ) {
+
+    const observer =
+      new ResizeObserver(
+        calculateDimensions
+      );
+
+    observer.observe(
+      viewport
+    );
+
+  }
+
+
+  setTimeout(function() {
+
+    if (
+      currentTranslate === 0 &&
+      !isDragging
+    ) {
+
+      hintActive = true;
+
+      track.classList.add(
+        "hint-animation"
+      );
+
+      setTimeout(function() {
+
+        if (hintActive) {
+
+          hintActive = false;
+
+          track.classList.remove(
+            "hint-animation"
+          );
+
+          setTranslate(
+            currentTranslate,
+            false
+          );
+
+        }
+
+      }, 1250);
+
+    }
+
+  }, 700);
+
+})();
+</script>

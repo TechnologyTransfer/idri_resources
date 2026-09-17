@@ -1,0 +1,834 @@
+<style>
+  .code_c_2026-hero-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .code_c_2026-hero {
+    width: 100vw;
+    max-width: 92%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #685AFF;
+    overflow: visible;
+  }
+
+  .code_c_2026-hero-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #685AFF;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+
+  .code_c_2026-hero-title {
+    color: #ffffff;
+    font-size: 72px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin: 0 0 24px;
+  }
+
+  .code_c_2026-hero-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .code_c_2026-hero-info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .code_c_2026-hero-info-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .code_c_2026-hero-info p {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.4em;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .code_c_2026-hero-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+
+  .code_c_2026-hero-btn {
+    width: 260px;
+    height: 52px;
+    padding: 0;
+    border: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    box-sizing: border-box;
+  }
+
+  .code_c_2026-hero-btn:hover {
+    animation: code-c-hero-button-bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes code-c-hero-button-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .code_c_2026-hero-btn-agenda {
+    background: #ffffff;
+    clip-path: polygon(
+      12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px
+    );
+  }
+
+  .code_c_2026-hero-btn-agenda-inner {
+    position: absolute;
+    inset: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #685AFF;
+    clip-path: polygon(
+      11px 0,
+      100% 0,
+      100% calc(100% - 11px),
+      calc(100% - 11px) 100%,
+      0 100%,
+      0 11px
+    );
+  }
+
+  .code_c_2026-hero-btn-register {
+    background: #685AFF;
+    clip-path: polygon(
+      12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px
+    );
+  }
+
+  .code_c_2026-hero-btn-register-inner {
+    position: absolute;
+    inset: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    clip-path: polygon(
+      11px 0,
+      100% 0,
+      100% calc(100% - 11px),
+      calc(100% - 11px) 100%,
+      0 100%,
+      0 11px
+    );
+  }
+
+  .code_c_2026-hero-btn-text {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 6px;
+    white-space: nowrap;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  .code_c_2026-hero-btn-agenda
+  .code_c_2026-hero-btn-text {
+    color: #ffffff;
+  }
+
+  .code_c_2026-hero-btn-register
+  .code_c_2026-hero-btn-text {
+    color: #685AFF;
+  }
+
+  .code_c_2026-hero-btn-arrow-box {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    clip-path: polygon(
+      7px 0,
+      100% 0,
+      100% calc(100% - 7px),
+      calc(100% - 7px) 100%,
+      0 100%,
+      0 7px
+    );
+  }
+
+  .code_c_2026-hero-btn-agenda
+  .code_c_2026-hero-btn-arrow-box {
+    background: #ffffff;
+    color: #685AFF;
+  }
+
+  .code_c_2026-hero-btn-register
+  .code_c_2026-hero-btn-arrow-box {
+    background: #685AFF;
+    color: #ffffff;
+  }
+
+  .code_c_2026-hero-btn-arrow-box svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  .code_c_2026-hero-image {
+    height: 760px;
+    width: calc(100% + 12vw);
+    background: #9cccf1;
+    overflow: hidden;
+  }
+
+  .code_c_2026-hero-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  @media (max-width: 1439px) and (orientation: landscape) {
+    .code_c_2026-hero-title {
+      font-size: 68px;
+    }
+
+    .code_c_2026-hero-image {
+      width: calc(100% + 10vw);
+    }
+  }
+
+  @media (max-width: 1199px) and (orientation: landscape) {
+    .code_c_2026-hero {
+      max-width: 90%;
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 62px;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 190px;
+    }
+
+    .code_c_2026-hero-btn-text {
+      padding-left: 20px;
+    }
+
+    .code_c_2026-hero-image {
+      width: calc(100% + 8vw);
+      height: 700px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+    .code_c_2026-hero {
+      max-width: 92%;
+    }
+
+    .code_c_2026-hero-content {
+      padding: 32px 0;
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 52px;
+    }
+
+    .code_c_2026-hero-info {
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 15px;
+    }
+
+    .code_c_2026-hero-info-icon {
+      width: 21px;
+      height: 21px;
+    }
+
+    .code_c_2026-hero-buttons {
+      gap: 8px;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 170px;
+      height: 48px;
+    }
+
+    .code_c_2026-hero-btn-text {
+      padding-left: 14px;
+      font-size: 10px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box {
+      width: 29px;
+      height: 29px;
+      margin-right: 7px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .code_c_2026-hero-image {
+      width: calc(100% + 5vw);
+      height: 560px;
+    }
+  }
+
+  @media (min-width: 600px) and (max-width: 767px) and (orientation: landscape) {
+    .code_c_2026-hero-wrapper {
+      width: 100%;
+      background-color: #685AFF;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .code_c_2026-hero-wrapper.loaded {
+      background-image: url("https://www.idri.edu.kh/wp-content/uploads/2026/07/hero_section_background_style-scaled.png");
+    }
+
+    .code_c_2026-hero {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .code_c_2026-hero-content {
+      min-height: 500px;
+      padding: 32px 24px;
+      align-items: center;
+      text-align: center;
+      background: rgba(104, 90, 255, 0.88);
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 38px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-info {
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .code_c_2026-hero-info-item {
+      justify-content: center;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 13px;
+    }
+
+    .code_c_2026-hero-info-icon {
+      width: 19px;
+      height: 19px;
+    }
+
+    .code_c_2026-hero-buttons {
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 145px;
+      height: 42px;
+    }
+
+    .code_c_2026-hero-btn-text {
+      padding-left: 10px;
+      font-size: 9px;
+      letter-spacing: 0.3px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box {
+      width: 26px;
+      height: 26px;
+      margin-right: 6px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .code_c_2026-hero-image {
+      display: block;
+      width: 100%;
+      height: 500px;
+    }
+  }
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    .code_c_2026-hero-wrapper {
+      width: 100%;
+      background-color: #685AFF;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .code_c_2026-hero-wrapper.loaded {
+      background-image: url("https://www.idri.edu.kh/wp-content/uploads/2026/07/hero_section_background_style-scaled.png");
+    }
+
+    .code_c_2026-hero {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      grid-template-columns: 1fr;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .code_c_2026-hero-content {
+      height: auto;
+      min-height: 520px;
+      padding: 42px 28px;
+      align-items: center;
+      text-align: center;
+      background: rgba(104, 90, 255, 0.88);
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 44px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-info {
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+
+    .code_c_2026-hero-info-item {
+      justify-content: center;
+      text-align: left;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 15px;
+    }
+
+    .code_c_2026-hero-info-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .code_c_2026-hero-buttons {
+      justify-content: center;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 190px;
+      height: 40px;
+    }
+
+    .code_c_2026-hero-btn-text {
+      padding-left: 12px;
+      font-size: 11px;
+    }
+
+    .code_c_2026-hero-image {
+      display: none;
+    }
+  }
+
+  @media (max-width: 599px) and (orientation: portrait) {
+    .code_c_2026-hero-content {
+      min-height: 500px;
+      padding: 40px 24px;
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 42px;
+      margin-bottom: 26px;
+    }
+
+    .code_c_2026-hero-info {
+      gap: 13px;
+      margin-bottom: 32px;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 15px;
+    }
+
+    .code_c_2026-hero-buttons {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 220px;
+      height: 52px;
+    }
+
+    .code_c_2026-hero-btn-text {
+      padding-left: 18px;
+      font-size: 14px;
+      letter-spacing: 0.45px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box {
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  @media (max-width: 479px) and (orientation: portrait) {
+    .code_c_2026-hero-content {
+      min-height: 460px;
+      padding: 32px 20px;
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 38px;
+      margin-bottom: 22px;
+    }
+
+    .code_c_2026-hero-info {
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .code_c_2026-hero-info-item {
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 16px;
+      text-align: left;
+      margin: 0;
+    }
+
+    .code_c_2026-hero-info-icon {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+    }
+
+    .code_c_2026-hero-buttons {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 100%;
+      max-width: 240px;
+      height: 52px;
+    }
+
+    .code_c_2026-hero-btn-text {
+      padding-left: 18px;
+      font-size: 14px;
+      letter-spacing: 0.45px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box {
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .code_c_2026-hero-image {
+      display: none;
+    }
+  }
+
+  @media (max-width: 374px) and (orientation: portrait) {
+    .code_c_2026-hero-content {
+      min-height: 440px;
+      padding: 28px 14px;
+    }
+
+    .code_c_2026-hero-title {
+      font-size: 34px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .code_c_2026-hero-info {
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .code_c_2026-hero-info-item {
+      width: 100%;
+      justify-content: flex-start;
+      gap: 9px;
+    }
+
+    .code_c_2026-hero-info p {
+      font-size: 14px;
+      line-height: 1.35em;
+    }
+
+    .code_c_2026-hero-info-icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .code_c_2026-hero-btn {
+      width: 100%;
+      max-width: 220px;
+      height: 50px;
+    }
+
+    .code_c_2026-hero-btn-text {
+      padding-left: 15px;
+      font-size: 13px;
+      letter-spacing: 0.35px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .code_c_2026-hero-btn-arrow-box svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+</style>
+
+<section class="code_c_2026-hero-wrapper">
+
+  <div class="code_c_2026-hero">
+
+    <div class="code_c_2026-hero-content">
+
+      <h1 class="code_c_2026-hero-title">
+        Developer<br />
+        Conference<br />
+        2026
+      </h1>
+
+      <div class="code_c_2026-hero-info">
+
+        <div class="code_c_2026-hero-info-item">
+
+          <img
+            loading="lazy"
+            class="code_c_2026-hero-info-icon"
+            src="https://www.idri.edu.kh/wp-content/uploads/2026/09/calendar.png"
+            alt="Calendar"
+          />
+
+          <p>
+            Date: 21<sup style="font-size: 10px; font-weight: 500; margin-left: 2px;">st</sup>
+            - 22<sup style="font-size: 10px; font-weight: 500; margin-left: 2px;">nd</sup>
+            October 2026
+          </p>
+
+        </div>
+
+        <div class="code_c_2026-hero-info-item">
+
+          <img
+            loading="lazy"
+            class="code_c_2026-hero-info-icon"
+            src="https://www.idri.edu.kh/wp-content/uploads/2026/09/location.png"
+            alt="Location"
+          />
+
+          <p>
+            Location: Innovation Center, CADT
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="code_c_2026-hero-buttons">
+
+        <a
+          class="code_c_2026-hero-btn code_c_2026-hero-btn-agenda"
+          href="#agenda"
+        >
+
+          <span class="code_c_2026-hero-btn-agenda-inner">
+
+            <span class="code_c_2026-hero-btn-text">
+              Event Agenda
+            </span>
+
+            <span class="code_c_2026-hero-btn-arrow-box">
+
+              <svg viewBox="0 0 24 24">
+                <path d="M4 12h15"></path>
+                <path d="m13 5 7 7-7 7"></path>
+              </svg>
+
+            </span>
+
+          </span>
+
+        </a>
+
+        <a
+          class="code_c_2026-hero-btn code_c_2026-hero-btn-register"
+          href="https://bookme.plus/t/events/code-c-developer-conference-2026"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <span class="code_c_2026-hero-btn-register-inner">
+
+            <span class="code_c_2026-hero-btn-text">
+              Get Ticket Now
+            </span>
+
+            <span class="code_c_2026-hero-btn-arrow-box">
+
+              <svg viewBox="0 0 24 24">
+                <path d="M4 12h15"></path>
+                <path d="m13 5 7 7-7 7"></path>
+              </svg>
+
+            </span>
+
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="code_c_2026-hero-image">
+
+      <img
+        loading="lazy"
+        src="https://www.idri.edu.kh/wp-content/uploads/2026/07/hero_section_background_style-scaled.png"
+        alt="Developer Conference 2026 visual"
+      />
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hero = document.querySelector(".code_c_2026-hero-wrapper");
+
+    if (!hero) return;
+
+    if (window.innerWidth <= 767 || window.matchMedia("(orientation: portrait)").matches) {
+
+      if ("IntersectionObserver" in window) {
+
+        const observer = new IntersectionObserver(
+          function (entries, observer) {
+
+            entries.forEach(function (entry) {
+
+              if (entry.isIntersecting) {
+
+                hero.classList.add("loaded");
+                observer.unobserve(entry.target);
+
+              }
+
+            });
+
+          },
+          {
+            rootMargin: "200px 0px"
+          }
+        );
+
+        observer.observe(hero);
+
+      } else {
+
+        hero.classList.add("loaded");
+
+      }
+
+    }
+  });
+</script>

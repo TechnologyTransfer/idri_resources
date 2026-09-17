@@ -1,0 +1,347 @@
+<style>
+  .previous-sponsors {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+  }
+
+  .previous-sponsors-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: previous-sponsors-scroll
+      var(--previous-sponsors-duration, 20s)
+      linear
+      infinite;
+    will-change: transform;
+  }
+
+  .previous-sponsors-logo {
+    flex: 0 0 auto;
+    width: auto;
+    margin-right: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .previous-sponsors-logo img {
+    width: auto;
+    height: 100px;
+    max-width: 180px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .previous-sponsors-logo.logo-small img {
+    height: 80px;
+  }
+
+  @keyframes previous-sponsors-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(
+        var(--previous-sponsors-distance),
+        0,
+        0
+      );
+    }
+  }
+
+  @media (max-width: 760px) {
+    .previous-sponsors {
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 5%,
+        #000 95%,
+        transparent
+      );
+
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 5%,
+        #000 95%,
+        transparent
+      );
+    }
+
+    .previous-sponsors-logo {
+      margin-right: 24px;
+    }
+
+    .previous-sponsors-logo img {
+      height: 80px;
+      max-width: 150px;
+    }
+
+    .previous-sponsors-logo.logo-small img {
+      height: 65px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .previous-sponsors-logo {
+      margin-right: 20px;
+    }
+
+    .previous-sponsors-logo img {
+      height: 65px;
+      max-width: 130px;
+    }
+
+    .previous-sponsors-logo.logo-small img {
+      height: 55px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .previous-sponsors-track {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<section class="previous-sponsors">
+
+  <div class="previous-sponsors-track">
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-08.png"
+        alt="Sponsor 1"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-09.png"
+        alt="Sponsor 2"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-10.png"
+        alt="Sponsor 3"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-11.png"
+        alt="Sponsor 4"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-12.png"
+        alt="Sponsor 5"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-13.png"
+        alt="Sponsor 6"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-14.png"
+        alt="Sponsor 7"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-15.png"
+        alt="Sponsor 8"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo logo-small">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-16.png"
+        alt="Sponsor 9"
+      />
+    </div>
+
+    <div class="previous-sponsors-logo logo-small">
+      <img
+        src="https://www.idri.edu.kh/wp-content/uploads/2025/10/Sponsor-Logo-17.png"
+        alt="Sponsor 10"
+      />
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+(function () {
+  function initPreviousSponsors() {
+    const wrappers = document.querySelectorAll(
+      ".previous-sponsors"
+    );
+
+    wrappers.forEach(function (wrapper) {
+      const track = wrapper.querySelector(
+        ".previous-sponsors-track"
+      );
+
+      if (!track) return;
+
+      let originalLogos = Array.from(
+        track.children
+      ).filter(function (element) {
+        return !element.classList.contains(
+          "previous-sponsors-clone"
+        );
+      });
+
+      if (!originalLogos.length) return;
+
+      const duration = 20;
+
+      track
+        .querySelectorAll(".previous-sponsors-clone")
+        .forEach(function (clone) {
+          clone.remove();
+        });
+
+      originalLogos.forEach(function (logo) {
+        const clone = logo.cloneNode(true);
+
+        clone.classList.add(
+          "previous-sponsors-clone"
+        );
+
+        const image = clone.querySelector("img");
+
+        if (image) {
+          image.setAttribute("alt", "");
+          image.setAttribute(
+            "aria-hidden",
+            "true"
+          );
+        }
+
+        track.appendChild(clone);
+      });
+
+      function calculateDistance() {
+        let distance = 0;
+
+        originalLogos.forEach(function (logo) {
+          const rect =
+            logo.getBoundingClientRect();
+
+          const style =
+            window.getComputedStyle(logo);
+
+          const marginLeft =
+            parseFloat(style.marginLeft) || 0;
+
+          const marginRight =
+            parseFloat(style.marginRight) || 0;
+
+          distance +=
+            rect.width +
+            marginLeft +
+            marginRight;
+        });
+
+        if (distance <= 0) return;
+
+        track.style.setProperty(
+          "--previous-sponsors-distance",
+          "-" + distance + "px"
+        );
+
+        track.style.setProperty(
+          "--previous-sponsors-duration",
+          duration + "s"
+        );
+
+        track.style.animation = "none";
+
+        track.offsetHeight;
+
+        track.style.animation =
+          "previous-sponsors-scroll " +
+          duration +
+          "s linear infinite";
+      }
+
+      calculateDistance();
+
+      const images =
+        track.querySelectorAll("img");
+
+      images.forEach(function (image) {
+        if (!image.complete) {
+          image.addEventListener(
+            "load",
+            calculateDistance,
+            { once: true }
+          );
+
+          image.addEventListener(
+            "error",
+            calculateDistance,
+            { once: true }
+          );
+        }
+      });
+
+      let resizeTimer;
+
+      window.addEventListener(
+        "resize",
+        function () {
+          clearTimeout(resizeTimer);
+
+          resizeTimer = setTimeout(
+            function () {
+              calculateDistance();
+            },
+            150
+          );
+        }
+      );
+    });
+  }
+
+  if (
+    document.readyState === "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initPreviousSponsors
+    );
+  } else {
+    initPreviousSponsors();
+  }
+})();
+</script>

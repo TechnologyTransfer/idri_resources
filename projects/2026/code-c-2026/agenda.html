@@ -1,0 +1,2603 @@
+<style>
+.agenda-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.agenda {
+  width: 100vw;
+  max-width: 92%;
+  color: #15284C;
+}
+
+.agenda-section-heading {
+  width: 100%;
+}
+
+.agenda-section-heading-inner {
+  width: 100%;
+}
+
+.agenda-section-heading-title {
+  margin-bottom: 16px;
+  color: #6A4CF6;
+  font-size: 52px;
+  line-height: 1.2;
+  font-weight: 700;
+  text-align: center;
+}
+
+.agenda-days {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.agenda-day-button {
+  width: 100%;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #685AFF;
+  background: transparent;
+  color: #685AFF;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+}
+
+.agenda-day-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(104, 90, 255, 0.15);
+}
+
+.agenda-day-button.is-active {
+  background: #685AFF;
+  color: #ffffff;
+}
+
+.agenda-calendar-icon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.agenda-day-button:hover .agenda-calendar-icon {
+  transform: rotate(8deg) scale(1.15);
+}
+
+.agenda-calendar-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.agenda-filter {
+  padding: 24px 20px;
+  border: 1px solid #9CCFFF;
+  margin-bottom: 28px;
+}
+
+.agenda-filter-header {
+  width: 100%;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.agenda-filter-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.agenda-filter-title h3 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #15284C;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700;
+  transition:
+    color 0.25s ease,
+    letter-spacing 0.3s ease;
+}
+
+.agenda-filter-header:hover .agenda-filter-title h3 {
+  color: #685AFF;
+  letter-spacing: 0.3px;
+}
+
+.agenda-filter-icon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    color 0.25s ease;
+}
+
+.agenda-filter-header:hover .agenda-filter-icon {
+  transform: rotate(-12deg) scale(1.15);
+  color: #685AFF;
+}
+
+.agenda-filter-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.agenda-filter-arrow {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.agenda-filter-header:hover .agenda-filter-arrow {
+  transform: scale(1.12);
+}
+
+.agenda-filter-arrow img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.agenda-filter.is-closed .agenda-filter-arrow {
+  transform: rotate(180deg);
+}
+
+.agenda-filter.is-closed .agenda-filter-header:hover .agenda-filter-arrow {
+  transform: rotate(180deg) scale(1.12);
+}
+
+.agenda-filter-content {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #9CCFFF;
+  animation: agendaFilterOpen 0.35s ease;
+}
+
+.agenda-filter.is-closed .agenda-filter-content {
+  display: none;
+}
+
+.agenda-filter-group {
+  margin-bottom: 24px;
+}
+
+.agenda-filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.agenda-filter-group-title {
+  margin: 0 0 12px;
+  color: #15284C;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.agenda-filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.agenda-filter-button {
+  padding: 10px 16px;
+  border: 1px solid #685AFF;
+  border-radius: 50px;
+  background: transparent;
+  color: #15284C;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+}
+
+.agenda-filter-button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(104, 90, 255, 0.16);
+}
+
+.agenda-filter-button.is-active {
+  background: #685AFF;
+  color: #ffffff;
+}
+
+.agenda-session-count {
+  margin: 0 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ACACAC;
+  color: #ACACAC;
+  font-size: 16px;
+  opacity: 0;
+  transform: translateX(-15px);
+  animation: agendaCountIn 0.5s ease forwards;
+}
+
+.agenda-sessions {
+  width: 100%;
+}
+
+.agenda-session {
+  position: relative;
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid #ACACAC;
+  opacity: 0;
+  transform: translateY(30px) scale(0.985);
+  animation: agendaSessionIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition:
+    padding-left 0.35s ease,
+    padding-right 0.35s ease,
+    background 0.35s ease;
+}
+
+.agenda-session:hover {
+  padding-left: 12px;
+  padding-right: 12px;
+  background: rgba(156, 207, 255, 0.06);
+}
+
+.agenda-session-time {
+  color: #685AFF;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 700;
+  transform-origin: left center;
+  transition:
+    color 0.3s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    letter-spacing 0.3s ease;
+}
+
+.agenda-session:hover .agenda-session-time {
+  color: #5141D8;
+  transform: translateX(5px) scale(1.04);
+  letter-spacing: 0.2px;
+}
+
+.agenda-session-content {
+  min-width: 0;
+}
+
+.agenda-session-title {
+  margin: 0 0 12px;
+  color: #15284C;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 700;
+  transform-origin: left center;
+  transition:
+    color 0.3s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    letter-spacing 0.3s ease;
+}
+
+.agenda-session:hover .agenda-session-title {
+  color: #685AFF;
+  transform: translateX(5px);
+  letter-spacing: 0.15px;
+}
+
+.agenda-session-continue {
+  color: #9CCFFF;
+  transition:
+    color 0.3s ease,
+    letter-spacing 0.3s ease;
+}
+
+.agenda-session:hover .agenda-session-continue {
+  color: #685AFF;
+  letter-spacing: 0.3px;
+}
+
+.agenda-session-speakers {
+  margin-bottom: 16px;
+}
+
+.agenda-session-speaker {
+  margin: 0 0 5px;
+  color: #15284C;
+  font-size: 16px;
+  line-height: 1.5;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.agenda-session-speaker strong {
+  font-weight: 700;
+  transition:
+    color 0.3s ease,
+    letter-spacing 0.25s ease;
+}
+
+.agenda-session:hover .agenda-session-speaker {
+  transform: translateX(3px);
+}
+
+.agenda-session:hover .agenda-session-speaker strong {
+  color: #685AFF;
+  letter-spacing: 0.15px;
+}
+
+.agenda-session-tags {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 10px !important;
+  align-items: center;
+}
+
+.agenda-tag {
+  display: inline-flex !important;
+  align-items: center;
+  width: fit-content;
+  padding: 6px 12px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+  border-radius: 12px;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+}
+
+.agenda-tag:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 6px 12px rgba(21, 40, 76, 0.12);
+  filter: brightness(1.03);
+}
+
+.agenda-tag-type {
+  background: #F0FFC3;
+  color: #15284C;
+}
+
+.agenda-tag-topic {
+  background: #9CCFFF;
+  color: #15284C;
+}
+
+.agenda-tag-room {
+  border: 0;
+  background: #FF5B5B;
+  color: #ffffff;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.agenda-tag-room:hover {
+  background: #FF4A4A;
+  text-decoration: underline !important;
+}
+
+.agenda-tag-room:focus-visible {
+  outline: 2px solid #685AFF;
+  outline-offset: 3px;
+}
+
+.agenda-empty {
+  padding: 50px 20px;
+  text-align: center;
+  border-bottom: 1px solid #ACACAC;
+  color: #ACACAC;
+  font-size: 16px;
+  opacity: 0;
+  transform: scale(0.97);
+  animation: agendaEmptyIn 0.5s ease forwards;
+}
+
+.agenda-room-popup {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 30px !important;
+  box-sizing: border-box !important;
+  background: rgba(21, 40, 76, 0.42) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  transform: none !important;
+  isolation: isolate !important;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease !important;
+}
+
+.agenda-room-popup.is-open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.agenda-room-popup-card {
+  position: relative !important;
+  width: min(620px, 100%) !important;
+  max-height: calc(100vh - 60px) !important;
+  overflow-y: auto !important;
+  padding: 30px !important;
+  box-sizing: border-box !important;
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 35px rgba(21, 40, 76, 0.14) !important;
+  transform: translateY(25px) scale(0.97) !important;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.agenda-room-popup.is-open .agenda-room-popup-card {
+  transform: translateY(0) scale(1) !important;
+}
+
+.agenda-room-popup-title {
+  margin: 0 50px 22px 50px !important;
+  padding: 0 !important;
+  color: #15284C !important;
+  font-size: 24px !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+.agenda-room-popup-close {
+  position: absolute !important;
+  top: 30px !important;
+  right: 30px !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #685AFF !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  color: #685AFF !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  font-weight: 300 !important;
+  cursor: pointer !important;
+  z-index: 2 !important;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease !important;
+}
+
+.agenda-room-popup-close:hover {
+  background: #685AFF !important;
+  color: #ffffff !important;
+  border-color: #685AFF !important;
+  transform: rotate(90deg) scale(1.08) !important;
+  box-shadow: 0 5px 14px rgba(104, 90, 255, 0.2) !important;
+}
+
+.agenda-room-popup-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #F2F4F8;
+}
+
+.agenda-room-popup-image-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(
+      90deg,
+      #F2F4F8 0%,
+      #E7EAF0 50%,
+      #F2F4F8 100%
+    );
+  background-size: 200% 100%;
+  animation: agendaRoomSkeleton 1.4s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+.agenda-room-popup-image-skeleton.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.agenda-room-popup-image {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.agenda-room-popup-image.is-loaded {
+  opacity: 1;
+}
+
+.agenda-room-popup-image.is-error {
+  display: none;
+}
+
+@keyframes agendaRoomSkeleton {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.agenda-room-popup-location {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #15284C !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+}
+
+.agenda-room-popup-location strong {
+  font-weight: 700 !important;
+}
+
+body.agenda-popup-open {
+  overflow: hidden !important;
+}
+
+@keyframes agendaFilterOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes agendaCountIn {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes agendaSessionIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes agendaEmptyIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 1200px) {
+  .agenda {
+    max-width: 92%;
+  }
+
+  .agenda-session {
+    grid-template-columns: 210px minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+  .agenda {
+    max-width: 92%;
+  }
+
+  .agenda-section-heading {
+    padding: 26px 0;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 46px;
+  }
+
+  .agenda-days {
+    gap: 14px;
+  }
+
+  .agenda-day-button {
+    padding: 14px 18px;
+    font-size: 18px;
+  }
+
+  .agenda-filter {
+    padding: 20px 18px;
+    margin-bottom: 24px;
+  }
+
+  .agenda-filter-content {
+    padding: 18px;
+  }
+
+  .agenda-filter-group-title {
+    font-size: 18px;
+  }
+
+  .agenda-filter-button {
+    padding: 9px 14px;
+    font-size: 14px;
+  }
+
+  .agenda-session {
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 18px;
+    padding: 24px 0;
+  }
+
+  .agenda-session-time {
+    font-size: 17px;
+  }
+
+  .agenda-session-title {
+    font-size: 17px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 15px;
+  }
+
+  .agenda-room-popup {
+    padding: 24px !important;
+  }
+
+  .agenda-room-popup-card {
+    width: min(600px, 100%) !important;
+    max-height: calc(100vh - 48px) !important;
+    padding: 26px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin: 0 48px 20px 48px !important;
+    font-size: 24px !important;
+  }
+
+  .agenda-room-popup-close {
+    top: 26px !important;
+    right: 26px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
+  .agenda {
+    max-width: 92%;
+  }
+
+  .agenda-section-heading {
+    padding: 26px 0 22px;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 42px;
+  }
+
+  .agenda-days {
+    gap: 12px;
+  }
+
+  .agenda-day-button {
+    padding: 15px 18px;
+    font-size: 18px;
+  }
+
+  .agenda-filter {
+    padding: 20px 18px;
+    margin-bottom: 24px;
+  }
+
+  .agenda-filter-content {
+    padding: 18px;
+  }
+
+  .agenda-filter-button {
+    padding: 9px 14px;
+    font-size: 14px;
+  }
+
+  .agenda-session {
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 18px;
+    padding: 24px 0;
+  }
+
+  .agenda-session-time {
+    font-size: 16px;
+  }
+
+  .agenda-session-title {
+    font-size: 17px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 15px;
+  }
+
+  .agenda-room-popup {
+    padding: 24px !important;
+  }
+
+  .agenda-room-popup-card {
+    width: min(580px, 100%) !important;
+    max-height: calc(100vh - 48px) !important;
+    padding: 26px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin: 0 46px 20px 46px !important;
+    font-size: 24px !important;
+  }
+
+  .agenda-room-popup-close {
+    top: 26px !important;
+    right: 26px !important;
+  }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .agenda {
+    max-width: 94%;
+  }
+
+  .agenda-section-heading {
+    padding: 18px 0;
+    margin-bottom: 12px;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 30px;
+  }
+
+  .agenda-days {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .agenda-day-button {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .agenda-calendar-icon {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+
+  .agenda-filter {
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .agenda-filter-title {
+    gap: 8px;
+  }
+
+  .agenda-filter-title h3 {
+    font-size: 15px;
+  }
+
+  .agenda-filter-icon,
+  .agenda-filter-arrow {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+
+  .agenda-filter-content {
+    margin-top: 14px;
+    padding: 14px;
+  }
+
+  .agenda-filter-group {
+    margin-bottom: 18px;
+  }
+
+  .agenda-filter-group-title {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+
+  .agenda-filter-options {
+    gap: 8px;
+  }
+
+  .agenda-filter-button {
+    padding: 8px 11px;
+    font-size: 11px;
+  }
+
+  .agenda-session {
+    grid-template-columns: 125px minmax(0, 1fr);
+    gap: 14px;
+    padding: 18px 0;
+  }
+
+  .agenda-session-time {
+    font-size: 14px;
+  }
+
+  .agenda-session-title {
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .agenda-session-speakers {
+    margin-bottom: 12px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .agenda-session-tags {
+    gap: 7px !important;
+  }
+
+  .agenda-tag {
+    padding: 5px 9px;
+    font-size: 10px;
+    border-radius: 10px;
+  }
+
+  .agenda-room-popup {
+    padding: 12px !important;
+  }
+
+  .agenda-room-popup-card {
+    width: min(560px, 100%) !important;
+    max-height: calc(100vh - 24px) !important;
+    padding: 18px !important;
+    border-radius: 14px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin: 0 38px 14px 38px !important;
+    font-size: 20px !important;
+  }
+
+  .agenda-room-popup-close {
+    top: 18px !important;
+    right: 18px !important;
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 23px !important;
+  }
+
+  .agenda-room-popup-image-wrapper {
+    margin-bottom: 14px;
+  }
+
+  .agenda-room-popup-location {
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 599px) and (orientation: landscape) {
+  .agenda {
+    max-width: 96%;
+  }
+
+  .agenda-section-heading {
+    padding: 14px 0;
+    margin-bottom: 8px;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 26px;
+  }
+
+  .agenda-days {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .agenda-day-button {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .agenda-calendar-icon {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
+  }
+
+  .agenda-filter {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .agenda-filter-content {
+    padding: 12px;
+  }
+
+  .agenda-filter-button {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .agenda-session {
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px 0;
+  }
+
+  .agenda-session-time {
+    font-size: 13px;
+  }
+
+  .agenda-session-title {
+    font-size: 14px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 12px;
+  }
+
+  .agenda-tag {
+    padding: 5px 8px;
+    font-size: 9px;
+  }
+
+  .agenda-room-popup-card {
+    padding: 16px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin-bottom: 12px !important;
+    font-size: 18px !important;
+  }
+
+  .agenda-room-popup-location {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .agenda {
+    max-width: 95%;
+  }
+
+  .agenda-section-heading {
+    padding: 20px 0 16px;
+    margin-bottom: 12px;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 30px;
+  }
+
+  .agenda-days {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .agenda-day-button {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .agenda-calendar-icon {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+
+  .agenda-filter {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .agenda-filter-header {
+    min-height: 28px;
+  }
+
+  .agenda-filter-title {
+    gap: 9px;
+  }
+
+  .agenda-filter-title h3 {
+    font-size: 15px;
+  }
+
+  .agenda-filter-icon,
+  .agenda-filter-arrow {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+
+  .agenda-filter-content {
+    margin-top: 15px;
+    padding: 14px;
+  }
+
+  .agenda-filter-group {
+    margin-bottom: 18px;
+  }
+
+  .agenda-filter-group-title {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+
+  .agenda-filter-options {
+    gap: 8px;
+  }
+
+  .agenda-filter-button {
+    padding: 8px 11px;
+    font-size: 11px;
+  }
+
+  .agenda-session {
+    grid-template-columns: 1fr;
+    gap: 9px;
+    padding: 20px 0;
+  }
+
+  .agenda-session:hover {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .agenda-session-time {
+    font-size: 14px;
+  }
+
+  .agenda-session-title {
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .agenda-session-speakers {
+    margin-bottom: 14px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .agenda-session-tags {
+    gap: 8px !important;
+  }
+
+  .agenda-tag {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .agenda-room-popup {
+    padding: 12px !important;
+  }
+
+  .agenda-room-popup-card {
+    width: 100% !important;
+    max-height: calc(100vh - 24px) !important;
+    padding: 18px !important;
+    border-radius: 14px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin: 0 38px 16px 38px !important;
+    font-size: 21px !important;
+  }
+
+  .agenda-room-popup-close {
+    top: 18px !important;
+    right: 18px !important;
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 23px !important;
+  }
+
+  .agenda-room-popup-image-wrapper {
+    margin-bottom: 16px;
+  }
+
+  .agenda-room-popup-location {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 599px) and (orientation: portrait) {
+  .agenda {
+    max-width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .agenda-section-heading {
+    padding: 8px 0 14px;
+    margin: 0;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 27px;
+  }
+
+  .agenda-day-button {
+    padding: 13px 14px;
+    font-size: 14px;
+  }
+
+  .agenda-filter {
+    padding: 14px;
+  }
+
+  .agenda-filter-content {
+    padding: 12px;
+  }
+
+  .agenda-filter-title h3,
+  .agenda-filter-group-title {
+    font-size: 14px;
+  }
+
+  .agenda-filter-button {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .agenda-session {
+    padding: 18px 0;
+  }
+
+  .agenda-session-time {
+    font-size: 13px;
+  }
+
+  .agenda-session-title {
+    font-size: 14px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 12px;
+  }
+
+  .agenda-tag {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .agenda-room-popup {
+    padding: 8px !important;
+  }
+
+  .agenda-room-popup-card {
+    max-height: calc(100vh - 16px) !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin: 0 36px 14px 36px !important;
+    font-size: 19px !important;
+  }
+
+  .agenda-room-popup-close {
+    top: 16px !important;
+    right: 16px !important;
+    width: 29px !important;
+    height: 29px !important;
+    font-size: 22px !important;
+  }
+
+  .agenda-room-popup-location {
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 479px) and (orientation: portrait) {
+  .agenda {
+    padding: 0 12px;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 32px;
+  }
+
+  .agenda-day-button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .agenda-calendar-icon {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
+  }
+
+  .agenda-filter {
+    padding: 12px;
+  }
+
+  .agenda-filter-icon,
+  .agenda-filter-arrow {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
+  }
+
+  .agenda-filter-options {
+    gap: 8px;
+  }
+
+  .agenda-filter-button {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .agenda-session {
+    padding: 16px 0;
+  }
+
+  .agenda-session-title {
+    font-size: 14px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 12px;
+  }
+
+  .agenda-tag {
+    padding: 4px 7px;
+    font-size: 12px;
+  }
+
+  .agenda-room-popup-title {
+    font-size: 18px !important;
+  }
+
+  .agenda-room-popup-location {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 373px) and (orientation: portrait) {
+  .agenda {
+    padding: 0 10px;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 23px;
+  }
+
+  .agenda-day-button {
+    padding: 11px 10px;
+    font-size: 12px;
+  }
+
+  .agenda-filter {
+    padding: 10px;
+  }
+
+  .agenda-filter-content {
+    padding: 10px;
+  }
+
+  .agenda-filter-button {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  .agenda-session {
+    gap: 7px;
+    padding: 15px 0;
+  }
+
+  .agenda-session-time {
+    font-size: 12px;
+  }
+
+  .agenda-session-title {
+    font-size: 12px;
+  }
+
+  .agenda-session-speaker {
+    font-size: 10px;
+  }
+
+  .agenda-tag {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+
+  .agenda-room-popup-card {
+    padding: 14px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin: 0 34px 12px 34px !important;
+    font-size: 17px !important;
+  }
+
+  .agenda-room-popup-close {
+    top: 14px !important;
+    right: 14px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 21px !important;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .agenda-section-heading {
+    padding: 12px 0;
+    margin-bottom: 8px;
+  }
+
+  .agenda-section-heading-title {
+    font-size: 26px;
+  }
+
+  .agenda-days {
+    margin-bottom: 12px;
+  }
+
+  .agenda-day-button {
+    padding: 9px 12px;
+  }
+
+  .agenda-filter {
+    padding: 10px 12px;
+    margin-bottom: 14px;
+  }
+
+  .agenda-filter-content {
+    padding: 10px;
+  }
+
+  .agenda-session {
+    padding: 14px 0;
+  }
+
+  .agenda-room-popup {
+    padding: 8px !important;
+  }
+
+  .agenda-room-popup-card {
+    max-height: calc(100vh - 16px) !important;
+    padding: 14px !important;
+  }
+
+  .agenda-room-popup-title {
+    margin-bottom: 10px !important;
+    font-size: 18px !important;
+  }
+
+  .agenda-room-popup-image-wrapper {
+    margin-bottom: 10px;
+  }
+
+  .agenda-room-popup-location {
+    font-size: 12px !important;
+  }
+}
+</style>
+
+<section class="agenda-wrapper">
+
+  <div class="agenda">
+
+    <div class="agenda-section-heading">
+      <div class="agenda-section-heading-inner">
+        <h2 class="agenda-section-heading-title">
+          Agenda
+        </h2>
+      </div>
+    </div>
+
+    <div
+      class="agenda-days"
+      id="agenda-days"
+    ></div>
+
+    <div class="agenda-filter">
+
+      <div
+        class="agenda-filter-header"
+        id="agenda-filter-header"
+      >
+
+        <div class="agenda-filter-title">
+
+          <div class="agenda-filter-icon">
+            <svg viewBox="0 0 24 24">
+
+              <path d="M4 6h10"></path>
+              <path d="M18 6h2"></path>
+              <circle cx="16" cy="6" r="2"></circle>
+
+              <path d="M4 12h4"></path>
+              <path d="M12 12h8"></path>
+              <circle cx="10" cy="12" r="2"></circle>
+
+              <path d="M4 18h10"></path>
+              <path d="M18 18h2"></path>
+              <circle cx="16" cy="18" r="2"></circle>
+
+            </svg>
+          </div>
+
+          <h3>
+            Filter Session
+          </h3>
+
+        </div>
+
+        <div class="agenda-filter-arrow">
+          <img
+            src="https://www.idri.edu.kh/wp-content/uploads/2026/09/filter-arrow.png"
+            alt="Filter Arrow"
+          >
+        </div>
+
+      </div>
+
+      <div class="agenda-filter-content">
+
+        <div class="agenda-filter-group">
+
+          <h4 class="agenda-filter-group-title">
+            Topic
+          </h4>
+
+          <div
+            class="agenda-filter-options"
+            id="agenda-topic-filters"
+          ></div>
+
+        </div>
+
+        <div class="agenda-filter-group">
+
+          <h4 class="agenda-filter-group-title">
+            Room
+          </h4>
+
+          <div
+            class="agenda-filter-options"
+            id="agenda-room-filters"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <p
+      class="agenda-session-count"
+      id="agenda-session-count"
+    ></p>
+
+    <div
+      class="agenda-sessions"
+      id="agenda-sessions"
+    ></div>
+
+  </div>
+
+</section>
+
+<div
+  class="agenda-room-popup"
+  id="agenda-room-popup"
+  aria-hidden="true"
+>
+
+  <div
+    class="agenda-room-popup-card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="agenda-room-popup-title"
+  >
+
+    <button
+      type="button"
+      class="agenda-room-popup-close"
+      id="agenda-room-popup-close"
+      aria-label="Close room information"
+    >
+      ×
+    </button>
+
+    <h2
+      class="agenda-room-popup-title"
+      id="agenda-room-popup-title"
+    ></h2>
+
+    <div class="agenda-room-popup-image-wrapper">
+
+      <div
+        class="agenda-room-popup-image-skeleton"
+        id="agenda-room-popup-image-skeleton"
+      ></div>
+
+      <img
+        class="agenda-room-popup-image"
+        id="agenda-room-popup-image"
+        src=""
+        alt=""
+      >
+
+    </div>
+
+    <p
+      class="agenda-room-popup-location"
+      id="agenda-room-popup-location"
+    ></p>
+
+  </div>
+
+</div>
+
+<script>
+
+const agenda_room_data = {
+
+  "Cosmos Hall": {
+    image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Cosmos-Hall.webp",
+    location: "Innovation Center, 4th Floor"
+  },
+
+  "Jupiter Room": {
+    image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Jupiter-Room.webp",
+    location: "Innovation Center, 4th Floor"
+  },
+
+  "Unicorn Room": {
+    image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Unicorn-Room.webp",
+    location: "Innovation Center, 3rd Floor"
+  },
+
+  "Angel Room": {
+    image: "https://www.idri.edu.kh/wp-content/uploads/2026/09/Angel-Room.webp",
+    location: "Innovation Center, 3rd Floor"
+  }
+
+};
+
+const agenda_data = [
+
+  {
+    id: "day-1",
+    label: "Day 1 - 21 October, 2026",
+
+    sessions: [
+
+      {
+        time: "9:10 AM - 9:20 AM",
+        title: "Opening Remarks",
+
+        speakers: [
+          {
+            name: "H.E. Dr. Seng Sopheap",
+            position: "President, Cambodia Academy of Digital Technology (CADT)"
+          }
+        ],
+
+        type: "Remarks",
+        topic: "Agentic AI",
+        room: "Cosmos Hall"
+      },
+
+      {
+        time: "9:20 AM - 10:20 AM",
+        title: "The path of developing Khmer Text-to-Speech: Sarika",
+
+        speakers: [
+          {
+            name: "Mr. Seanghay Yath",
+            position: "Front-End Team Lead, Digital Government Committee"
+          }
+        ],
+
+        type: "Remarks",
+        topic: "Agentic AI",
+        room: "Jupiter Room"
+      },
+
+      {
+        time: "11:10 AM - 12:20 PM",
+        title: "Document Extraction Using Generative AI",
+
+        speakers: [
+          {
+            name: "Dr. Hongly Va",
+            position: "Senior Lecturer Researcher, CADT"
+          },
+          {
+            name: "Mr. Mengchhuong Ang",
+            position: "Program Coordinator and Lecturer Researcher, CADT"
+          }
+        ],
+
+        type: "Master Class",
+        topic: "Agentic AI",
+        room: "Unicorn Room"
+      },
+
+      {
+        time: "1:10 PM - 2:20 PM",
+        title: "Document Extraction Using Generative AI",
+        continues: true,
+
+        speakers: [
+          {
+            name: "Dr. Hongly Va",
+            position: "Senior Lecturer Researcher, CADT"
+          },
+          {
+            name: "Mr. Mengchhuong Ang",
+            position: "Program Coordinator and Lecturer Researcher, CADT"
+          }
+        ],
+
+        type: "Master Class",
+        topic: "Agentic AI",
+        room: "Jupiter Room"
+      },
+
+      {
+        time: "2:20 PM - 2:30 PM",
+        title: "AI in practice: How to Build Your First AI Model (Tools and Methodologies to build a simple AI model) - using AI tools",
+
+        speakers: [
+          {
+            name: "Mr. Bonpagna Kann",
+            position: "PhD Candidate and Lecturer in AI"
+          },
+          {
+            name: "Mr. Natt Korat",
+            position: "AI Assistant Researcher, CADT"
+          },
+          {
+            name: "Ms. Sokchovy Monirath",
+            position: "AI Assistant Researcher, CADT"
+          }
+        ],
+
+        type: "Master Class",
+        topic: "Agentic AI",
+        room: "Cosmos Hall"
+      },
+
+      {
+        time: "2:30 PM - 3:15 PM",
+        title: "Prompt Engineering vs. Context Engineering",
+
+        speakers: [
+          {
+            name: "Mr. Vathna Lay",
+            position: "Senior Lecturer-Researcher, CADT"
+          },
+          {
+            name: "Mr. Natt Korat",
+            position: "AI Assistant Researcher, CADT"
+          },
+          {
+            name: "Ms. Sokchovy Monirath",
+            position: "AI Assistant Researcher, CADT"
+          }
+        ],
+
+        type: "Workshop",
+        topic: "Agentic AI",
+        room: "Unicorn Room"
+      },
+
+      {
+        time: "4:15 PM - 5:00 PM",
+        title: "Mastering Effective Techniques of Khmer Data Collection for High-Quality AI Models",
+
+        speakers: [
+          {
+            name: "Mr. Seanghort Born",
+            position: "PhD Candidate and Lecturer in AI"
+          }
+        ],
+
+        type: "Workshop",
+        topic: "Agentic AI",
+        room: "Unicorn Room"
+      }
+
+    ]
+  },
+
+  {
+    id: "day-2",
+    label: "Day 2 - 22 October, 2026",
+
+    sessions: [
+
+      {
+        time: "9:00 AM - 9:45 AM",
+        title: "AI Computing Infrastructure for the Future",
+
+        speakers: [
+          {
+            name: "Guest Speaker",
+            position: "AI Infrastructure Specialist"
+          }
+        ],
+
+        type: "Keynote",
+        topic: "AI Computing Infrastructure",
+        room: "Cosmos Hall"
+      },
+
+      {
+        time: "10:00 AM - 11:00 AM",
+        title: "Building Intelligent Systems with Physical AI",
+
+        speakers: [
+          {
+            name: "Guest Speaker",
+            position: "AI Researcher"
+          }
+        ],
+
+        type: "Master Class",
+        topic: "Physical AI",
+        room: "Jupiter Room"
+      },
+
+      {
+        time: "11:15 AM - 12:00 PM",
+        title: "AI for Sustainable Development",
+
+        speakers: [
+          {
+            name: "Guest Speaker",
+            position: "Technology and Development Specialist"
+          }
+        ],
+
+        type: "Workshop",
+        topic: "AI for Development",
+        room: "Angel Room"
+      },
+
+      {
+        time: "1:30 PM - 2:30 PM",
+        title: "AI for Modern Software Development",
+
+        speakers: [
+          {
+            name: "Guest Speaker",
+            position: "Software Engineering Specialist"
+          }
+        ],
+
+        type: "Master Class",
+        topic: "AI for Software Development",
+        room: "Unicorn Room"
+      },
+
+      {
+        time: "3:00 PM - 4:00 PM",
+        title: "Exploring Open Models and AI Ecosystems",
+
+        speakers: [
+          {
+            name: "Guest Speaker",
+            position: "AI Research Specialist"
+          }
+        ],
+
+        type: "Workshop",
+        topic: "Open Model",
+        room: "Cosmos Hall"
+      }
+
+    ]
+  }
+
+];
+
+const agenda_days_container =
+  document.getElementById("agenda-days");
+
+const agenda_topic_container =
+  document.getElementById("agenda-topic-filters");
+
+const agenda_room_container =
+  document.getElementById("agenda-room-filters");
+
+const agenda_sessions_container =
+  document.getElementById("agenda-sessions");
+
+const agenda_session_count =
+  document.getElementById("agenda-session-count");
+
+const agenda_filter =
+  document.querySelector(".agenda-filter");
+
+const agenda_filter_header =
+  document.getElementById("agenda-filter-header");
+
+const agenda_room_popup =
+  document.getElementById("agenda-room-popup");
+
+if (
+  agenda_room_popup &&
+  agenda_room_popup.parentElement !== document.body
+) {
+  document.body.appendChild(
+    agenda_room_popup
+  );
+}
+
+const agenda_room_popup_card =
+  agenda_room_popup.querySelector(
+    ".agenda-room-popup-card"
+  );
+
+const agenda_room_popup_close =
+  document.getElementById(
+    "agenda-room-popup-close"
+  );
+
+const agenda_room_popup_title =
+  document.getElementById(
+    "agenda-room-popup-title"
+  );
+
+const agenda_room_popup_image =
+  document.getElementById(
+    "agenda-room-popup-image"
+  );
+
+const agenda_room_popup_image_skeleton =
+  document.getElementById(
+    "agenda-room-popup-image-skeleton"
+  );
+
+const agenda_room_popup_location =
+  document.getElementById(
+    "agenda-room-popup-location"
+  );
+
+let agenda_current_day =
+  agenda_data[0].id;
+
+let agenda_current_topic =
+  "all";
+
+let agenda_current_room =
+  "all";
+
+function get_current_day() {
+
+  return agenda_data.find(
+    function(day) {
+
+      return day.id ===
+        agenda_current_day;
+
+    }
+  );
+
+}
+
+function get_unique_topics() {
+
+  const agenda_current_day_data =
+    get_current_day();
+
+  return [
+    ...new Set(
+      agenda_current_day_data.sessions.map(
+        function(session) {
+
+          return session.topic;
+
+        }
+      )
+    )
+  ];
+
+}
+
+function get_unique_rooms() {
+
+  const agenda_current_day_data =
+    get_current_day();
+
+  return [
+    ...new Set(
+      agenda_current_day_data.sessions.map(
+        function(session) {
+
+          return session.room;
+
+        }
+      )
+    )
+  ];
+
+}
+
+function render_day_tabs() {
+
+  agenda_days_container.innerHTML =
+    agenda_data.map(
+      function(day) {
+
+        const agenda_active_class =
+          day.id === agenda_current_day
+            ? "is-active"
+            : "";
+
+        return `
+          <button
+            type="button"
+            class="agenda-day-button ${agenda_active_class}"
+            data-day="${day.id}"
+          >
+
+            <span>
+              ${day.label}
+            </span>
+
+            <span class="agenda-calendar-icon">
+
+              <svg viewBox="0 0 24 24">
+
+                <path d="M7 2v3"></path>
+                <path d="M17 2v3"></path>
+                <path d="M3.5 9h17"></path>
+
+                <path d="M5 5h14a1.5 1.5 0 0 1 1.5 1.5v12A1.5 1.5 0 0 1 19 20H5a1.5 1.5 0 0 1-1.5-1.5v-12A1.5 1.5 0 0 1 5 5Z"></path>
+
+                <path d="M8 12h2"></path>
+                <path d="M14 12h2"></path>
+                <path d="M8 16h2"></path>
+                <path d="M14 16h2"></path>
+
+              </svg>
+
+            </span>
+
+          </button>
+        `;
+
+      }
+    ).join("");
+
+}
+
+function render_topic_filters() {
+
+  const agenda_topics =
+    get_unique_topics();
+
+  agenda_topic_container.innerHTML = `
+
+    <button
+      type="button"
+      class="agenda-filter-button ${
+        agenda_current_topic === "all"
+          ? "is-active"
+          : ""
+      }"
+      data-filter-type="topic"
+      data-filter-value="all"
+    >
+      All
+    </button>
+
+    ${agenda_topics.map(
+      function(topic) {
+
+        return `
+          <button
+            type="button"
+            class="agenda-filter-button ${
+              agenda_current_topic === topic
+                ? "is-active"
+                : ""
+            }"
+            data-filter-type="topic"
+            data-filter-value="${topic}"
+          >
+            ${topic}
+          </button>
+        `;
+
+      }
+    ).join("")}
+
+  `;
+
+}
+
+function render_room_filters() {
+
+  const agenda_rooms =
+    get_unique_rooms();
+
+  agenda_room_container.innerHTML = `
+
+    <button
+      type="button"
+      class="agenda-filter-button ${
+        agenda_current_room === "all"
+          ? "is-active"
+          : ""
+      }"
+      data-filter-type="room"
+      data-filter-value="all"
+    >
+      All
+    </button>
+
+    ${agenda_rooms.map(
+      function(room) {
+
+        return `
+          <button
+            type="button"
+            class="agenda-filter-button ${
+              agenda_current_room === room
+                ? "is-active"
+                : ""
+            }"
+            data-filter-type="room"
+            data-filter-value="${room}"
+          >
+            ${room}
+          </button>
+        `;
+
+      }
+    ).join("")}
+
+  `;
+
+}
+
+function get_filtered_sessions() {
+
+  const agenda_current_day_data =
+    get_current_day();
+
+  return agenda_current_day_data.sessions.filter(
+    function(session) {
+
+      const agenda_topic_match =
+        agenda_current_topic === "all" ||
+        session.topic === agenda_current_topic;
+
+      const agenda_room_match =
+        agenda_current_room === "all" ||
+        session.room === agenda_current_room;
+
+      return agenda_topic_match &&
+        agenda_room_match;
+
+    }
+  );
+
+}
+
+function render_sessions() {
+
+  const agenda_filtered_sessions =
+    get_filtered_sessions();
+
+  const agenda_count_text =
+    agenda_filtered_sessions.length === 1
+      ? "1 session found"
+      : `${agenda_filtered_sessions.length} sessions found`;
+
+  agenda_session_count.textContent =
+    agenda_count_text;
+
+  agenda_session_count.style.animation =
+    "none";
+
+  void agenda_session_count.offsetWidth;
+
+  agenda_session_count.style.animation =
+    "agendaCountIn 0.5s ease forwards";
+
+  if (
+    agenda_filtered_sessions.length === 0
+  ) {
+
+    agenda_sessions_container.innerHTML = `
+
+      <div class="agenda-empty">
+        No sessions found for this filter.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  agenda_sessions_container.innerHTML =
+    agenda_filtered_sessions.map(
+      function(session, index) {
+
+        const agenda_speakers_html =
+          session.speakers.map(
+            function(speaker) {
+
+              return `
+                <p class="agenda-session-speaker">
+
+                  <strong>
+                    ${speaker.name}
+                  </strong>,
+
+                  ${speaker.position}
+
+                </p>
+              `;
+
+            }
+          ).join("");
+
+        const agenda_continue_html =
+          session.continues
+            ? `
+              <span class="agenda-session-continue">
+                (Continues)
+              </span>
+            `
+            : "";
+
+        return `
+          <article
+            class="agenda-session"
+            style="animation-delay: ${index * 0.07}s"
+          >
+
+            <div class="agenda-session-time">
+              ${session.time}
+            </div>
+
+            <div class="agenda-session-content">
+
+              <h3 class="agenda-session-title">
+
+                ${session.title}
+
+                ${agenda_continue_html}
+
+              </h3>
+
+              <div class="agenda-session-speakers">
+
+                ${agenda_speakers_html}
+
+              </div>
+
+              <div class="agenda-session-tags">
+
+                <span class="agenda-tag agenda-tag-type">
+                  ${session.type}
+                </span>
+
+                <span class="agenda-tag agenda-tag-topic">
+                  ${session.topic}
+                </span>
+
+                <button
+                  type="button"
+                  class="agenda-tag agenda-tag-room"
+                  data-room="${session.room}"
+                  aria-label="View ${session.room} room information"
+                >
+                  ${session.room}
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+        `;
+
+      }
+    ).join("");
+
+}
+
+function render_agenda() {
+
+  render_day_tabs();
+  render_topic_filters();
+  render_room_filters();
+  render_sessions();
+
+}
+
+function preload_agenda_room_images() {
+
+  Object.values(agenda_room_data).forEach(
+    function(room) {
+
+      const agenda_preload_image =
+        new Image();
+
+      agenda_preload_image.src =
+        room.image;
+
+    }
+  );
+
+}
+
+function open_room_popup(room_name) {
+
+  const room =
+    agenda_room_data[room_name];
+
+  if (!room) {
+    return;
+  }
+
+  agenda_room_popup_title.textContent =
+    room_name;
+
+  agenda_room_popup_image.classList.remove(
+    "is-loaded",
+    "is-error"
+  );
+
+  agenda_room_popup_image_skeleton.classList.remove(
+    "is-hidden"
+  );
+
+  agenda_room_popup_image.removeAttribute(
+    "src"
+  );
+
+  agenda_room_popup_image.alt =
+    room_name;
+
+  agenda_room_popup_location.innerHTML =
+    `<strong>Location:</strong> ${room.location}`;
+
+  agenda_room_popup.classList.add(
+    "is-open"
+  );
+
+  agenda_room_popup.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.classList.add(
+    "agenda-popup-open"
+  );
+
+  const agenda_room_image_loader =
+    new Image();
+
+  agenda_room_image_loader.onload =
+    function() {
+
+      agenda_room_popup_image.src =
+        room.image;
+
+      agenda_room_popup_image.classList.add(
+        "is-loaded"
+      );
+
+      agenda_room_popup_image_skeleton.classList.add(
+        "is-hidden"
+      );
+
+    };
+
+  agenda_room_image_loader.onerror =
+    function() {
+
+      agenda_room_popup_image.classList.add(
+        "is-error"
+      );
+
+      agenda_room_popup_image_skeleton.classList.add(
+        "is-hidden"
+      );
+
+    };
+
+  agenda_room_image_loader.src =
+    room.image;
+
+  setTimeout(
+    function() {
+
+      agenda_room_popup_close.focus();
+
+    },
+    50
+  );
+
+}
+
+function close_room_popup() {
+
+  agenda_room_popup.classList.remove(
+    "is-open"
+  );
+
+  agenda_room_popup.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.classList.remove(
+    "agenda-popup-open"
+  );
+
+}
+
+document.addEventListener(
+  "click",
+  function(event) {
+
+    const agenda_day_button =
+      event.target.closest(
+        ".agenda-day-button"
+      );
+
+    const agenda_filter_button =
+      event.target.closest(
+        ".agenda-filter-button"
+      );
+
+    const agenda_room_button =
+      event.target.closest(
+        ".agenda-tag-room"
+      );
+
+    if (agenda_room_button) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const room_name =
+        agenda_room_button.getAttribute(
+          "data-room"
+        );
+
+      open_room_popup(
+        room_name
+      );
+
+      return;
+
+    }
+
+    if (agenda_day_button) {
+
+      agenda_current_day =
+        agenda_day_button.getAttribute(
+          "data-day"
+        );
+
+      agenda_current_topic =
+        "all";
+
+      agenda_current_room =
+        "all";
+
+      render_agenda();
+
+    }
+
+    if (agenda_filter_button) {
+
+      const agenda_filter_type =
+        agenda_filter_button.getAttribute(
+          "data-filter-type"
+        );
+
+      const agenda_filter_value =
+        agenda_filter_button.getAttribute(
+          "data-filter-value"
+        );
+
+      if (
+        agenda_filter_type ===
+        "topic"
+      ) {
+
+        agenda_current_topic =
+          agenda_filter_value;
+
+      }
+
+      if (
+        agenda_filter_type ===
+        "room"
+      ) {
+
+        agenda_current_room =
+          agenda_filter_value;
+
+      }
+
+      render_agenda();
+
+    }
+
+  }
+);
+
+agenda_filter_header.addEventListener(
+  "click",
+  function() {
+
+    agenda_filter.classList.toggle(
+      "is-closed"
+    );
+
+  }
+);
+
+agenda_room_popup_close.addEventListener(
+  "click",
+  function() {
+
+    close_room_popup();
+
+  }
+);
+
+agenda_room_popup.addEventListener(
+  "click",
+  function(event) {
+
+    if (
+      event.target ===
+      agenda_room_popup
+    ) {
+
+      close_room_popup();
+
+    }
+
+  }
+);
+
+agenda_room_popup_card.addEventListener(
+  "click",
+  function(event) {
+
+    event.stopPropagation();
+
+  }
+);
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Escape" &&
+      agenda_room_popup.classList.contains(
+        "is-open"
+      )
+    ) {
+
+      close_room_popup();
+
+    }
+
+  }
+);
+
+render_agenda();
+
+window.addEventListener(
+  "load",
+  function() {
+
+    preload_agenda_room_images();
+
+  }
+);
+
+</script>
