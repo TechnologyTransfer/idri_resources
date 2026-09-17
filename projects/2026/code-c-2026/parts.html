@@ -325,6 +325,14 @@
     stroke-linejoin: miter;
   }
 
+  .parts_of_code_c_panel[data-panel="1"] .parts_of_code_c_buttons {
+    justify-content: flex-start;
+  }
+
+  .parts_of_code_c_panel[data-panel="1"] .parts_of_code_c_button_register {
+    margin-left: 0;
+  }
+
   @media (max-width: 1439px) and (orientation: landscape) {
     .parts_of_code_c_inner {
       grid-template-columns: 165px 1fr;
@@ -693,6 +701,10 @@
       padding-left: 18px;
       font-size: 14px;
     }
+
+    .parts_of_code_c_panel[data-panel="1"] .parts_of_code_c_buttons {
+      align-items: center;
+    }
   }
 
   @media (max-width: 479px) and (orientation: portrait) {
@@ -827,10 +839,10 @@
         filledIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/sponsor_filled_icon.png",
         outlinedIcon: "https://www.idri.edu.kh/wp-content/uploads/2026/09/sponsor_outlined_icon.png",
         background: "https://www.idri.edu.kh/wp-content/uploads/2026/09/become_sponsor-scaled.webp",
-        button1: "Contact Us",
+        button1: "",
         button2: "Become Sponsor",
-        button1Url: "https://t.me/ChantraBE",
-        button2Url: "#sponsor"
+        button1Url: "",
+        button2Url: "https://t.me/ChantraBE"
       },
       {
         title: "Cambodia's Largest Tech Gathering",
@@ -856,6 +868,41 @@
       `;
     }
 
+    function createButton(item, buttonNumber) {
+      const label = buttonNumber === 1 ? item.button1 : item.button2;
+      const url = buttonNumber === 1 ? item.button1Url : item.button2Url;
+
+      if (!label) {
+        return "";
+      }
+
+      const buttonClass =
+        buttonNumber === 1
+          ? "parts_of_code_c_button parts_of_code_c_button_agenda"
+          : "parts_of_code_c_button parts_of_code_c_button_register";
+
+      const innerClass =
+        buttonNumber === 1
+          ? "parts_of_code_c_button_agenda_inner"
+          : "parts_of_code_c_button_register_inner";
+
+      return `
+        <a
+          target="_blank"
+          href="${url}"
+          class="${buttonClass}"
+        >
+          <span class="${innerClass}">
+            <span class="parts_of_code_c_button_text">
+              ${label}
+            </span>
+
+            ${createArrow()}
+          </span>
+        </a>
+      `;
+    }
+
     partsData.forEach(function (item, index) {
       const tab = document.createElement("button");
 
@@ -865,10 +912,12 @@
 
       tab.type = "button";
       tab.role = "tab";
+
       tab.setAttribute(
         "aria-selected",
         index === 0 ? "true" : "false"
       );
+
       tab.setAttribute(
         "data-tab",
         index
@@ -923,43 +972,8 @@
           </p>
 
           <div class="parts_of_code_c_buttons">
-
-            <a
-              target="_blank"
-              href="${item.button1Url}"
-              class="parts_of_code_c_button parts_of_code_c_button_agenda"
-            >
-
-              <span class="parts_of_code_c_button_agenda_inner">
-
-                <span class="parts_of_code_c_button_text">
-                  ${item.button1}
-                </span>
-
-                ${createArrow()}
-
-              </span>
-
-            </a>
-
-            <a
-              target="_blank"
-              href="${item.button2Url}"
-              class="parts_of_code_c_button parts_of_code_c_button_register"
-            >
-
-              <span class="parts_of_code_c_button_register_inner">
-
-                <span class="parts_of_code_c_button_text">
-                  ${item.button2}
-                </span>
-
-                ${createArrow()}
-
-              </span>
-
-            </a>
-
+            ${createButton(item, 1)}
+            ${createButton(item, 2)}
           </div>
 
         </div>
